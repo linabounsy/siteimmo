@@ -113,7 +113,7 @@
                     <!-- Grid column -->
                     <div class="col-md mb-3">
                         <h8>
-                            <a href="#!" class="footer-text">Connexion Admin</a>
+                        <a href="index.php?action=connexion&connexionadmin.php" class="footer-text">Connexion Admin</a>
                         </h8>
                     </div>
                     <!-- Grid column -->

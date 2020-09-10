@@ -24,6 +24,10 @@
 
             <ul class="nav nav-pills nav-fill nav-light blue lighten-4">
                 <li class="nav-item font-weight-bold">
+                    
+                    Bienvenue Orianne
+                </li>
+                <li class="nav-item font-weight-bold">
                     Conseillère Immo
                 </li>
 
@@ -42,19 +46,20 @@
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                 <ul class="navbar-nav w-50 justify-content-around">
                     <li class="nav-item">
-                        <a class="nav-link p-2 black-text  font-weight-bold" href="#">Accueil</span></a>
+                        <a class="nav-link p-2 black-text  font-weight-bold" href="index.php?action=newadvert">ajouter une annonce</span></a>
+                    </li>
+              
+                    <li class="nav-item">
+                        <a class="nav-link black-text  font-weight-bold" href="#">se déconnecter</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link black-text  font-weight-bold" href="index.php?action=displayclient&client.php">fiches client</a>
                     </li>
                 </ul>
             </div>
         </nav>
 
-        <!--barre de recherche-->
-        <div class="mt-3">
-            <div class="row mr-0 ml-0 d-flex flex-column justify-content-center align-content-center" id="search-img">
-                
-            </div>
-        </div>
-        <!-- fin barre de recherche-->
+       
 
 
         <main class="mt-2 pt-1 container">
@@ -92,7 +97,7 @@
                     <!-- Grid column -->
                     <div class="col-md mb-3">
                         <h8>
-                            <a href="index.php?action=connexion&connexionadmin.php" class="footer-text">Connexion Admin</a>
+                        <a href="index.php?action=connexion&connexionadmin.php" class="footer-text">Connexion Admin</a>
                         </h8>
                     </div>
                     <!-- Grid column -->
