@@ -65,7 +65,6 @@
         <div class="mt-3">
             <div class="row mr-0 ml-0 d-flex flex-column justify-content-center align-content-center" id="search-img">
 
-              
 
                     <form class="text-center border border-light w-50" action="index.php?action=connexion&adminview.php" method="post">
                         <p class="h4 mb-4">Se connecter</p>

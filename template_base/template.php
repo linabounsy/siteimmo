@@ -49,7 +49,7 @@
                         <a class="nav-link p-2 black-text  font-weight-bold" href="#">Accueil</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link black-text  font-weight-bold" href="#">Nos offres disponibles</a>
+                        <a class="nav-link black-text  font-weight-bold" href="index.php?action=listestates.php">Nos offres disponibles</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link black-text  font-weight-bold" href="#">Estimation</a>
@@ -113,7 +113,7 @@
                     <!-- Grid column -->
                     <div class="col-md mb-3">
                         <h8>
-                            <a href="#!" class="footer-text">Connexion Admin</a>
+                        <a href="index.php?action=connexion&connexionadmin.php" class="footer-text">Connexion Admin</a>
                         </h8>
                     </div>
                     <!-- Grid column -->

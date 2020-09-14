@@ -61,30 +61,25 @@
 <!-- Descriptif du bien -->
 
 <div class="col-12 p-5">
-    <h4 class="dark-grey-text font-weight-bold mb-3">A vendre Appartement T3</h4>
+   
+    <h4 class="dark-grey-text font-weight-bold mb-3"><?=(ucfirst($estate['name'])) ?> <?=(ucfirst($estate['type_id'])) ?> <?=(ucfirst($estate['room'])) ?> pièces</h4>
     <h5 class="font-weight-bold mb-3 light-blue-text">Descriptif</h5>
-    <p class="dark-grey-text text-justify">Ref : reference du bien <br />
-        APPARTEMENT 3 PIÈCES EN PARFAIT ETAT
-        <br />
-        Situer dans le bas de limeil Brevannes, en centre ville et proche de toutes commodités, venez découvrir cet appartement 3 pièces, 2 chambres de 70m².
-
-        Il se situe au 3ème et dernier étage d'un immeuble de 2013 avec ascenseur. L'accès est sécurisé par la présence d'un digicode et d'un visiophone. Cet appartement offre un séjour avec une véranda exposée sud/est et une belle vue dégagée, une cuisine américaine équipée, deux chambres, une grande salle de bains et un WC indépendant.
-        Cet appartement est en excellent état général.
-
-        Pour profiter des beaux jours, cet appartement est aussi complété par un balcon, et la véranda ce transforme en superbe terrasse d'été.
+    <p class="dark-grey-text text-justify">Ref : reference du bien <br /><br />
+    <?=(strtoupper($estate['title'])) ?>
+        <br /><br />
+        <?=(ucfirst($estate['description'])) ?>
     </p>
 </div>
-
 
 <!-- fin Descriptif du bien -->
 
 
 <div class="list-group-flush">
     <ul class="list-group-item d-flex justify-content-around">
-        <li class="list-group-item rounded-lg col-2 w-25"><i class="fas fa-home  mr-2 grey p-3 white-text rounded-circle " aria-hidden="true"></i>70 m²</li>
-        <li class="list-group-item rounded-lg col-2 w-25"><i class="far fa-image  mr-2 grey p-3 white-text rounded-circle " aria-hidden="true"></i>3 pièces</li>
-        <li class="list-group-item rounded-lg col-2 w-25"> <i class="fas fa-bed  mr-2 grey p-3 white-text rounded-circle" aria-hidden="true"></i>2 chbres</li>
-        <li class="list-group-item rounded-lg col-2 w-25"> <i class="fas fa-building  mr-2  grey p-3 white-text rounded-circle" aria-hidden="true"></i>1983</li>
+        <li class="list-group-item rounded-lg col-2 w-25"><i class="fas fa-home  mr-2 grey p-3 white-text rounded-circle " aria-hidden="true"></i><?=($estate['surface']) ?>m²</li>
+        <li class="list-group-item rounded-lg col-2 w-25"><i class="far fa-image  mr-2 grey p-3 white-text rounded-circle " aria-hidden="true"></i><?=($estate['room']) ?></li>
+        <li class="list-group-item rounded-lg col-2 w-25"> <i class="fas fa-bed  mr-2 grey p-3 white-text rounded-circle" aria-hidden="true"></i><?=($estate['bedroom']) ?></li>
+        <li class="list-group-item rounded-lg col-2 w-25"> <i class="fas fa-building  mr-2  grey p-3 white-text rounded-circle" aria-hidden="true"></i><?=($estate['construction']) ?></li>
     </ul>
 
 </div>
@@ -107,91 +102,70 @@
             <tbody>
                 <tr class="tech-form bgcolor-light blue lighten-4">
                     <td scope="row">Nombre d'étages</th>
-                    <td>6</td>
+                    <td><?=($estate['floor']) ?></td>
 
                 </tr>
                 <tr>
                     <td scope="row">Bien en copropriété</th>
-                    <td>Oui</td>
+                    <td><?=($estate['subdivision']) ?></td>
 
                 </tr>
                 <tr class="bgcolor-light blue lighten-4">
                     <td scope="row">Charges courantes copropriété</th>
-                    <td>250€</td>
+                    <td><?=($estate['charge']) ?> €</td>
 
                 </tr>
-                </tr>
+              
                 <tr>
-                    <td scope="row">Procédure diligente</th>
-                    <td>Non</td>
-
-                </tr>
-                </tr>
-                <tr class="bgcolor-light blue lighten-4">
                     <td scope="row">Salle de bain</th>
-                    <td>1</td>
+                    <td><?=($estate['bathroom']) ?></td>
 
                 </tr>
-                </tr>
-                <tr>
+    
+                <tr class="bgcolor-light blue lighten-4">
                     <td scope="row">Cuisine</th>
-                    <td>Equipée</td>
+                    <td><?=($estate['kitchen_id']) ?></td>
 
                 </tr>
-                </tr>
-                <tr class="bgcolor-light blue lighten-4">
-                    <td scope="row">Exposition séjour</th>
-                    <td>Sud</td>
 
-                </tr>
-                </tr>
                 <tr>
-                    <td scope="row">Type de chauffage</th>
-                    <td>Collectif</td>
+                    <td scope="row">Exposition séjour</th>
+                    <td><?=($estate['exposure_id']) ?></td>
 
                 </tr>
-                </tr>
+
                 <tr class="bgcolor-light blue lighten-4">
-                    <td scope="row">Mode chauffage</th>
-                    <td>Gaz</td>
+                    <td scope="row">Type de chauffage</th>
+                    <td><?=($estate['heating_id']) ?></td>
 
                 </tr>
-                </tr>
+
+
                 <tr>
                     <td scope="row">Nombre de balcons</th>
                     <td>1</td>
 
                 </tr>
-                </tr>
+
                 <tr class="bgcolor-light blue lighten-4">
                     <td scope="row">Type de stationnement</th>
                     <td>Sous-sol</td>
 
                 </tr>
-                </tr>
+
                 <tr>
                     <td scope="row">Nombre de place de parking</th>
                     <td>2</td>
 
                 </tr>
-                </tr>
-                <tr class="bgcolor-light blue lighten-4">
-                    <td scope="row">Digicode</th>
-                    <td>Oui</td>
+        
 
-                </tr>
-                </tr>
-                <tr>
+                <tr class="bgcolor-light blue lighten-4">
                     <td scope="row">Diagnostique énergétique</th>
                     <td>Oui</td>
 
                 </tr>
-                <tr class="bgcolor-light blue lighten-4">
-                    <td scope="row">Conso Energétique</th>
-                    <td>20 kWh/m² par an</td>
-
-                </tr>
-
+           
 
             </tbody>
         </table>
@@ -265,5 +239,5 @@
 <?php $content = ob_get_clean(); ?>
 
 <?php
-require('../templates/template.php');
+require('../template_base/template.php');
 ?>

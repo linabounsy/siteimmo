@@ -10,53 +10,26 @@
 
                 <h5 class="text-center font-weight-bold mb-4">Dernières annonces ajoutées</h5>
 
+                <?php foreach ($estates as $estate) { ?>
                 <hr>
-
                 <!--Grid row-->
                 <div class="row">
 
                     <!--Grid column-->
+                    
                     <div class="col-12 mb-3 mx-auto">
-
+                    
                         <div class="media">
                             <img class="d-flex mr-3" src="https://mdbootstrap.com/img/Photos/Others/placeholder1.jpg" alt="Generic placeholder image">
                             <div class="media-body">
-                                <h6 class="mt-1 font-weight-bold"><a href="#!">Titre de l'annonce</a><a><span class="badge badge-warning float-right">éditer l'annonce</span></a></h6>
-                                <p class="text-muted">Extrait descriptif
+                                <h6 class="mt-1 font-weight-bold"><a href="#!"><?= htmlspecialchars($estate['title']) ?></a><a><span class="badge badge-warning float-right">éditer l'annonce</span></a></h6>
+                                <p class="text-muted"><?= htmlspecialchars($estate['description_cut']) ?>
                                     <a><span class="badge badge-danger float-right">supprimer l'annonce</span></a><br />
                                     <a><span class="badge badge-info float-right">voir l'annonce</span></a></p>
                             </div>
                         </div>
-                        <hr>
-                        <div class="media">
-                            <img class="d-flex mr-3" src="https://mdbootstrap.com/img/Photos/Others/placeholder1.jpg" alt="Generic placeholder image">
-                            <div class="media-body">
-                                <h6 class="mt-1 font-weight-bold"><a href="#!">Titre de l'annonce</a><a><span class="badge badge-warning float-right">éditer l'annonce</span></a></h6>
-                                <p class="text-muted">Extrait descriptif
-                                    <a><span class="badge badge-danger float-right">supprimer l'annonce</span></a><br />
-                                    <a><span class="badge badge-info float-right">voir l'annonce</span></a></p>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="media">
-                            <img class="d-flex mr-3" src="https://mdbootstrap.com/img/Photos/Others/placeholder1.jpg" alt="Generic placeholder image">
-                            <div class="media-body">
-                                <h6 class="mt-1 font-weight-bold"><a href="#!">Titre de l'annonce</a><a><span class="badge badge-warning float-right">éditer l'annonce</span></a></h6>
-                                <p class="text-muted">Extrait descriptif
-                                    <a><span class="badge badge-danger float-right">supprimer l'annonce</span></a><br />
-                                    <a><span class="badge badge-info float-right">voir l'annonce</span></a></p>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="media">
-                            <img class="d-flex mr-3" src="https://mdbootstrap.com/img/Photos/Others/placeholder1.jpg" alt="Generic placeholder image">
-                            <div class="media-body">
-                                <h6 class="mt-1 font-weight-bold"><a href="#!">Titre de l'annonce</a><a><span class="badge badge-warning float-right">éditer l'annonce</span></a></h6>
-                                <p class="text-muted">Extrait descriptif
-                                    <a><span class="badge badge-danger float-right">supprimer l'annonce</span></a><br />
-                                    <a><span class="badge badge-info float-right">voir l'annonce</span></a></p>
-                            </div>
-                        </div>
+                        <?php } ?>
+                        
 
                     </div>
                     <!--Grid column-->

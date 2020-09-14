@@ -106,5 +106,5 @@
 <?php $content = ob_get_clean(); ?>
 
 <?php
-require('../templates/template.php');
+require('../template_base/template.php');
 ?>

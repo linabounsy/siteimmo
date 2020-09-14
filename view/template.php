@@ -5,16 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
-    <!-- Material Design Bootstrap -->
-    <link rel="stylesheet" href="../public/css/mdb.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="../public/css/bootstrap.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">  
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Material Design Bootstrap -->
+    <link rel="stylesheet" href="css/mdb.min.css">
     <!-- custom CSS -->
     <link rel="stylesheet" href="../public/css/style.css">
+
 </head>
 
 <body>
@@ -23,6 +25,10 @@
         <header>
 
             <ul class="nav nav-pills nav-fill nav-light blue lighten-4">
+                <li class="nav-item font-weight-bold">
+                    <i class="fa fa-phone" aria-hidden="true"></i>
+                    06.50.90.16.02
+                </li>
                 <li class="nav-item font-weight-bold">
                     Conseillère Immo
                 </li>
@@ -44,6 +50,11 @@
                     <li class="nav-item">
                         <a class="nav-link p-2 black-text  font-weight-bold" href="#">Accueil</span></a>
                     </li>
+              
+                    <li class="nav-item">
+                        <a class="nav-link black-text  font-weight-bold" href="index.php?action=listestates">Nos offres disponibles</a>
+                    </li>
+
                 </ul>
             </div>
         </nav>
@@ -51,7 +62,9 @@
         <!--barre de recherche-->
         <div class="mt-3">
             <div class="row mr-0 ml-0 d-flex flex-column justify-content-center align-content-center" id="search-img">
-                
+
+        
+
             </div>
         </div>
         <!-- fin barre de recherche-->
@@ -92,7 +105,7 @@
                     <!-- Grid column -->
                     <div class="col-md mb-3">
                         <h8>
-                            <a href="#!" class="footer-text">Connexion Admin</a>
+                            <a href="index.php?action=connexion&connexionadmin.php" class="footer-text">Connexion Admin</a>
                         </h8>
                     </div>
                     <!-- Grid column -->
@@ -163,10 +176,12 @@
 
 </html>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- jQuery -->
+<script type="text/javascript" src="js/jquery.min.js"></script>
 <!-- Bootstrap tooltips -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<script type="text/javascript" src="js/popper.min.js"></script>
 <!-- Bootstrap core JavaScript -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
 <!-- MDB core JavaScript -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+<script type="text/javascript" src="js/mdb.min.js"></script>
+<!-- custom scripts -->
