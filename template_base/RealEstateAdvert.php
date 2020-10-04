@@ -62,7 +62,7 @@
 
 <div class="col-12 p-5">
    
-    <h4 class="dark-grey-text font-weight-bold mb-3"><?=(ucfirst($estate['name'])) ?> <?=(ucfirst($estate['type_id'])) ?> <?=(ucfirst($estate['room'])) ?> pièces</h4>
+    <h4 class="dark-grey-text font-weight-bold mb-3"><?=(ucfirst($estate['category'])) ?> <?=($estate['name']) ?> <?=($estate['room']) ?> pièces</h4>
     <h5 class="font-weight-bold mb-3 light-blue-text">Descriptif</h5>
     <p class="dark-grey-text text-justify">Ref : reference du bien <br /><br />
     <?=(strtoupper($estate['title'])) ?>
@@ -95,74 +95,63 @@
             <thead>
                 <tr>
                     <td scope="col">Etage</th>
-                    <td scope="col">3</th>
+                    <td scope="col"><?=($estate['floor']) ?></th>
 
                 </tr>
             </thead>
             <tbody>
-                <tr class="tech-form bgcolor-light blue lighten-4">
-                    <td scope="row">Nombre d'étages</th>
-                    <td><?=($estate['floor']) ?></td>
+               
+                <tr class="bgcolor-light blue lighten-4">
+                    <td scope="row">Bien en copropriété</th>
+                    <td><?= (boolval($estate['subdivision']) ? 'oui' : 'non') ?></td>
 
                 </tr>
                 <tr>
-                    <td scope="row">Bien en copropriété</th>
-                    <td><?=($estate['subdivision']) ?></td>
-
-                </tr>
-                <tr class="bgcolor-light blue lighten-4">
                     <td scope="row">Charges courantes copropriété</th>
                     <td><?=($estate['charge']) ?> €</td>
 
                 </tr>
               
-                <tr>
+                <tr class="bgcolor-light blue lighten-4">
                     <td scope="row">Salle de bain</th>
                     <td><?=($estate['bathroom']) ?></td>
 
                 </tr>
     
-                <tr class="bgcolor-light blue lighten-4">
+                <tr>
                     <td scope="row">Cuisine</th>
-                    <td><?=($estate['kitchen_id']) ?></td>
+                    <td><?=($estate['kitchen']) ?></td>
 
                 </tr>
 
-                <tr>
+                <tr class="bgcolor-light blue lighten-4">
                     <td scope="row">Exposition séjour</th>
-                    <td><?=($estate['exposure_id']) ?></td>
+                    <td><?=($estate['exposure']) ?></td>
 
                 </tr>
 
-                <tr class="bgcolor-light blue lighten-4">
+                <tr>
                     <td scope="row">Type de chauffage</th>
-                    <td><?=($estate['heating_id']) ?></td>
+                    <td><?=($estate['heating']) ?></td>
 
                 </tr>
-
-
-                <tr>
-                    <td scope="row">Nombre de balcons</th>
-                    <td>1</td>
-
-                </tr>
-
-                <tr class="bgcolor-light blue lighten-4">
-                    <td scope="row">Type de stationnement</th>
-                    <td>Sous-sol</td>
-
-                </tr>
-
-                <tr>
-                    <td scope="row">Nombre de place de parking</th>
-                    <td>2</td>
-
-                </tr>
-        
+     
 
                 <tr class="bgcolor-light blue lighten-4">
                     <td scope="row">Diagnostique énergétique</th>
-                    <td>Oui</td>
+                    <td><?=(boolval($estate['diagenergy']) ? 'oui' : 'non') ?></td>
+
+                </tr>
+
+                <tr>
+                    <td scope="row">Classe Energétique</th>
+                    <td><?=(ucfirst($estate['energyclass'])) ?></td>
+
+                </tr>
+
+                <tr class="bgcolor-light blue lighten-4">
+                    <td scope="row">GES</th>
+                    <td><?=(ucfirst($estate['ges'])) ?></td>
 
                 </tr>
            
@@ -172,16 +161,7 @@
     </div>
 </div>
 
-<hr class="my-0">
 
-<div class="col-12 p-5">
-
-    <h5 class="font-weight-bold mb-3 light-blue-text">Bilan Energétique</h5>
-    <div class="d-flex justify-content-around">
-        <img src="../public/img/dpe_E.jpg" alt="dpe">
-        <img src="../public/img/ges_C.jpg" alt="ges">
-    </div>
-</div>
 
 <hr class="my-0">
 

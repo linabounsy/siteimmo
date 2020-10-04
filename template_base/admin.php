@@ -22,7 +22,7 @@
                         <div class="media">
                             <img class="d-flex mr-3" src="https://mdbootstrap.com/img/Photos/Others/placeholder1.jpg" alt="Generic placeholder image">
                             <div class="media-body">
-                                <h6 class="mt-1 font-weight-bold"><a href="#!"><?= htmlspecialchars($estate['title']) ?></a><a><span class="badge badge-warning float-right">éditer l'annonce</span></a></h6>
+                                <h6 class="mt-1 font-weight-bold"><a href="#"><?= htmlspecialchars($estate['title']) ?></a><a href="index.php?action=modifyestate&id=<?= $estate['id'] ?>"><span class="badge badge-warning float-right">éditer l'annonce</span></a></h6>
                                 <p class="text-muted"><?= htmlspecialchars($estate['description_cut']) ?>
                                     <a><span class="badge badge-danger float-right">supprimer l'annonce</span></a><br />
                                     <a><span class="badge badge-info float-right">voir l'annonce</span></a></p>

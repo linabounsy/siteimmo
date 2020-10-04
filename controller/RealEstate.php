@@ -26,11 +26,6 @@ class RealEstate
         if (isset($_GET['id']) && $_GET['id'] > 0) {
             
             $estate = $realEstateAdvert->getEstate($_GET['id']);
-            
-echo '<pre>';
-            print_r($estate);
-            
-            die();
 
             } else {
                 throw new Exception('aucun identifiant d\'annonce envoyé');

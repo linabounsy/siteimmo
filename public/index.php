@@ -39,14 +39,15 @@ try { // On essaie de faire des choses
         if ($_GET['action'] == 'newadvert') {
             $admin->addAdvert();
         }
-        if ($_GET['action'] == 'insertnewadvert') {
-            $admin->insertNewAdvert();
-        }
+    
         if ($_GET['action'] == 'listestates') {
             $realEstateAdvert->listEstates();
         }
         if ($_GET['action'] == 'estate') {
             $realEstateAdvert->estate();
+        } 
+        if ($_GET['action'] == 'modifyestate') {
+            $admin->modifyEstate();
         } 
         
        

@@ -164,10 +164,6 @@
 
     </div>
 
-</body>
-
-</html>
-
   <!-- jQuery -->
   <script type="text/javascript" src="js/jquery.min.js"></script>
   <!-- Bootstrap tooltips -->
@@ -176,4 +172,18 @@
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
   <!-- MDB core JavaScript -->
   <script type="text/javascript" src="js/mdb.min.js"></script>
+  <!--<script type="text/javascript" src="../public/js/form.js"></script>-->
+  <script>
+  $('.datepicker').pickadate({
+      format: 'yyyy'
+  });
+  $('.datepicker-periode').pickadate({
+      format: 'dd-mm-yyyy'
+  });
+</script>
   <!-- custom scripts -->
+
+</body>
+
+</html>
+

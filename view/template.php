@@ -171,11 +171,7 @@
         <!-- Footer -->
 
     </div>
-
-</body>
-
-</html>
-
+    <script type="text/javascript" src="../public/js/form.js"></script>
 <!-- jQuery -->
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <!-- Bootstrap tooltips -->
@@ -185,3 +181,8 @@
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="js/mdb.min.js"></script>
 <!-- custom scripts -->
+
+</body>
+
+</html>
+
