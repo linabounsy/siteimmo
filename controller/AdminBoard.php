@@ -92,14 +92,14 @@ class AdminBoard
 
     {
         $realEstateAdvert = new RealEstateAdvert;
-        print_r($_POST);
-        print_r($_FILES);
+        
+
         // gestion des erreurs
         $errors = 0;
         $msgerror = array();
 
 
-        if (isset($_POST['newadvert'])) { // || isset($_POST['newadvertnopublish']) || isset($_POST['newadvertattente'])
+        if (isset($_POST['newadvertpublish']) || isset($_POST['newadvertnopublish'])) { 
             if (empty($_POST['title']) || strlen($_POST['title']) > 45) {
                 $msgerror['title'] = 'renseigner le titre - 45 caractères max';
                 $errors++;
@@ -134,9 +134,12 @@ class AdminBoard
                 $msgerror['postcode'] = "renseigner tous les champs - 255 caractères max pour l'adresse - 25 max pour la ville - 5 chiffres max pour le code postal";
                 $errors++;
             }
+            $construction = null;
             if (empty($_POST['construction'])) {
                 $msgerror['construction'] = 'renseigner une année';
                 $errors++;
+            } else {
+                $construction = DateTime::createFromFormat('d-m-Y', '01-01-' . $_POST['construction']);
             }
             if (empty($_POST['exposure'])) {
                 $msgerror['exposure'] = 'sélectionner un champ';
@@ -240,24 +243,33 @@ class AdminBoard
                 $msgerror['ges'] = 'sélectionner un champ';
                 $errors++;
             }
+            $periode = null;
             if (empty($_POST['periode'])) {
                 $msgerror['periode'] = 'sélectionner une date';
                 $errors++;
+            } else {
+                $periode = DateTime::createFromFormat('d-m-Y', $_POST['periode']);
             }
             if (empty($_FILES['picture']['name'])) {
                 $msgerror['picture'] = 'sélectionner une photo';
                 $errors++;
             }
-
-            if (!isset($_POST['status'])) {
-                $msgerror['status'] = 'sélectionner un champ';
+            if (!empty($_FILES['picture']['name']) && (empty($_POST['title']) || strlen($_POST['title']) > 45) || (empty($_POST['description'])) || ($_POST['client'] == 'choisir un client') || (empty($_POST['category'])) || (empty($_POST['type'])) || (empty($_POST['address']) || strlen($_POST['address']) > 255)|| (empty($_POST['city']) || strlen($_POST['city']) > 25) || (empty($_POST['postcode']) || strlen($_POST['postcode']) > 5) || (empty($_POST['construction'])) || (empty($_POST['exposure']))|| (empty($_POST['price'])) || (empty($_POST['charge'])) ||  (empty($_POST['surface'])) || (!isset($_POST['subdivision'])) || (isset($_POST['land']) && ($_POST['land']) < '0') || (empty($_POST['floor'])) || (empty($_POST['room'])) || (isset($_POST['bedroom']) && ($_POST['bedroom']) < '0') || (empty($_POST['bathroom'])) || (empty($_POST['toilet'])) || (empty($_POST['kitchen'])) || (empty($_POST['heating'])) || (empty($_POST['parking'])) || (isset($_POST['garage']) && ($_POST['garage']) < '0') || (!isset($_POST['basement'])) ||  (!isset($_POST['diagenergy'])) || (empty($_POST['energyclass'])) || (empty($_POST['ges'])) || (empty($_POST['periode'])) ) { 
+                $msgerror['newpicture'] = 'veuillez re-sélectionner une photo';
                 $errors++;
-            } else {
-                if (($_POST['status']) !== '1' && ($_POST['status']) !== '2' && ($_POST['status']) !== '3') {
-                    $msgerror['status'] = 'sélectionner un champ';
-                    $errors++;
-                }
             }
+        
+
+            $status = null;
+            if (isset($_POST['newadvertpublish'])) {
+                $status  = 1;
+            }
+
+            if (isset($_POST['newadvertnopublish'])) {
+                $status  = 2;
+            }
+         
+            
 
             if (!is_numeric($_POST['postcode'])) {
                 $msgerror['postcode'] = 'le champ code postal ne peut être du texte';
@@ -304,17 +316,11 @@ class AdminBoard
                 $errors++;
             }
 
-            // if isset newadvert
-            // $status = 1
-            // if isset newadvertattente
-            // $status = 2
-            // if isset newadvertnopublish
-            // $status = 3
 
             if ($errors === 0) {
     
-                $realEstateAdvert->addInfoEstate($_POST['category'], $_POST['type'], $_POST['exposure'], $_POST['parking'], $_POST['kitchen'], $_POST['heating'], $_POST['subdivision'], $_POST['floor'], $_POST['charge'], $_POST['bathroom'], $_POST['toilet'], $_POST['garage'], $_POST['basement'], $_POST['surface'], $_POST['land'], $_POST['price'], $_POST['periode'], $_POST['title'], $_POST['description'], $_FILES['picture']['name'], $_POST['status'], $_POST['diagenergy'], $_POST['ges'], $_POST['room'], $_POST['bedroom'], $_POST['construction'], $_POST['client'], $_POST['address'], $_POST['city'], $_POST['postcode'], $_POST['energyclass']);
-                die();
+                $realEstateAdvert->addInfoEstate($_POST['category'], $_POST['type'], $_POST['exposure'], $_POST['parking'], $_POST['kitchen'], $_POST['heating'], $_POST['subdivision'], $_POST['floor'], $_POST['charge'], $_POST['bathroom'], $_POST['toilet'], $_POST['garage'], $_POST['basement'], $_POST['surface'], $_POST['land'], $_POST['price'], $periode->format('Y-m-d h:i:s'), $_POST['title'], $_POST['description'], $_FILES['picture']['name'], $status, $_POST['diagenergy'], $_POST['ges'], $_POST['room'], $_POST['bedroom'], $construction->format('Y-m-d h:i:s'), $_POST['client'], $_POST['address'], $_POST['city'], $_POST['postcode'], $_POST['energyclass']);
+               
                 header('Location: index.php?action=indexadmin');
                 exit();
             }
@@ -330,38 +336,14 @@ class AdminBoard
         $heatings = $realEstateAdvert->getHeating();
         $energyclasses = $realEstateAdvert->getEnergyClass();
         $geses = $realEstateAdvert->getGes();
-        print_r($errors);
 
-        /*if ($errors === 0) {
-    
-                $realEstateAdvert->addInfoEstate($_POST['category'], $_POST['type'], $_POST['exposure'], $_POST['parking'], $_POST['kitchen'], $_POST['heating'], $_POST['subdivision'], $_POST['floor'], $_POST['charge'], $_POST['bathroom'], $_POST['toilet'], $_POST['garage'], $_POST['basement'], $_POST['surface'], $_POST['land'], $_POST['price'], $_POST['periode'], $_POST['title'], $_POST['description'], $_FILES['picture']['name'], $_POST['status'], $_POST['diagenergy'], $_POST['ges'], $_POST['room'], $_POST['bedroom'], $_POST['construction'], $_POST['client'], $_POST['address'], $_POST['city'], $_POST['postcode'], $_POST['energyclass']);
-                header('Location: index.php?action=indexadmin');
-                exit();
-            }*/
 
-        /* transfo format date annee construction - date de disponibilite
-            $dateConstruction = $_POST['construction'];
-            $dtConstruction = DateTime::createFromFormat('d/m/Y', $dateConstruction);
-            echo $dtConstruction->format('YYYY');*/
-
+        
 
         require('../template_base/newestate.php');
     }
 
-    /*public function insertNewAdvert()
-    {
-        // ajoute l'annonce si tout est complet
-        $realEstateAdvert = new RealEstateAdvert;
-        if (isset($_POST['title'], $_POST['category'], $_POST['subdivision'], $_POST['type'], $_POST['exposure'], $_POST['parking'], $_POST['kitchen'], $_POST['heating'], $_POST['floor'], $_POST['charge'], $_POST['bathroom'], $_POST['toilet'], $_POST['garage'], $_POST['basement'], $_POST['surface'], $_POST['land'], $_POST['price'], $_POST['periode'], $_POST['title'], $_POST['description'], $_FILES['picture']['name'], $_POST['status'], $_POST['diagenergy'], $_POST['ges'], $_POST['room'], $_POST['bedroom'], $_POST['construction'], $_POST['client'], $_POST['address'], $_POST['city'], $_POST['postcode'], $_POST['energyclass'], $_POST['ges'])) {
 
-
-            $realEstateAdvert->addInfoEstate($_POST['category'], $_POST['type'], $_POST['exposure'], $_POST['parking'], $_POST['kitchen'], $_POST['heating'], $_POST['subdivision'], $_POST['floor'], $_POST['charge'], $_POST['bathroom'], $_POST['toilet'], $_POST['garage'], $_POST['basement'], $_POST['surface'], $_POST['land'], $_POST['price'], $_POST['periode'], $_POST['title'], $_POST['description'], $_FILES['picture']['name'], $_POST['status'], $_POST['diagenergy'], $_POST['ges'], $_POST['room'], $_POST['bedroom'], $_POST['construction'], $_POST['client'], $_POST['address'], $_POST['city'], $_POST['postcode'], $_POST['energyclass'], $_POST['ges']);
-            header('Location: index.php?action=indexadmin');
-        } else {
-
-            throw new Exception('veuillez remplir tous les champs');
-        }
-    }*/
 
     public function modifyEstate()
     {

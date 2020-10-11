@@ -13,10 +13,11 @@
 </script>
 <!--Fin Tiny MCE-->
 
+
 <a href="index.php?action=indexadmin" class="btn btn-info btn-md my-4">Revenir à la page précédente</a>
 
 
-<form action="index.php?action=newadvert" method="post" enctype="multipart/form-data" novalidate>
+<form action="index.php?action=newadvert" method="post" enctype="multipart/form-data">
 
   <!--Accordion wrapper-->
   <div class="accordion md-accordion accordion-1" id="accordionEx23" role="tablist">
@@ -29,11 +30,11 @@
           </a>
         </h5>
       </div>
-      <div id="collapse96" class="collapse show" role="tabpanel" aria-labelledby="heading96" >
+      <div id="collapse96" class="collapse show" role="tabpanel" aria-labelledby="heading96">
         <div class="card-body">
           <input class="form-control w-50" type="text" id="title" name="title" placeholder="Titre" required value="<?= isset($_POST['title']) ? htmlspecialchars($_POST['title']) : '' ?>">
 
-          <p id="error_title" class="error"><?=isset($msgerror['title']) ? $msgerror['title'] : ''?></p>
+          <p id="error_title" class="error"><?= isset($msgerror['title']) ? $msgerror['title'] : '' ?></p>
 
 
         </div>
@@ -48,10 +49,10 @@
           </a>
         </h5>
       </div>
-      <div id="collapse97" class="collapse <?= !empty($msgerror['description']) ? 'show' : null ?>" data-toggle="collapse" role="tabpanel" aria-labelledby="heading97" >
+      <div id="collapse97" class="collapse <?= !empty($msgerror['description']) ? 'show' : null ?>" data-toggle="collapse" role="tabpanel" aria-labelledby="heading97">
         <div class="card-body">
           <textarea id="description" name="description"><?= htmlspecialchars(isset($_POST['description']) ? $_POST['description'] : '') ?></textarea>
-          <p id="error_description" class="error"><?=isset($msgerror['description']) ? $msgerror['description'] : ''?></p>
+          <p id="error_description" class="error"><?= isset($msgerror['description']) ? $msgerror['description'] : '' ?></p>
         </div>
 
       </div>
@@ -62,23 +63,23 @@
     <div class="card">
       <div class="card-header blue lighten-3 z-depth-1" role="tab" id="heading98">
         <h5 class="text-uppercase mb-0 py-1">
-          <a class="collapsed font-weight-bold white-text"  data-toggle="collapse" href="#collapse98" aria-expanded="false" aria-controls="collapse98">
+          <a class="collapsed font-weight-bold white-text" data-toggle="collapse" href="#collapse98" aria-expanded="false" aria-controls="collapse98">
             Client <i class="fas fa-angle-down rotate-icon"></i>
           </a>
         </h5>
       </div>
-      <div id="collapse98" class="collapse <?= !empty($msgerror['client']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading98" >
+      <div id="collapse98" class="collapse <?= !empty($msgerror['client']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading98">
         <div class="card-body">
-        
+
           <select id="client" class="form-control w-50" name="client" value="<?= $client['id'] ?>">
             <option value="choisir un client" selected>Choisir son client</option>
             <?php foreach ($clients as $client) { ?>
-              
-              <option value="<?= $client['id'] ?>" <?=(!empty($_POST['client'])) && $_POST['client'] == ($client['id']) ? 'selected' : null?>><?= (ucfirst($client['lastname'])) ?> <?= (ucfirst($client['firstname'])) ?></option>
+
+              <option value="<?= $client['id'] ?>" <?= (!empty($_POST['client'])) && $_POST['client'] == ($client['id']) ? 'selected' : null ?>><?= (ucfirst($client['lastname'])) ?> <?= (ucfirst($client['firstname'])) ?></option>
 
             <?php } ?>
           </select>
-          <p id="error_client" class="error"><?=isset($msgerror['client']) ? $msgerror['client'] : ''?></p>
+          <p id="error_client" class="error"><?= isset($msgerror['client']) ? $msgerror['client'] : '' ?></p>
         </div>
       </div>
     </div>
@@ -91,17 +92,17 @@
           </a>
         </h5>
       </div>
-      <div id="collapse99"  class="collapse <?= !empty($msgerror['category']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading99" >
+      <div id="collapse99" class="collapse <?= !empty($msgerror['category']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading99">
         <div class="card-body">
           <?php foreach ($categories as $category) { ?>
             <div class="custom-control custom-radio custom-control-inline" id="categorybut">
-              <input type="radio" class="custom-control-input" id="<?= $category['name'] ?>" name="category" value="<?= $category['id']?>" <?= (!empty($_POST['category'])) &&($_POST['category']) == ($category['id']) ? 'checked="checked"' : null ?>>
+              <input type="radio" class="custom-control-input" id="<?= $category['name'] ?>" name="category" value="<?= $category['id'] ?>" <?= (!empty($_POST['category'])) && ($_POST['category']) == ($category['id']) ? 'checked="checked"' : null ?>>
               <label class="custom-control-label" for="<?= $category['name'] ?>"><?= (ucfirst($category['name'])) ?></label>
             </div>
 
           <?php } ?>
           <div>
-          <p id="error_categorybut" class="error"><?=isset($msgerror['category']) ? $msgerror['category'] : ''?></p>
+            <p id="error_categorybut" class="error"><?= isset($msgerror['category']) ? $msgerror['category'] : '' ?></p>
           </div>
         </div>
       </div>
@@ -115,17 +116,17 @@
           </a>
         </h5>
       </div>
-      <div id="collapse100" class="collapse <?= !empty($msgerror['type']) ? 'show' : null ?>" role="tabpanel" id="type" aria-labelledby="heading100" >
+      <div id="collapse100" class="collapse <?= !empty($msgerror['type']) ? 'show' : null ?>" role="tabpanel" id="type" aria-labelledby="heading100">
         <div class="card-body">
           <?php foreach ($types as $type) { ?>
             <div class="custom-control custom-radio custom-control-inline" id="typebut">
-              <input type="radio" class="custom-control-input" id="<?= $type['name'] ?>" name="type" value="<?= $type['id'] ?>" <?= (!empty($_POST['type'])) &&($_POST['type']) == ($type['id']) ? 'checked="checked"' : null ?>>
+              <input type="radio" class="custom-control-input" id="<?= $type['name'] ?>" name="type" value="<?= $type['id'] ?>" <?= (!empty($_POST['type'])) && ($_POST['type']) == ($type['id']) ? 'checked="checked"' : null ?>>
               <label class="custom-control-label" for="<?= $type['name'] ?>"><?= (ucfirst($type['name'])) ?></label>
 
             </div>
           <?php } ?>
           <div>
-          <p id="error_typebut" class="error"><?=isset($msgerror['type']) ? $msgerror['type'] : ''?></p>
+            <p id="error_typebut" class="error"><?= isset($msgerror['type']) ? $msgerror['type'] : '' ?></p>
           </div>
         </div>
       </div>
@@ -134,21 +135,21 @@
     <div class="card">
       <div class="card-header blue lighten-3 z-depth-1" role="tab" id="heading30">
         <h5 class="text-uppercase mb-0 py-1">
-          <a class="collapsed font-weight-bold white-text" data-toggle="collapse" href="#collapse130"  aria-expanded="false" aria-controls="collapse130">
+          <a class="collapsed font-weight-bold white-text" data-toggle="collapse" href="#collapse130" aria-expanded="false" aria-controls="collapse130">
             Localisation <i class="fas fa-angle-down rotate-icon"></i>
           </a>
         </h5>
       </div>
-      <div id="collapse130" class="collapse <?= !empty($msgerror['address']) ? 'show' : null ?> <?= !empty($msgerror['city']) ? 'show' : null ?> <?= !empty($msgerror['postcode']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading130" >
+      <div id="collapse130" class="collapse <?= !empty($msgerror['address']) ? 'show' : null ?> <?= !empty($msgerror['city']) ? 'show' : null ?> <?= !empty($msgerror['postcode']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading130">
         <div class="card-body w-100">
 
           <div class="custom-control-inline">
-            <input class="form-control w-50 mr-2" type="text" id="address" name="address" placeholder="Adresse" required value="<?= (isset($_POST['address']) ? htmlspecialchars($_POST['address']) : '')?>">
-            <input class="form-control w-25 mr-2" type="text" id="city" name="city" placeholder="Ville" required value="<?= (isset($_POST['city']) ? htmlspecialchars($_POST['city']) : '') ?>">
-            <input class="form-control w-25" type="number" id="postcode" name="postcode" placeholder="Code postal" required value="<?= (isset($_POST['postcode'])) ? htmlspecialchars($_POST['postcode']) : '' ?>">
+            <input class="form-control w-50 mr-2" type="text" id="address" name="address" placeholder="Adresse" value="<?= (isset($_POST['address']) ? htmlspecialchars($_POST['address']) : '') ?>">
+            <input class="form-control w-25 mr-2" type="text" id="city" name="city" placeholder="Ville"  value="<?= (isset($_POST['city']) ? htmlspecialchars($_POST['city']) : '') ?>">
+            <input class="form-control w-25" type="number" id="postcode" name="postcode" placeholder="Code postal"  value="<?= (isset($_POST['postcode'])) ? htmlspecialchars($_POST['postcode']) : '' ?>">
 
           </div>
-          <p id="error_localisation" class="error"><?=isset($msgerror['address']) ? $msgerror['address'] : ''?></p>
+          <p id="error_localisation" class="error"><?= isset($msgerror['address']) ? $msgerror['address'] : '' ?></p>
 
         </div>
       </div>
@@ -162,13 +163,13 @@
           </a>
         </h5>
       </div>
-      <div id="collapse101" class="collapse <?= !empty($msgerror['construction']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading101" >
+      <div id="collapse101" class="collapse <?= !empty($msgerror['construction']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading101">
         <div class="card-body">
-        <div class="md-form">
-            <input type="text" class="form-control datepicker" placeholder="Choisissez une date" id="date-picker-example" name="construction" class="form-control" value="<?=  (!empty($_POST['construction'])) ? $_POST['construction'] : null ?>">
+          <div class="md-form">
+            <input type="text" class="form-control datepicker" placeholder="Choisissez une date" id="construction" name="construction" class="form-control" value="<?= (!empty($_POST['construction'])) ? $_POST['construction'] : null ?>">
             <label for="date-picker-example">choisissez une année</label>
           </div>
-          <p id="error_construction" class="error"><?=isset($msgerror['construction']) ? $msgerror['construction'] : ''?></p>
+          <p id="error_construction" class="error"><?= isset($msgerror['construction']) ? $msgerror['construction'] : '' ?></p>
         </div>
       </div>
     </div>
@@ -182,15 +183,15 @@
           </a>
         </h5>
       </div>
-      <div id="collapse102" class="collapse <?= !empty($msgerror['exposure']) ? 'show' : null ?>" role="tabpanel" id="exposure" aria-labelledby="heading102" >
+      <div id="collapse102" class="collapse <?= !empty($msgerror['exposure']) ? 'show' : null ?>" role="tabpanel" id="exposure" aria-labelledby="heading102">
         <div class="card-body">
           <?php foreach ($exposures as $exposure) { ?>
             <div class="custom-control custom-radio custom-control-inline" id="exposurebut">
-              <input type="radio" class="custom-control-input" id="<?= $exposure['name'] ?>" name="exposure" value="<?= $exposure['id'] ?>" <?= (!empty($_POST['exposure'])) &&($_POST['exposure']) == ($exposure['id']) ? 'checked="checked"' : null ?> >
+              <input type="radio" class="custom-control-input" id="<?= $exposure['name'] ?>" name="exposure" value="<?= $exposure['id'] ?>" <?= (!empty($_POST['exposure'])) && ($_POST['exposure']) == ($exposure['id']) ? 'checked="checked"' : null ?>>
               <label class="custom-control-label" for="<?= $exposure['name'] ?>"><?= (ucfirst($exposure['name'])) ?></label>
             </div>
           <?php } ?>
-          <p id="error_exposurebut" class="error"><?=isset($msgerror['exposure']) ? $msgerror['exposure'] : ''?></p>
+          <p id="error_exposurebut" class="error"><?= isset($msgerror['exposure']) ? $msgerror['exposure'] : '' ?></p>
         </div>
       </div>
     </div>
@@ -203,12 +204,12 @@
           </a>
         </h5>
       </div>
-      <div id="collapse108" class="collapse <?= !empty($msgerror['price']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading108" >
+      <div id="collapse108" class="collapse <?= !empty($msgerror['price']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading108">
         <div class="card-body">
           <div class="control-inline">
             <input class="form-control d-inline w-25" type="number" id="price" name="price" min="0" value="<?= (!empty($_POST['price'])) ? htmlspecialchars($_POST['price']) : null ?>"><span class="euros"> euros</span>
           </div>
-          <p id="error_price" class="error"><?=isset($msgerror['price']) ? $msgerror['price'] : ''?></p>
+          <p id="error_price" class="error"><?= isset($msgerror['price']) ? $msgerror['price'] : '' ?></p>
         </div>
       </div>
     </div>
@@ -221,14 +222,14 @@
           </a>
         </h5>
       </div>
-      <div id="collapse110" class="collapse <?= !empty($msgerror['charge']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading110" >
+      <div id="collapse110" class="collapse <?= !empty($msgerror['charge']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading110">
         <div class="card-body">
-        <div class="control-inline">
-          <input class="form-control d-inline w-25" type="number" id="charge" name="charge" min="0" max="10000" value="<?= (!empty($_POST['charge'])) ? htmlspecialchars($_POST['charge']) : null ?>"><span class="euros"> euros</span>
-        </div>
-        <p id="error_charge" class="error"><?=isset($msgerror['charge']) ? $msgerror['charge'] : ''?></p>
-      </div>
+          <div class="control-inline">
+            <input class="form-control d-inline w-25" type="number" id="charge" name="charge" min="0" max="10000" value="<?= (!empty($_POST['charge'])) ? htmlspecialchars($_POST['charge']) : null ?>"><span class="euros"> euros</span>
           </div>
+          <p id="error_charge" class="error"><?= isset($msgerror['charge']) ? $msgerror['charge'] : '' ?></p>
+        </div>
+      </div>
     </div>
 
     <div class="card">
@@ -239,17 +240,17 @@
           </a>
         </h5>
       </div>
-      <div id="collapse106" class="collapse <?= !empty($msgerror['subdivision']) ? 'show' : null ?>" role="tabpanel" id="subdivision" aria-labelledby="heading106" >
+      <div id="collapse106" class="collapse <?= !empty($msgerror['subdivision']) ? 'show' : null ?>" role="tabpanel" id="subdivision" aria-labelledby="heading106">
         <div class="card-body">
           <div class="custom-control custom-radio custom-control-inline" id="subdivisionyesbut">
-            <input type="radio" class="custom-control-input" id="coprooui" name="subdivision" value="1" <?= (isset($_POST['subdivision'])) && $_POST['subdivision'] == '1'  ? 'checked="checked"' : null?> required>
+            <input type="radio" class="custom-control-input" id="coprooui" name="subdivision" value="1" <?= (isset($_POST['subdivision'])) && $_POST['subdivision'] == '1'  ? 'checked="checked"' : null ?> >
             <label class="custom-control-label" for="coprooui">Oui</label>
           </div>
           <div class="custom-control custom-radio custom-control-inline" id="subdivisionnobut">
             <input type="radio" class="custom-control-input" id="copronon" name="subdivision" value="0" <?= (isset($_POST['subdivision'])) && $_POST['subdivision'] == '0'  ? 'checked="checked"' : null ?>>
             <label class="custom-control-label" for="copronon">Non</label>
           </div>
-          <p id="error_subdivisionbut" class="error"><?=isset($msgerror['subdivision']) ? $msgerror['subdivision'] : ''?></p>
+          <p id="error_subdivisionbut" class="error"><?= isset($msgerror['subdivision']) ? $msgerror['subdivision'] : '' ?></p>
         </div>
       </div>
     </div>
@@ -262,14 +263,14 @@
           </a>
         </h5>
       </div>
-      <div id="collapse107" class="collapse <?= !empty($msgerror['surface']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading107" >
+      <div id="collapse107" class="collapse <?= !empty($msgerror['surface']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading107">
         <div class="card-body">
-        <div class="control-inline">
-          <input class="form-control d-inline w-25" type="number" id="surface" name="surface" min="0" max="10000" value="<?= (!empty($_POST['surface'])) ? htmlspecialchars($_POST['surface']) : null ?>"><span> m²</span>
-        </div>
-        <p id="error_surface" class="error"><?=isset($msgerror['surface']) ? $msgerror['surface'] : ''?></p>
-      </div>
+          <div class="control-inline">
+            <input class="form-control d-inline w-25" type="number" id="surface" name="surface" min="0" max="10000" value="<?= (!empty($_POST['surface'])) ? htmlspecialchars($_POST['surface']) : null ?>"><span> m²</span>
           </div>
+          <p id="error_surface" class="error"><?= isset($msgerror['surface']) ? $msgerror['surface'] : '' ?></p>
+        </div>
+      </div>
     </div>
 
     <div class="card">
@@ -280,14 +281,14 @@
           </a>
         </h5>
       </div>
-      <div id="collapse109" class="collapse <?= !empty($msgerror['land']) ? 'show' : null ?>" id="land" role="tabpanel" aria-labelledby="heading109" >
+      <div id="collapse109" class="collapse <?= !empty($msgerror['land']) ? 'show' : null ?>" id="land" role="tabpanel" aria-labelledby="heading109">
         <div class="card-body">
-        <div class="control-inline">
-          <input class="form-control w-25 d-inline" type="number" id="land" name="land" min="0" max="10000" value="<?= (isset($_POST['land'])) ? htmlspecialchars($_POST['land']) : null ?>"><span> m²</span>
-        </div>
-        <p id="error_land" class="error"><?=isset($msgerror['land']) ? $msgerror['land'] : ''?></p>
-      </div>
+          <div class="control-inline">
+            <input class="form-control w-25 d-inline" type="number" id="land" name="land" min="0" max="10000" value="<?= (isset($_POST['land'])) ? htmlspecialchars($_POST['land']) : null ?>"><span> m²</span>
           </div>
+          <p id="error_land" class="error"><?= isset($msgerror['land']) ? $msgerror['land'] : '' ?></p>
+        </div>
+      </div>
     </div>
 
     <div class="card">
@@ -298,14 +299,14 @@
           </a>
         </h5>
       </div>
-      <div id="collapse111" class="collapse <?= !empty($msgerror['floor']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading111" >
+      <div id="collapse111" class="collapse <?= !empty($msgerror['floor']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading111">
         <div class="card-body">
-        <div class="control-inline">
-          <input class="form-control w-25" type="number" id="floor" name="floor" min="0" max="20" value="<?= (!empty($_POST['floor'])) ? htmlspecialchars($_POST['floor']) : null ?>">
-        </div>
-        <p id="error_floor" class="error"><?=isset($msgerror['floor']) ? $msgerror['floor'] : ''?></p>
-      </div>
+          <div class="control-inline">
+            <input class="form-control w-25" type="number" id="floor" name="floor" min="0" max="20" value="<?= (!empty($_POST['floor'])) ? htmlspecialchars($_POST['floor']) : null ?>">
           </div>
+          <p id="error_floor" class="error"><?= isset($msgerror['floor']) ? $msgerror['floor'] : '' ?></p>
+        </div>
+      </div>
     </div>
 
     <div class="card">
@@ -316,14 +317,14 @@
           </a>
         </h5>
       </div>
-      <div id="collapse112" class="collapse <?= !empty($msgerror['room']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading112" >
+      <div id="collapse112" class="collapse <?= !empty($msgerror['room']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading112">
         <div class="card-body">
-        <div class="control-inline">
-          <input class="form-control d-line w-25" type="number" id="room" name="room" min="0" max="20" value="<?= (!empty($_POST['room'])) ? htmlspecialchars($_POST['room']) : null ?>">
-        </div>
-        <p id="error_room" class="error"><?=isset($msgerror['room']) ? $msgerror['room'] : ''?></p>
-      </div>
+          <div class="control-inline">
+            <input class="form-control d-line w-25" type="number" id="room" name="room" min="0" max="20" value="<?= (!empty($_POST['room'])) ? htmlspecialchars($_POST['room']) : null ?>">
           </div>
+          <p id="error_room" class="error"><?= isset($msgerror['room']) ? $msgerror['room'] : '' ?></p>
+        </div>
+      </div>
     </div>
 
     <div class="card">
@@ -334,15 +335,15 @@
           </a>
         </h5>
       </div>
-      <div id="collapse113" class="collapse <?= !empty($msgerror['bedroom']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading113" >
+      <div id="collapse113" class="collapse <?= !empty($msgerror['bedroom']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading113">
         <div class="card-body">
-        <div class="control-inline">
-          <input class="form-control d-inline w-25" type="number" id="bedroom" name="bedroom" min="0" max="20" value="<?= (isset($_POST['bedroom'])) ? htmlspecialchars($_POST['bedroom']) : null ?>">
+          <div class="control-inline">
+            <input class="form-control d-inline w-25" type="number" id="bedroom" name="bedroom" min="0" max="20" value="<?= (isset($_POST['bedroom'])) ? htmlspecialchars($_POST['bedroom']) : null ?>">
+          </div>
+          <p id="error_bedroom" class="error"><?= isset($msgerror['bedroom']) ? $msgerror['bedroom'] : '' ?></p>
         </div>
-        <p id="error_bedroom" class="error"><?=isset($msgerror['bedroom']) ? $msgerror['bedroom'] : ''?></p>
       </div>
     </div>
-          </div>
 
     <div class="card">
       <div class="card-header blue lighten-3 z-depth-1" role="tab" id="heading114">
@@ -352,15 +353,15 @@
           </a>
         </h5>
       </div>
-      <div id="collapse114" class="collapse <?= !empty($msgerror['bathroom']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading114" >
+      <div id="collapse114" class="collapse <?= !empty($msgerror['bathroom']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading114">
         <div class="card-body">
-        <div class="control-inline">
-          <input class="form-control d-inline w-25" type="number" id="bathroom" name="bathroom" min="0" max="10" value="<?= (!empty($_POST['bathroom'])) ? htmlspecialchars($_POST['bathroom']) : null ?>">
+          <div class="control-inline">
+            <input class="form-control d-inline w-25" type="number" id="bathroom" name="bathroom" min="0" max="10" value="<?= (!empty($_POST['bathroom'])) ? htmlspecialchars($_POST['bathroom']) : null ?>">
+          </div>
+          <p id="error_bathroom" class="error"><?= isset($msgerror['bathroom']) ? $msgerror['bathroom'] : '' ?></p>
         </div>
-        <p id="error_bathroom" class="error"><?=isset($msgerror['bathroom']) ? $msgerror['bathroom'] : ''?></p>
       </div>
     </div>
-          </div>
 
     <div class="card">
       <div class="card-header blue lighten-3 z-depth-1" role="tab" id="heading115">
@@ -370,14 +371,14 @@
           </a>
         </h5>
       </div>
-      <div id="collapse115" class="collapse <?= !empty($msgerror['toilet']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading115" >
+      <div id="collapse115" class="collapse <?= !empty($msgerror['toilet']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading115">
         <div class="card-body">
-        <div class="control-inline">
-          <input class="form-control d-inline w-25" type="number" id="toilet" name="toilet" min="0" max="10" value="<?= (!empty($_POST['toilet'])) ? htmlspecialchars($_POST['toilet']) : null ?>">
-        </div>
-        <p id="error_toilet" class="error"><?=isset($msgerror['toilet']) ? $msgerror['toilet'] : ''?></p>
-      </div>
+          <div class="control-inline">
+            <input class="form-control d-inline w-25" type="number" id="toilet" name="toilet" min="0" max="10" value="<?= (!empty($_POST['toilet'])) ? htmlspecialchars($_POST['toilet']) : null ?>">
           </div>
+          <p id="error_toilet" class="error"><?= isset($msgerror['toilet']) ? $msgerror['toilet'] : '' ?></p>
+        </div>
+      </div>
     </div>
 
     <div class="card">
@@ -388,21 +389,21 @@
           </a>
         </h5>
       </div>
-      <div id="collapse104" class="collapse <?= !empty($msgerror['kitchen']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading104" >
+      <div id="collapse104" class="collapse <?= !empty($msgerror['kitchen']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading104">
         <div class="card-body">
-        <div class="control-inline">
-          <?php foreach ($kitchens as $kitchen) { ?>
-            <div class="custom-control custom-radio custom-control-inline" id="kitchenbut">
-              <input type="radio" class="custom-control-input" id="<?= $kitchen['type'] ?>" name="kitchen" value="<?= $kitchen['id'] ?>" <?= (!empty($_POST['kitchen'])) &&($_POST['kitchen']) == ($kitchen['id']) ? 'checked="checked"' : null ?>>
+          <div class="control-inline">
+            <?php foreach ($kitchens as $kitchen) { ?>
+              <div class="custom-control custom-radio custom-control-inline" id="kitchenbut">
+                <input type="radio" class="custom-control-input" id="<?= $kitchen['type'] ?>" name="kitchen" value="<?= $kitchen['id'] ?>" <?= (!empty($_POST['kitchen'])) && ($_POST['kitchen']) == ($kitchen['id']) ? 'checked="checked"' : null ?>>
 
-              <label class="custom-control-label" for="<?= $kitchen['type'] ?>"><?= (ucfirst($kitchen['type'])) ?></label>
-            </div>
-          <?php } ?>
+                <label class="custom-control-label" for="<?= $kitchen['type'] ?>"><?= (ucfirst($kitchen['type'])) ?></label>
+              </div>
+            <?php } ?>
+          </div>
+          <p id="error_kitchenbut" class="error"><?= isset($msgerror['kitchen']) ? $msgerror['kitchen'] : '' ?></p>
         </div>
-        <p id="error_kitchenbut" class="error"><?=isset($msgerror['kitchen']) ? $msgerror['kitchen'] : ''?></p>
       </div>
     </div>
-          </div>
 
     <div class="card">
       <div class="card-header blue lighten-3 z-depth-1" role="tab" id="heading103">
@@ -412,15 +413,15 @@
           </a>
         </h5>
       </div>
-      <div id="collapse103" class="collapse <?= !empty($msgerror['heating']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading103" >
+      <div id="collapse103" class="collapse <?= !empty($msgerror['heating']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading103">
         <div class="card-body">
           <?php foreach ($heatings as $heating) { ?>
-            <div class="custom-control custom-radio custom-control-inline" id="heatingbut" >
-              <input type="checkbox" class="custom-control-input" id="<?= 'heating_'.$heating['id'] ?>" name="heating[]" value="<?= $heating['id'] ?>" <?= (!empty($_POST['heating'])) &&($_POST['heating']) == ($heating['id']) ? 'checked="checked"' : null ?>>
-              <label class="custom-control-label" for="<?= 'heating_'.$heating['id'] ?>"><?= (ucfirst($heating['type'])) ?></label>
+            <div class="custom-control custom-radio custom-control-inline" id="heatingbut">
+              <input type="checkbox" class="custom-control-input" id="<?= 'heating_' . $heating['id'] ?>" name="heating[]" value="<?= $heating['id'] ?>" <?= isset($_POST['heating']) && in_array($heating['id'], $_POST['heating']) ? 'checked="checked"' : null ?>>
+              <label class="custom-control-label" for="<?= 'heating_' . $heating['id'] ?>"><?= (ucfirst($heating['type'])) ?></label>
             </div>
           <?php } ?>
-          <p id="error_heatingbut" class="error"><?= isset($msgerror['heating']) ? $msgerror['heating'] : ''?></p>
+          <p id="error_heatingbut" class="error"><?= isset($msgerror['heating']) ? $msgerror['heating'] : '' ?></p>
         </div>
       </div>
     </div>
@@ -433,15 +434,15 @@
           </a>
         </h5>
       </div>
-      <div id="collapse105" class="collapse <?= !empty($msgerror['parking']) ? 'show' : null ?>" id="parking" role="tabpanel" aria-labelledby="heading105" >
+      <div id="collapse105" class="collapse <?= !empty($msgerror['parking']) ? 'show' : null ?>" id="parking" role="tabpanel" aria-labelledby="heading105">
         <div class="card-body">
-          <?php foreach ($parkings as $parking) { ?> 
+          <?php foreach ($parkings as $parking) { ?>
             <div class="custom-control custom-radio custom-control-inline" id="parkingbut">
-              <input type="radio" class="custom-control-input" id="<?= $parking['type'] ?>" name="parking" value="<?= $parking['id'] ?>" <?= (!empty($_POST['parking'])) &&($_POST['parking']) == ($parking['id']) ? 'checked="checked"' : null ?>>
+              <input type="radio" class="custom-control-input" id="<?= $parking['type'] ?>" name="parking" value="<?= $parking['id'] ?>" <?= (!empty($_POST['parking'])) && ($_POST['parking']) == ($parking['id']) ? 'checked="checked"' : null ?>>
               <label class="custom-control-label" for="<?= $parking['type'] ?>"><?= (ucfirst($parking['type'])) ?></label>
             </div>
           <?php } ?>
-          <p id="error_parkingbut" class="error"><?=isset($msgerror['parking']) ? $msgerror['parking'] : ''?></p>
+          <p id="error_parkingbut" class="error"><?= isset($msgerror['parking']) ? $msgerror['parking'] : '' ?></p>
         </div>
       </div>
     </div>
@@ -454,14 +455,14 @@
           </a>
         </h5>
       </div>
-      <div id="collapse116" class="collapse <?= !empty($msgerror['garage']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading116" >
+      <div id="collapse116" class="collapse <?= !empty($msgerror['garage']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading116">
         <div class="card-body">
-        <div class="control-inline">
-          <input class="form-control d-inline w-25" type="number" id="garage" name="garage" min="0" max="10" value="<?= (isset($_POST['garage'])) ? htmlspecialchars($_POST['garage']) : null ?>">
-        </div>
-        <p id="error_garage" class="error"><?=isset($msgerror['garage']) ? $msgerror['garage'] : ''?></p>
-      </div>
+          <div class="control-inline">
+            <input class="form-control d-inline w-25" type="number" id="garage" name="garage" min="0" max="10" value="<?= (isset($_POST['garage'])) ? htmlspecialchars($_POST['garage']) : null ?>">
           </div>
+          <p id="error_garage" class="error"><?= isset($msgerror['garage']) ? $msgerror['garage'] : '' ?></p>
+        </div>
+      </div>
     </div>
 
     <div class="card">
@@ -472,19 +473,19 @@
           </a>
         </h5>
       </div>
-      <div id="collapse117" class="collapse <?= !empty($msgerror['basement']) ? 'show' : null ?>" id="basement" role="tabpanel" aria-labelledby="heading117" >
+      <div id="collapse117" class="collapse <?= !empty($msgerror['basement']) ? 'show' : null ?>" id="basement" role="tabpanel" aria-labelledby="heading117">
         <div class="card-body">
           <div class="custom-control custom-radio custom-control-inline" id="basementyesbut">
-            <input type="radio" class="custom-control-input" id="basementoui" name="basement" value="1" <?= (isset($_POST['basement'])) && $_POST['basement'] == '1'  ? 'checked="checked"' : null?> required>
+            <input type="radio" class="custom-control-input" id="basementoui" name="basement" value="1" <?= (isset($_POST['basement'])) && $_POST['basement'] == '1'  ? 'checked="checked"' : null ?> >
             <label class="custom-control-label" for="basementoui">Oui</label>
           </div>
 
           <div class="custom-control custom-radio custom-control-inline" id="basementnobut">
-            <input type="radio" class="custom-control-input" id="basementnon" name="basement" value="0" <?= (isset($_POST['basement'])) && $_POST['basement'] == '0'  ? 'checked="checked"' : null?>>
+            <input type="radio" class="custom-control-input" id="basementnon" name="basement" value="0" <?= (isset($_POST['basement'])) && $_POST['basement'] == '0'  ? 'checked="checked"' : null ?>>
             <label class="custom-control-label" for="basementnon">Non</label>
           </div>
 
-          <p id="error_basementput" class="error"><?=isset($msgerror['basement']) ? $msgerror['basement'] : ''?></p>
+          <p id="error_basementput" class="error"><?= isset($msgerror['basement']) ? $msgerror['basement'] : '' ?></p>
         </div>
       </div>
     </div>
@@ -497,17 +498,17 @@
           </a>
         </h5>
       </div>
-      <div id="collapse118" class="collapse <?= !empty($msgerror['diagenergy']) ? 'show' : null ?>" role="tabpanel" id="diagenergy" aria-labelledby="heading118" >
+      <div id="collapse118" class="collapse <?= !empty($msgerror['diagenergy']) ? 'show' : null ?>" role="tabpanel" id="diagenergy" aria-labelledby="heading118">
         <div class="card-body">
           <div class="custom-control custom-radio custom-control-inline" id="diagenergyyesbut">
-            <input type="radio" class="custom-control-input" id="diagoui" name="diagenergy" value="1" <?= (isset($_POST['diagenergy'])) && $_POST['diagenergy'] == '1' ? 'checked="checked"' : null?> required>
+            <input type="radio" class="custom-control-input" id="diagoui" name="diagenergy" value="1" <?= (isset($_POST['diagenergy'])) && $_POST['diagenergy'] == '1' ? 'checked="checked"' : null ?> >
             <label class="custom-control-label" for="diagoui">Oui</label>
           </div>
           <div class="custom-control custom-radio custom-control-inline" id="diagenergynobut">
-            <input type="radio" class="custom-control-input" id="diagnon" name="diagenergy" value="0" <?= (isset($_POST['diagenergy'])) && $_POST['diagenergy'] == '0' ? 'checked="checked"' : null?>>
+            <input type="radio" class="custom-control-input" id="diagnon" name="diagenergy" value="0" <?= (isset($_POST['diagenergy'])) && $_POST['diagenergy'] == '0' ? 'checked="checked"' : null ?>>
             <label class="custom-control-label" for="diagnon">Non</label>
           </div>
-          <p id="error_diagenergybut" class="error"><?=isset($msgerror['diagenergy']) ? $msgerror['diagenergy'] : ''?></p>
+          <p id="error_diagenergybut" class="error"><?= isset($msgerror['diagenergy']) ? $msgerror['diagenergy'] : '' ?></p>
         </div>
       </div>
     </div>
@@ -520,16 +521,16 @@
           </a>
         </h5>
       </div>
-      <div id="collapse123" class="collapse <?= !empty($msgerror['energyclass']) ? 'show' : null ?>" role="tabpanel" id="energyclass" aria-labelledby="heading130" >
+      <div id="collapse123" class="collapse <?= !empty($msgerror['energyclass']) ? 'show' : null ?>" role="tabpanel" id="energyclass" aria-labelledby="heading130">
         <div class="card-body">
           <?php foreach ($energyclasses as $energyclass) { ?>
             <div class="custom-control custom-radio custom-control-inline" id="energyclassbut">
-              <input type="radio" class="custom-control-input" id="energy-<?= $energyclass['id'] ?>" name="energyclass" value="<?= $energyclass['id'] ?>" <?= (!empty($_POST['energyclass'])) &&($_POST['energyclass']) == ($energyclass['id']) ? 'checked="checked"' : null ?>required>
+              <input type="radio" class="custom-control-input" id="energy-<?= $energyclass['id'] ?>" name="energyclass" value="<?= $energyclass['id'] ?>" <?= (!empty($_POST['energyclass'])) && ($_POST['energyclass']) == ($energyclass['id']) ? 'checked="checked"' : null ?>>
               <label class="custom-control-label" for="energy-<?= $energyclass['id'] ?>"><?= (ucfirst($energyclass['name'])) ?></label>
             </div>
 
           <?php } ?>
-          <p id="error_energyclassbut" class="error"><?=isset($msgerror['energyclass']) ? $msgerror['energyclass'] : ''?></p>
+          <p id="error_energyclassbut" class="error"><?= isset($msgerror['energyclass']) ? $msgerror['energyclass'] : '' ?></p>
         </div>
       </div>
     </div>
@@ -542,17 +543,17 @@
           </a>
         </h5>
       </div>
-      <div id="collapse140" class="collapse <?= !empty($msgerror['ges']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading140" >
+      <div id="collapse140" class="collapse <?= !empty($msgerror['ges']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading140">
         <div class="card-body">
           <?php foreach ($geses as $ges) { ?>
             <div class="custom-control custom-radio custom-control-inline" id="gesbut">
-              <input type="radio" class="custom-control-input" id="ges-<?= $ges['id'] ?>" name="ges" value="<?= $ges['id'] ?>" <?= (!empty($_POST['ges'])) &&($_POST['ges']) == ($ges['id']) ? 'checked="checked"' : null ?> required>
+              <input type="radio" class="custom-control-input" id="ges-<?= $ges['id'] ?>" name="ges" value="<?= $ges['id'] ?>" <?= (!empty($_POST['ges'])) && ($_POST['ges']) == ($ges['id']) ? 'checked="checked"' : null ?> >
               <label class="custom-control-label" for="ges-<?= $ges['id'] ?>"><?= (ucfirst($ges['name'])) ?></label>
 
             </div>
 
           <?php } ?>
-          <p id="error_gesbut" class="error"><?=isset($msgerror['ges']) ? $msgerror['ges'] : ''?></p>
+          <p id="error_gesbut" class="error"><?= isset($msgerror['ges']) ? $msgerror['ges'] : '' ?></p>
         </div>
       </div>
     </div>
@@ -565,14 +566,14 @@
           </a>
         </h5>
       </div>
-      <div id="collapse120" class="collapse <?= !empty($msgerror['periode']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading120" >
+      <div id="collapse120" class="collapse <?= !empty($msgerror['periode']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading120">
         <div class="card-body">
-        <div class="custom-control-inline">
-          <input type="text" class="form-control datepicker-periode" placeholder="Choisissez une date" id="date-picker-example" name="periode" class="form-control" value="<?=  (!empty($_POST['periode'])) ? $_POST['periode'] : null ?>">
-        </div>
-        <p id="error_periode" class="error"><?=isset($msgerror['periode']) ? $msgerror['periode'] : ''?></p>
-      </div>
+          <div class="custom-control-inline">
+            <input type="text" class="form-control datepicker-periode" placeholder="Choisissez une date" id="periode" name="periode" class="form-control" value="<?= (!empty($_POST['periode'])) ? $_POST['periode'] : null ?>">
           </div>
+          <p id="error_periode" class="error"><?= isset($msgerror['periode']) ? $msgerror['periode'] : '' ?></p>
+        </div>
+      </div>
     </div>
 
     <div class="card">
@@ -583,50 +584,30 @@
           </a>
         </h5>
       </div>
-      <div id="collapse121" class="collapse <?= !empty($msgerror['picture']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading121" >
+      <div id="collapse121" class="collapse <?= !empty($msgerror['picture']) ? 'show' : (!empty($msgerror['newpicture']) ? 'show' : null) ?>" role="tabpanel" aria-labelledby="heading121">
         <div class="card-body">
-        <div class="custom-control-inline">
-          <input type="file" id="picture" name="picture" accept="image/png, image/jpg" value="">
-        </div>
-        <p id="error_picture" class="error"><?=isset($msgerror['picture']) ? $msgerror['picture'] : ''?></p>
-      </div>
-    </div>
+          <div class="custom-control-inline">
+            <input type="file" id="picture" name="picture" accept="image/png, image/jpg" value="">
           </div>
+          <p id="error_picture" class="error"><?= isset($msgerror['picture']) ? $msgerror['picture'] : (isset($msgerror['newpicture']) ? $msgerror['newpicture'] : '') ?></p>
 
-    <div class="card">
-      <div class="card-header blue lighten-3 z-depth-1" role="tab" id="heading122">
-        <h5 class="text-uppercase mb-0 py-1">
-          <a class="collapsed font-weight-bold white-text" data-toggle="collapse" href="#collapse122" aria-expanded="false" aria-controls="collapse122">
-            Statut de l'annonce <i class="fas fa-angle-down rotate-icon"></i>
-          </a>
-        </h5>
-      </div>
-      <div id="collapse122" class="collapse <?= !empty($msgerror['status']) ? 'show' : null ?>" id="status" role="tabpanel" aria-labelledby="heading122" >
-        <div class="card-body">
-          <div class="custom-control custom-radio custom-control-inline" id="nopublishbut">
-            <input type="radio" class="custom-control-input" id="npublish" name="status" value="1" <?= (isset($_POST['status'])) && $_POST['status'] == '1' ? 'checked="checked"' : null?> required>
-            <label class="custom-control-label" for="npublish">Non publiée</label>
-          </div>
-          <div class="custom-control custom-radio custom-control-inline" id="onholdbut">
-            <input type="radio" class="custom-control-input" id="onhold" name="status" value="2" <?= (isset($_POST['status'])) && $_POST['status'] == '2' ? 'checked="checked"' : null?>>
-            <label class="custom-control-label" for="onhold">En attente</label>
-          </div>
-          <div class="custom-control custom-radio custom-control-inline" id="publishbut">
-            <input type="radio" class="custom-control-input" id="publish" name="status" value="3" <?= (isset($_POST['status'])) && $_POST['status'] == '3' ? 'checked="checked"' : null?>>
-            <label class="custom-control-label" for="publish">Publiée</label>
-          </div>
-          <p id="error_statusbut" class="error"><?=isset($msgerror['status']) ? $msgerror['status'] : ''?></p>
         </div>
       </div>
     </div>
+
+
 
 
   </div>
   <!--Accordion wrapper-->
 
   <div class="text-center">
-    <input class="light blue lighten-4 my-4 btn-lg  text-lg font-weight-bold black-text" type="submit" value="créer l'annonce" name="newadvert" id="newadvert">
+    <button class="light blue lighten-4 my-4 btn-lg  text-lg font-weight-bold black-text" type="submit" value="1" name="newadvertpublish" id="newadvertpublish">Publier l'annonce</button>
+    <button class="light blue lighten-4 my-4 btn-lg  text-lg font-weight-bold black-text" type="submit" value="2" name="newadvertnopublish" id="newadvertnopublish">Ne pas publier l'annonce</button>
+
+
   </div>
+
 </form>
 
 <?php $content = ob_get_clean(); ?>
@@ -634,3 +615,4 @@
 <?php
 require('../template_base/templateAdmin.php');
 ?>
+

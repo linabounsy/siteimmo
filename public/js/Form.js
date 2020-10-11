@@ -61,11 +61,8 @@ class Form {
         this.errorPeriode = document.getElementById("error_periode");
         this.pictureInput = document.getElementById("picture");
         this.errorPicture = document.getElementById("error_picture");
-        this.noPublishInput = document.querySelectorAll("#nopublishbut input");
-        this.onHoldInput = document.querySelectorAll("#onholdbut input");
-        this.publishInput = document.querySelectorAll("#publishbut input");
-        this.errorStatus = document.getElementById("error_statusbut");
-        this.submitForm = document.getElementById("insertnewadvert");
+        this.submitFormPublish = document.getElementById("newadvertpublish");
+        this.submitFormNoPublish = document.getElementById("newadvertnopublish");
         this.collapseDescription = document.getElementById("collapse97");
         this.collapseClient = document.getElementById("collapse98");
         this.collapseCategory = document.getElementById("collapse99");
@@ -93,9 +90,12 @@ class Form {
         this.collapseGes = document.getElementById("collapse140");
         this.collapsePeriode = document.getElementById("collapse120");
         this.collapsePicture = document.getElementById("collapse121");
-        this.collapseStatus = document.getElementById("collapse122");
+    
 
-        this.submitForm.addEventListener("click", this.checkField.bind(this));
+        this.submitFormPublish.addEventListener("click", this.checkField.bind(this));
+        this.submitFormNoPublish.addEventListener("click", this.checkField.bind(this));
+
+
 
     }
 
@@ -118,6 +118,7 @@ class Form {
         }
         else {
             this.errorDescription.style.display = "none";
+            
         }
 
         if (this.clientInput.value == "choisir un client") {
@@ -154,6 +155,7 @@ class Form {
             $(this.collapseLocalisation).collapse('show');
         } else {
             this.errorLocalisation.style.display = "none";
+            
         }
 
         if (this.constructionInput.value == "") {
@@ -174,15 +176,16 @@ class Form {
             }
         })
 
-        if (this.priceInput.value == "0") {
+        if (this.priceInput.value == "") {
             this.errorPrice.textContent = "renseigner un prix";
             this.errorPrice.style.color = "red";
             $(this.collapsePrice).collapse('show');
         } else {
             this.errorPrice.style.display = "none";
+      
         }
 
-        if (this.chargeInput.value == "0") {
+        if (this.chargeInput.value == "") {
             this.errorCharge.textContent = "renseigner un prix";
             this.errorCharge.style.color = "red";
             $(this.collapseCharge).collapse('show');
@@ -210,7 +213,7 @@ class Form {
             }
         })
 
-        if (this.surfaceInput.value == "0") {
+        if (this.surfaceInput.value == "") {
             this.errorSurface.textContent = "renseigner une surface";
             this.errorSurface.style.color = "red";
             $(this.collapseSurface).collapse('show');
@@ -234,7 +237,7 @@ class Form {
             this.errorFloor.style.display = "none";
         }
 
-        if (this.roomInput.value == "0") {
+        if (this.roomInput.value == "") {
             this.errorRoom.textContent = "renseigner le nombre de pièces";
             this.errorRoom.style.color = "red";
             $(this.collapseRoom).collapse('show');
@@ -250,7 +253,7 @@ class Form {
             this.errorBedroom.style.display = "none";
         }
 
-        if (this.bathroomInput.value == "0") {
+        if (this.bathroomInput.value == "") {
             this.errorBathroom.textContent = "renseigner le nombre de salle de bain";
             this.errorBathroom.style.color = "red";
             $(this.collapseBathroom).collapse('show');
@@ -258,7 +261,7 @@ class Form {
             this.errorBathroom.style.display = "none";
         }
 
-        if (this.toiletInput.value == "0") {
+        if (this.toiletInput.value == "") {
             this.errorToilet.textContent = "renseigner le nombre de toilettes";
             this.errorToilet.style.color = "red";
             $(this.collapseToilet).collapse('show');
@@ -380,37 +383,14 @@ class Form {
             this.errorPicture.style.display = "none";
         }
 
-       
+        if (this.pictureInput.value !== "") {
+            this.errorPicture.textContent = "veuillez recharger une photo";
+            this.errorPicture.style.color = "red";
+            $(this.collapsePicture).collapse('show');
+        } else {
+            this.errorPicture.style.display = "none";
+        }
 
-        this.noPublishInput.forEach(noPublishEl => {
-            if (noPublishEl.checked) {
-                this.errorStatus.style.display = "none";
-            } else {
-                this.errorStatus.textContent = "sélectionner un champ";
-                $(this.collapseStatus).collapse('show');
-
-            }
-        })
-
-        this.publishInput.forEach(publishEl => {
-            if (publishEl.checked) {
-                this.errorStatus.style.display = "none";
-            } else {
-                this.errorStatus.textContent = "sélectionner un champ";
-                $(this.collapseStatus).collapse('show');
-
-            }
-        })
-
-        this.onHoldInput.forEach(onHoldEl => {
-            if (onHoldEl.checked) {
-                this.errorStatus.style.display = "none";
-            } else {
-                this.errorStatus.textContent = "sélectionner un champ";
-                $(this.collapseStatus).collapse('show');
-
-            }
-        })
 
 
     }

@@ -110,24 +110,29 @@ class RealEstateAdvert extends Database
     public function addInfoEstate($category, $type, $exposure, $parking, $kitchen, $heating, $subdivision, $floor, $charge, $bathroom, $toilet, $garage, $basement, $surface, $land, $price, $periode, $title, $description, $picture, $status, $diagenergy, $ges_id, $room, $bedroom, $construction, $client_id, $address, $city, $postcode, $energyclass_id) // ajout loc ou vente / type / exposition / parking / client / cuisine dans l'annonce
     {
         $db = $this->dbConnect();
-        $estate = $db->prepare('INSERT INTO estate (category_id, type_id, exposure_id, parking_id, kitchen_id, heating_id, subdivision, floor, charge, bathroom, toilet, garage, basement, surface, land, price, periode, title, description, picture, status, diagenergy, ges_id, room, bedroom, construction, client_id, address, city, postcode, energyclass_id) VALUES (:category_id, :type_id, :exposure_id, :parking_id, :kitchen_id, :heating_id, :subdivision, :floor, :charge, :bathroom, :toilet, :garage, :basement, :surface, :land, :price, :periode, :title, :description, :picture, :status, :diagenergy, :ges_id, :room, :bedroom, :construction, :client_id, :address, :city, :postcode, :energyclass_id)');
-        $affectedLines = $estate->execute(array(
-            'category_id' => $category,
-            $type,
-            $exposure, $parking, $kitchen, $heating, $subdivision, $floor, $charge, $bathroom, $toilet, $garage, $basement, $surface, $land, $price, $periode, $title, $description, $picture, $status, $diagenergy, $ges_id, $room, $bedroom, $construction, $client_id, $address, $city, $postcode, $energyclass_id));
-
-            // récupérer l id de l'annonce qui vient d'être (voir pdo::lastInsertId ou essayer un $estate->fetch() après execute)
-            // boucler sur $heating foreach ($heating as $heat)
         
-            // insert into estate_has_heating avec $estate_id et la valeur de $heat
+        $estate = $db->prepare('
+            INSERT INTO estate (category_id, type_id, exposure_id, parking_id, kitchen_id, subdivision, floor, charge, bathroom, toilet, garage, basement, surface, land, price, periode, title, description, picture, status, diagenergy, ges_id, room, bedroom, construction, client_id, address, city, postcode, energyclass_id)
+            VALUES (:category_id, :type_id, :exposure_id, :parking_id, :kitchen_id, :subdivision, :floor, :charge, :bathroom, :toilet, :garage, :basement, :surface, :land, :price, :periode, :title, :description, :picture, :status, :diagenergy, :ges_id, :room, :bedroom, :construction, :client_id, :address, :city, :postcode, :energyclass_id)');
+        $affectedLines = $estate->execute(array(
+            'category_id' => $category, 'type_id' => $type, 'exposure_id' => $exposure, 'parking_id' => $parking, 'kitchen_id' => $kitchen, 'subdivision' => $subdivision, 'floor' => $floor, 'charge' => $charge, 'bathroom' => $bathroom, 'toilet' => $toilet, 'garage' => $garage, 'basement' => $basement, 'surface' => $surface, 'land' => $land, 'price' => $price, 'periode' => $periode, 'title' => $title, 'description' => $description, 'picture' => $picture, 'status' => $status, 'diagenergy' => $diagenergy, 'ges_id' => $ges_id, 'room' => $room, 'bedroom' => $bedroom, 'construction' => $construction, 'client_id' => $client_id, 'address' => $address, 'city' => $city, 'postcode' => $postcode, 'energyclass_id' => $energyclass_id));
+        
+        $req = $db->query('SELECT LAST_INSERT_ID() as estate_id FROM estate'); // recupere l'id de la derniere annonce 
+        $estate = $req->fetch();
 
-     
+        $estateHeating = $db->prepare('INSERT INTO estate_has_heating (estate_id, heating_id) VALUES (:estate_id, :heating_id)'); // inserer les plusieurs types de chauffage possible 
+        
+        foreach ($heating as $heat) {
+            $estateHeating->execute((array('estate_id' => $estate['estate_id'], 'heating_id' => $heat))); 
+            
+        }
+
     }
 
     public function getEstatesAdmin() // recupère les dernières annonces pour l'admin
     {
         $db = $this->dbConnect();
-        $req = $db->query('SELECT id, title, picture, IF(CHAR_LENGTH(description) > 50, CONCAT(LEFT(description,50), "..."), description) AS description_cut FROM estate ORDER BY id DESC');
+        $req = $db->query('SELECT id, title, picture, description FROM estate ORDER BY id DESC');
         $req->execute(array());
         $estate = $req->fetchAll();
         return $estate;
@@ -136,7 +141,7 @@ class RealEstateAdvert extends Database
     public function getEstates() // recupère les annonces 
     {
         $db = $this->dbConnect();
-        $req = $db->query('SELECT id, title, picture, city, postcode, price, IF(CHAR_LENGTH(description) > 50, CONCAT(LEFT(description,50), "..."), description) AS description_cut FROM estate ORDER BY id DESC');
+        $req = $db->query('SELECT id, title, picture, city, postcode, price, description FROM estate ORDER BY id DESC');
         $req->execute(array());
         $estates = $req->fetchAll();
         return $estates;
@@ -147,7 +152,7 @@ class RealEstateAdvert extends Database
     {
         $db = $this->dbConnect();
         $req = $db->prepare(
-            'SELECT estate.id as id, estate.title as title, category.name as category, category.id as category_id, type.name as name, type.id as type_id, kitchen.type as kitchen, kitchen.id as kitchen_id, exposure.name as exposure, exposure.id as exposure_id, heating.type as heating, heating.id as heating_id, energyclass.name as energyclass, energyclass.id as energyclass_id, ges.name as ges, ges.id as ges_id, parking.type as parking, parking.id as parking_id, client.id as client, client.lastname as lastname, client.firstname as firstname, room, description, surface, bedroom, construction, floor, subdivision, charge, bathroom, diagenergy,toilet, garage, basement, land, price, periode, status, estate.address as address, estate.city as city, estate.postcode as postcode, picture
+            'SELECT estate.id as id, estate.title as title, category.name as category, category.id as category_id, type.name as name, type.id as type_id, kitchen.type as kitchen, kitchen.id as kitchen_id, exposure.name as exposure, exposure.id as exposure_id, energyclass.name as energyclass, energyclass.id as energyclass_id, ges.name as ges, ges.id as ges_id, parking.type as parking, parking.id as parking_id, client.id as client, client.lastname as lastname, client.firstname as firstname, room, description, surface, bedroom, construction, floor, subdivision, charge, bathroom, diagenergy,toilet, garage, basement, land, price, periode, status, estate.address as address, estate.city as city, estate.postcode as postcode, picture
              FROM estate
              INNER JOIN category
              ON estate.category_id = category.id
@@ -157,8 +162,8 @@ class RealEstateAdvert extends Database
              ON estate.kitchen_id = kitchen.id
              INNER JOIN exposure
              ON estate.exposure_id = exposure.id
-             INNER JOIN heating
-             ON estate.heating_id = heating.id
+             /*INNER JOIN heating
+             ON estate.heating_id = heating.id*/
              INNER JOIN energyclass
              ON estate.energyclass_id = energyclass.id
              INNER JOIN ges
@@ -172,6 +177,13 @@ class RealEstateAdvert extends Database
         );
         $req->execute(array('estate_id' => $estateId));
         $estate = $req->fetch();
+
+        /* estate_has_heating -> heating ou heating_id = id (on récupère le type) where estate_id de estate_has_heating = $estateId (celui passé en paramètre)
+        $heating
+        
+        return array($estate, $heating)
+        */
+
         return $estate;
     }
 

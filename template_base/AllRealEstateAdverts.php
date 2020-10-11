@@ -50,7 +50,7 @@
                     </li>
                 </ul>
                 <!-- Excerpt -->
-                <p class="dark-grey-text"><?=(ucfirst($listEstate['description_cut'])) ?></p>
+                <p class="dark-grey-text"><?=(ucfirst(substr($listEstate['description'], 0, 100))) ?></p>
 
                 <!-- Read more button -->
                 <a class="btn btn-info" href="index.php?action=estate&id=<?= $listEstate['id'] ?>">Plus de détails</a>
