@@ -85,6 +85,17 @@ class RealEstateAdvert extends Database
 
     }
 
+    public function getHeatingId() // recupere info chauffage
+    {
+        $db = $this->dbConnect();
+        $req = $db->query('SELECT * FROM estate_has_heating ORDER BY heating_id');
+        $req->execute(array());
+        $heating = $req->fetchAll();
+
+        return $heating;
+
+    }
+
     public function getEnergyClass() // recupere info classe energie
     {
         $db = $this->dbConnect();
@@ -177,15 +188,33 @@ class RealEstateAdvert extends Database
         );
         $req->execute(array('estate_id' => $estateId));
         $estate = $req->fetch();
+        
 
+        $heating = $db->prepare (
+            'SELECT estate.heating_id, heating.type 
+            FROM estate_has_heating as estate
+            INNER JOIN heating
+            ON heating.id = estate.heating_id
+            WHERE estate_id = :estate_id'
+        ); // on recup le heating_id de la table estate_as_heating et le type de table heating - où l'id de la table heating = heatig_id de la table estate_has_heating - where estate_id de la table estate_has_heating = $estateId
+        $heating->execute(array('estate_id' => $estateId)); 
+        $heatingId = $heating->fetchAll(); // array à chaque entrée il y a l'id et le type
+        $estate['heatings'] = array(); // on crée la clé heatings avec un array vide
+        foreach ($heatingId as $heating) {
+            $estate['heatings'][$heating['heating_id']] = $heating['type']; // on crée une nouvelle clé $heating['heating_id'] (array[avec la donnée qu'on récupère]) qu'on met dans le tableau vide $estate['heatings']
+        }
+        return $estate;
+
+
+       
         /* estate_has_heating -> heating ou heating_id = id (on récupère le type) where estate_id de estate_has_heating = $estateId (celui passé en paramètre)
         $heating
         
         return array($estate, $heating)
         */
-
-        return $estate;
+   
+        
     }
 
-
+    
 }

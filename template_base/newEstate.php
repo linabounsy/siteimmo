@@ -17,7 +17,7 @@
 <a href="index.php?action=indexadmin" class="btn btn-info btn-md my-4">Revenir à la page précédente</a>
 
 
-<form action="index.php?action=newadvert" method="post" enctype="multipart/form-data">
+<form action="index.php?action=newadvert" method="post" enctype="multipart/form-data" novalidate>
 
   <!--Accordion wrapper-->
   <div class="accordion md-accordion accordion-1" id="accordionEx23" role="tablist">

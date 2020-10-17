@@ -93,7 +93,9 @@ class AdminBoard
     {
         $realEstateAdvert = new RealEstateAdvert;
         
-
+        // $validation =  new Validator($_POST, $_FILES, 'addadvert');
+        // $validation = array();
+        // $validation = true;
         // gestion des erreurs
         $errors = 0;
         $msgerror = array();
@@ -316,11 +318,14 @@ class AdminBoard
                 $errors++;
             }
 
+            // traitement $_FILES
+            // type mime, extension, taille
 
             if ($errors === 0) {
-    
+                // renommer le fichier
                 $realEstateAdvert->addInfoEstate($_POST['category'], $_POST['type'], $_POST['exposure'], $_POST['parking'], $_POST['kitchen'], $_POST['heating'], $_POST['subdivision'], $_POST['floor'], $_POST['charge'], $_POST['bathroom'], $_POST['toilet'], $_POST['garage'], $_POST['basement'], $_POST['surface'], $_POST['land'], $_POST['price'], $periode->format('Y-m-d h:i:s'), $_POST['title'], $_POST['description'], $_FILES['picture']['name'], $status, $_POST['diagenergy'], $_POST['ges'], $_POST['room'], $_POST['bedroom'], $construction->format('Y-m-d h:i:s'), $_POST['client'], $_POST['address'], $_POST['city'], $_POST['postcode'], $_POST['energyclass']);
-               
+               // upload de l'image
+
                 header('Location: index.php?action=indexadmin');
                 exit();
             }
@@ -350,7 +355,7 @@ class AdminBoard
         $realEstateAdvert = new RealEstateAdvert;
 
         if (isset($_GET['id']) && $_GET['id'] > 0) {
-
+            
             $estate = $realEstateAdvert->getEstate($_GET['id']);
             $clients = $realEstateAdvert->getClients();
             $categories = $realEstateAdvert->getCategory();
@@ -361,6 +366,7 @@ class AdminBoard
             $energyclasses = $realEstateAdvert->getEnergyClass();
             $geses = $realEstateAdvert->getGes();
             $parkings = $realEstateAdvert->getParking();
+          
         } else {
             throw new Exception('aucun identifiant d\'annonce envoyé');
         }
