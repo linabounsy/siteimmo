@@ -16,7 +16,7 @@
 
 <a href="index.php?action=indexadmin" class="btn btn-info btn-md my-4">Revenir à la page précédente</a>
 
-<form action="index.php?action=editestate&id=<?= $estate['id'] ?>" method="post" enctype="multipart/form-data" id="modifyestate" novalidate>
+<form action="index.php?action=editestate&id=<?= $estate['id'] ?>" method="post" enctype="multipart/form-data" id="editestate" novalidate>
 
   <!--Accordion wrapper-->
   <div class="accordion md-accordion accordion-1" id="accordionEx23" role="tablist">
@@ -74,7 +74,7 @@
             <option value="choisir un client" selected>Choisir son client</option>
             <?php foreach ($clients as $client) { ?>
 
-              <option value="<?= $estate['client'] ?>" <?= ($estate['client']) == ($client['id']) ? 'selected="selected"' : ''?>><?= (ucfirst($client['lastname'])) ?> <?= (ucfirst($client['firstname'])) ?></option>
+              <option value="<?= $estate['client'] ?>" <?= ($estate['client']) == ($client['id']) ? 'selected="selected"' : '' ?>><?= (ucfirst($client['lastname'])) ?> <?= (ucfirst($client['firstname'])) ?></option>
 
             <?php } ?>
           </select>
@@ -95,7 +95,7 @@
         <div class="card-body">
           <?php foreach ($categories as $category) { ?>
             <div class="custom-control custom-radio custom-control-inline" id="categorybut">
-              <input type="radio" class="custom-control-input" id="<?= $category['name'] ?>" name="category" value="<?= $estate['category'] ?>" <?=($estate['category_id']) == ($category['id']) ? 'checked="checked"' : null?>>
+              <input type="radio" class="custom-control-input" id="<?= $category['name'] ?>" name="category" value="<?= $estate['category'] ?>" <?= ($estate['category_id']) == ($category['id']) ? 'checked="checked"' : null ?>>
               <label class="custom-control-label" for="<?= $category['name'] ?>"><?= (ucfirst($category['name'])) ?></label>
             </div>
 
@@ -119,7 +119,7 @@
         <div class="card-body">
           <?php foreach ($types as $type) { ?>
             <div class="custom-control custom-radio custom-control-inline" id="typebut">
-              <input type="radio" class="custom-control-input" id="<?= $type['name'] ?>" name="type" value="<?= $estate['name'] ?>" <?=($estate['type_id']) == ($type['id']) ? 'checked="checked"' : null?>>
+              <input type="radio" class="custom-control-input" id="<?= $type['name'] ?>" name="type" value="<?= $estate['name'] ?>" <?= ($estate['type_id']) == ($type['id']) ? 'checked="checked"' : null ?>>
               <label class="custom-control-label" for="<?= $type['name'] ?>"><?= (ucfirst($type['name'])) ?></label>
 
             </div>
@@ -144,8 +144,8 @@
 
           <div class="custom-control-inline">
             <input class="form-control w-50 mr-2" type="text" id="address" name="address" placeholder="Adresse" value="<?= htmlspecialchars($estate['address']) ?>">
-            <input class="form-control w-25 mr-2" type="text" id="city" name="city" placeholder="Ville"  value="<?= htmlspecialchars($estate['city']) ?>">
-            <input class="form-control w-25" type="number" id="postcode" name="postcode" placeholder="Code postal"  value="<?= htmlspecialchars($estate['postcode']) ?>">
+            <input class="form-control w-25 mr-2" type="text" id="city" name="city" placeholder="Ville" value="<?= htmlspecialchars($estate['city']) ?>">
+            <input class="form-control w-25" type="number" id="postcode" name="postcode" placeholder="Code postal" value="<?= htmlspecialchars($estate['postcode']) ?>">
 
           </div>
           <p id="error_localisation" class="error"><?= isset($msgerror['address']) ? $msgerror['address'] : '' ?></p>
@@ -186,7 +186,7 @@
         <div class="card-body">
           <?php foreach ($exposures as $exposure) { ?>
             <div class="custom-control custom-radio custom-control-inline" id="exposurebut">
-              <input type="radio" class="custom-control-input" id="<?= $exposure['name'] ?>" name="exposure" value="<?= $estate['exposure'] ?>" <?=($estate['exposure_id']) == ($exposure['id']) ? 'checked="checked"' : null?>>
+              <input type="radio" class="custom-control-input" id="<?= $exposure['name'] ?>" name="exposure" value="<?= $estate['exposure'] ?>" <?= ($estate['exposure_id']) == ($exposure['id']) ? 'checked="checked"' : null ?>>
               <label class="custom-control-label" for="<?= $exposure['name'] ?>"><?= (ucfirst($exposure['name'])) ?></label>
             </div>
           <?php } ?>
@@ -242,11 +242,11 @@
       <div id="collapse106" class="collapse show" role="tabpanel" id="subdivision" aria-labelledby="heading106">
         <div class="card-body">
           <div class="custom-control custom-radio custom-control-inline" id="subdivisionyesbut">
-            <input type="radio" class="custom-control-input" id="coprooui" name="subdivision" value="<?= ($estate['subdivision']) ?>" <?=($estate['subdivision']) == '1' ? 'checked="checked"' : null?>>
+            <input type="radio" class="custom-control-input" id="coprooui" name="subdivision" value="<?= ($estate['subdivision']) ?>" <?= ($estate['subdivision']) == '1' ? 'checked="checked"' : null ?>>
             <label class="custom-control-label" for="coprooui">Oui</label>
           </div>
           <div class="custom-control custom-radio custom-control-inline" id="subdivisionnobut">
-            <input type="radio" class="custom-control-input" id="copronon" name="subdivision" value="<?= ($estate['subdivision']) ?>" <?=($estate['subdivision']) == '0' ? 'checked="checked"' : null?>>
+            <input type="radio" class="custom-control-input" id="copronon" name="subdivision" value="<?= ($estate['subdivision']) ?>" <?= ($estate['subdivision']) == '0' ? 'checked="checked"' : null ?>>
             <label class="custom-control-label" for="copronon">Non</label>
           </div>
           <p id="error_subdivisionbut" class="error"><?= isset($msgerror['subdivision']) ? $msgerror['subdivision'] : '' ?></p>
@@ -393,7 +393,7 @@
           <div class="control-inline">
             <?php foreach ($kitchens as $kitchen) { ?>
               <div class="custom-control custom-radio custom-control-inline" id="kitchenbut">
-                <input type="radio" class="custom-control-input" id="<?= $kitchen['type'] ?>" name="kitchen" value="<?= ($estate['kitchen']) ?>" <?=($estate['kitchen_id']) == ($kitchen['id']) ? 'checked="checked"' : null?>>
+                <input type="radio" class="custom-control-input" id="<?= $kitchen['type'] ?>" name="kitchen" value="<?= ($estate['kitchen']) ?>" <?= ($estate['kitchen_id']) == ($kitchen['id']) ? 'checked="checked"' : null ?>>
 
                 <label class="custom-control-label" for="<?= $kitchen['type'] ?>"><?= (ucfirst($kitchen['type'])) ?></label>
               </div>
@@ -412,12 +412,12 @@
           </a>
         </h5>
       </div>
-    
+
       <div id="collapse103" class="collapse show" role="tabpanel" aria-labelledby="heading103">
         <div class="card-body">
           <?php foreach ($heatings as $heating) { ?>
             <div class="custom-control custom-radio custom-control-inline" id="heatingbut">
-              <input type="checkbox" class="custom-control-input" id="<?= 'heating_' . $heating['id'] ?>" name="heating[]" value="<?= $heating['id'] ?>" <?= !empty($estate['heatings'][$heating['id']]) ? 'checked="checked"' : null?>>
+              <input type="checkbox" class="custom-control-input" id="<?= 'heating_' . $heating['id'] ?>" name="heating[]" value="<?= $heating['id'] ?>" <?= !empty($estate['heatings'][$heating['id']]) ? 'checked="checked"' : null ?>>
               <label class="custom-control-label" for="<?= 'heating_' . $heating['id'] ?>"><?= (ucfirst($heating['type'])) ?></label>
             </div>
           <?php } ?>
@@ -438,7 +438,7 @@
         <div class="card-body">
           <?php foreach ($parkings as $parking) { ?>
             <div class="custom-control custom-radio custom-control-inline" id="parkingbut">
-              <input type="radio" class="custom-control-input" id="<?= $parking['type'] ?>" name="parking" value="<?= ($estate['parking']) ?>" <?=($estate['parking_id']) == ($parking['id']) ? 'checked="checked"' : null?>>
+              <input type="radio" class="custom-control-input" id="<?= $parking['type'] ?>" name="parking" value="<?= ($estate['parking']) ?>" <?= ($estate['parking_id']) == ($parking['id']) ? 'checked="checked"' : null ?>>
               <label class="custom-control-label" for="<?= $parking['type'] ?>"><?= (ucfirst($parking['type'])) ?></label>
             </div>
           <?php } ?>
@@ -476,12 +476,12 @@
       <div id="collapse117" class="collapse show" id="basement" role="tabpanel" aria-labelledby="heading117">
         <div class="card-body">
           <div class="custom-control custom-radio custom-control-inline" id="basementyesbut">
-            <input type="radio" class="custom-control-input" id="basementoui" name="basement" value="<?= ($estate['basement']) ?>" <?=($estate['basement']) == '1' ? 'checked="checked"' : null?> >
+            <input type="radio" class="custom-control-input" id="basementoui" name="basement" value="<?= ($estate['basement']) ?>" <?= ($estate['basement']) == '1' ? 'checked="checked"' : null ?>>
             <label class="custom-control-label" for="basementoui">Oui</label>
           </div>
 
           <div class="custom-control custom-radio custom-control-inline" id="basementnobut">
-            <input type="radio" class="custom-control-input" id="basementnon" name="basement" value="<?= ($estate['basement']) ?>" <?=($estate['basement']) == '0' ? 'checked="checked"' : null?>>
+            <input type="radio" class="custom-control-input" id="basementnon" name="basement" value="<?= ($estate['basement']) ?>" <?= ($estate['basement']) == '0' ? 'checked="checked"' : null ?>>
             <label class="custom-control-label" for="basementnon">Non</label>
           </div>
 
@@ -501,11 +501,11 @@
       <div id="collapse118" class="collapse show" role="tabpanel" id="diagenergy" aria-labelledby="heading118">
         <div class="card-body">
           <div class="custom-control custom-radio custom-control-inline" id="diagenergyyesbut">
-            <input type="radio" class="custom-control-input" id="diagoui" name="diagenergy" value="<?= ($estate['diagenergy']) ?>" <?=($estate['diagenergy']) == '1' ? 'checked="checked"' : null?> >
+            <input type="radio" class="custom-control-input" id="diagoui" name="diagenergy" value="<?= ($estate['diagenergy']) ?>" <?= ($estate['diagenergy']) == '1' ? 'checked="checked"' : null ?>>
             <label class="custom-control-label" for="diagoui">Oui</label>
           </div>
           <div class="custom-control custom-radio custom-control-inline" id="diagenergynobut">
-            <input type="radio" class="custom-control-input" id="diagnon" name="diagenergy" value="<?= ($estate['diagenergy']) ?>" <?=($estate['diagenergy']) == '0' ? 'checked="checked"' : null?>>
+            <input type="radio" class="custom-control-input" id="diagnon" name="diagenergy" value="<?= ($estate['diagenergy']) ?>" <?= ($estate['diagenergy']) == '0' ? 'checked="checked"' : null ?>>
             <label class="custom-control-label" for="diagnon">Non</label>
           </div>
           <p id="error_diagenergybut" class="error"><?= isset($msgerror['diagenergy']) ? $msgerror['diagenergy'] : '' ?></p>
@@ -525,7 +525,7 @@
         <div class="card-body">
           <?php foreach ($energyclasses as $energyclass) { ?>
             <div class="custom-control custom-radio custom-control-inline" id="energyclassbut">
-              <input type="radio" class="custom-control-input" id="energy-<?= $energyclass['id'] ?>" name="energyclass" value="<?= $estate['energyclass'] ?>" <?=($estate['energyclass_id']) == ($energyclass['id']) ? 'checked="checked"' : null?>>
+              <input type="radio" class="custom-control-input" id="energy-<?= $energyclass['id'] ?>" name="energyclass" value="<?= $estate['energyclass'] ?>" <?= ($estate['energyclass_id']) == ($energyclass['id']) ? 'checked="checked"' : null ?>>
               <label class="custom-control-label" for="energy-<?= $energyclass['id'] ?>"><?= (ucfirst($energyclass['name'])) ?></label>
             </div>
 
@@ -547,7 +547,7 @@
         <div class="card-body">
           <?php foreach ($geses as $ges) { ?>
             <div class="custom-control custom-radio custom-control-inline" id="gesbut">
-              <input type="radio" class="custom-control-input" id="ges-<?= $ges['id'] ?>" name="ges" value="<?= $estate['ges'] ?>" <?=($estate['ges_id']) == ($ges['id']) ? 'checked="checked"' : null?>>
+              <input type="radio" class="custom-control-input" id="ges-<?= $ges['id'] ?>" name="ges" value="<?= $estate['ges'] ?>" <?= ($estate['ges_id']) == ($ges['id']) ? 'checked="checked"' : null ?>>
               <label class="custom-control-label" for="ges-<?= $ges['id'] ?>"><?= (ucfirst($ges['name'])) ?></label>
 
             </div>
@@ -586,27 +586,37 @@
       </div>
       <div id="collapse121" class="collapse show" role="tabpanel" aria-labelledby="heading121">
         <div class="card-body">
-          <div class="custom-control-inline">
-            <input type="file" id="picture" name="picture" accept="image/png, image/jpg" value="<?=($estate['picture']) ? $estate['picture'] : null?>">
+          <div id="form_delete">
+            <form action="index.php?action=deleteimg&id=<?= $estate['id'] ?>" method="post" id="deleteimg"></form>
           </div>
-          <p id="error_picture" class="error"><?= isset($msgerror['picture']) ? $msgerror['picture'] : (isset($msgerror['newpicture']) ? $msgerror['newpicture'] : '') ?></p>
-
+          <div>
+            <input form="modifyestate" type="file" class="input-button" name="changepicture" accept="image/png, image/jpg">
+            <input form="deleteimg" type="submit" value="supprimer l'image" class="input-button-form" onclick="return window.confirm('Etes vous sûr de vouloir supprimer cette image ?')">
+            <br />
+            <img src="../public/img/estates/<?= $estate["picture"] ?>" id="editpostimg" class="card-img-top w-25" alt="">
+            <input type="hidden" name="picture" value="<?= $estate["picture"] ?>">
+          
+          </div>
         </div>
+
+
+
+
+
       </div>
+
+
+
+
     </div>
+    <!--Accordion wrapper-->
+
+    <div class="text-center">
+      <button class="light blue lighten-4 my-4 btn-lg  text-lg font-weight-bold black-text" type="submit" value="1" name="modifyadvertpublish" id="modifyadvertpublish">Publier l'annonce</button>
+      <button class="light blue lighten-4 my-4 btn-lg  text-lg font-weight-bold black-text" type="submit" value="2" name="modifyadvertnopublish" id="modifyadvertnopublish">Ne pas publier l'annonce</button>
 
 
-
-
-  </div>
-  <!--Accordion wrapper-->
-
-  <div class="text-center">
-    <button class="light blue lighten-4 my-4 btn-lg  text-lg font-weight-bold black-text" type="submit" value="1" name="newadvertpublish" id="newadvertpublish">Publier l'annonce</button>
-    <button class="light blue lighten-4 my-4 btn-lg  text-lg font-weight-bold black-text" type="submit" value="2" name="newadvertnopublish" id="newadvertnopublish">Ne pas publier l'annonce</button>
-
-
-  </div>
+    </div>
 
 </form>
 
@@ -615,4 +625,3 @@
 <?php
 require('../template_base/templateAdmin.php');
 ?>
-

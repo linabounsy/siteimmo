@@ -23,6 +23,7 @@ class RealEstate
     {
         $realEstateAdvert = new RealEstateAdvert;
         
+
         if (isset($_GET['id']) && $_GET['id'] > 0) {
             
             $estate = $realEstateAdvert->getEstate($_GET['id']);

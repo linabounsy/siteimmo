@@ -587,7 +587,7 @@
       <div id="collapse121" class="collapse <?= !empty($msgerror['picture']) ? 'show' : (!empty($msgerror['newpicture']) ? 'show' : null) ?>" role="tabpanel" aria-labelledby="heading121">
         <div class="card-body">
           <div class="custom-control-inline">
-            <input type="file" id="picture" name="picture" accept="image/png, image/jpg" value="">
+            <input type="file" id="picture" name="picture" accept="image/png, image/jpg, image/jpeg" value="">
           </div>
           <p id="error_picture" class="error"><?= isset($msgerror['picture']) ? $msgerror['picture'] : (isset($msgerror['newpicture']) ? $msgerror['newpicture'] : '') ?></p>
 

@@ -120,6 +120,7 @@ class RealEstateAdvert extends Database
  
     public function addInfoEstate($category, $type, $exposure, $parking, $kitchen, $heating, $subdivision, $floor, $charge, $bathroom, $toilet, $garage, $basement, $surface, $land, $price, $periode, $title, $description, $picture, $status, $diagenergy, $ges_id, $room, $bedroom, $construction, $client_id, $address, $city, $postcode, $energyclass_id) // ajout loc ou vente / type / exposition / parking / client / cuisine dans l'annonce
     {
+
         $db = $this->dbConnect();
         
         $estate = $db->prepare('
@@ -137,7 +138,7 @@ class RealEstateAdvert extends Database
             $estateHeating->execute((array('estate_id' => $estate['estate_id'], 'heating_id' => $heat))); 
             
         }
-
+        
     }
 
     public function getEstatesAdmin() // recupère les dernières annonces pour l'admin
@@ -203,18 +204,68 @@ class RealEstateAdvert extends Database
         foreach ($heatingId as $heating) {
             $estate['heatings'][$heating['heating_id']] = $heating['type']; // on crée une nouvelle clé $heating['heating_id'] (array[avec la donnée qu'on récupère]) qu'on met dans le tableau vide $estate['heatings']
         }
+
+        
         return $estate;
 
-
-       
-        /* estate_has_heating -> heating ou heating_id = id (on récupère le type) where estate_id de estate_has_heating = $estateId (celui passé en paramètre)
-        $heating
-        
-        return array($estate, $heating)
-        */
-   
         
     }
 
+    public function deleteImg($estateId) 
+    {
+        $db = $this->dbConnect();
+        $editEstate = $db->prepare ('UPDATE estate SET picture = NULL WHERE id = :estateId');
+        $editEstate->execute(array('estateId' => $estateId));
+    }
+
+    public function editEstate($estateId, $category, $type, $exposure, $parking, $kitchen, $heating, $subdivision, $floor, $charge, $bathroom, $toilet, $garage, $basement, $surface, $land, $price, $periode, $title, $description, $picture, $status, $diagenergy, $ges_id, $room, $bedroom, $construction, $client_id, $address, $city, $postcode, $energyclass_id) 
+    {
+        $db = $this->dbConnect();
+        $sql = "UPDATE estate SET category_id = :category_id, type_id = :type_id, exposure_id = :exposure_id, parking_id = :parking_id, kitchen_id = :kitchen_id, subdivision = :subdivision, floor = :floor, charge = :charge, bathroom = :bathroom, toilet = :toilet, garage = :garage, basement = :basement, surface = :surface, land = :land, price = :price, periode = :periode, title = :title, description = :description, status = :status, diagenergy = :diagenergy, ges_id = :ges_id, room = :room, bedroom = :bedroom, construction = :construction, client_id = :client_id, address = :address, city = :city, postcode = :postcode, energyclass_id = :energyclass_id";
+        
+        $data = array('estateId' => $estateId, 'category_id' => $category, 'type_id' => $type, 'exposure_id' => $exposure, 'parking_id' => $parking, 'kitchen_id' => $kitchen, 'subdivision' => $subdivision, 'floor' => $floor, 'charge' => $charge, 'bathroom' => $bathroom, 'toilet' => $toilet, 'garage' => $garage, 'basement' => $basement, 'surface' => $surface, 'land' => $land, 'price' => $price, 'periode' => $periode, 'title' => $title, 'description' => $description, 'status' => $status, 'diagenergy' => $diagenergy, 'ges_id' => $ges_id, 'room' => $room, 'bedroom' => $bedroom, 'construction' => $construction, 'client_id' => $client_id, 'address' => $address, 'city' => $city, 'postcode' => $postcode, 'energyclass_id' => $energyclass_id);
+
+        if ($picture != false) {
+            $sql .= ', picture = :picture';
+            $data['picture'] = $picture;
+        }
+        
+        $editEstate = $db->prepare($sql);
+        $editEstate->execute($data);
+
+        $editEstate = $db->prepare('UPDATE estate SET category_id = :category_id, type_id = :type_id, exposure_id = :exposure_id, parking_id = :parking_id, kitchen_id = :kitchen_id, subdivision = :subdivision, floor = :floor, charge = :charge, bathroom = :bathroom, toilet = :toilet, garage = :garage, basement = :basement, surface = :surface, land = :land, price = :price, periode = :periode, title = :title, description = :description, picture = :picture, status = :status, diagenergy = :diagenergy, ges_id = :ges_id, room = :room, bedroom = :bedroom, construction = :construction, client_id = :client_id, address = :address, city = :city, postcode = :postcode, energyclass_id = :energyclass_id');
+
+
+
+        $editEstate->execute(array('estateId' => $estateId, 'category_id' => $category, 'type_id' => $type, 'exposure_id' => $exposure, 'parking_id' => $parking, 'kitchen_id' => $kitchen, 'subdivision' => $subdivision, 'floor' => $floor, 'charge' => $charge, 'bathroom' => $bathroom, 'toilet' => $toilet, 'garage' => $garage, 'basement' => $basement, 'surface' => $surface, 'land' => $land, 'price' => $price, 'periode' => $periode, 'title' => $title, 'description' => $description, 'picture' => $picture, 'status' => $status, 'diagenergy' => $diagenergy, 'ges_id' => $ges_id, 'room' => $room, 'bedroom' => $bedroom, 'construction' => $construction, 'client_id' => $client_id, 'address' => $address, 'city' => $city, 'postcode' => $postcode, 'energyclass_id' => $energyclass_id));
+
+        $req = $db->query('SELECT LAST_INSERT_ID() as estate_id FROM estate'); // recupere l'id de la derniere annonce 
+        $estate = $req->fetch();
+
+        $estateHeating = $db->prepare('UPDATE estate_has_heating (estate_id, heating_id) SET (:estate_id, :heating_id)'); // update les plusieurs types de chauffage possible 
+        
+        foreach ($heating as $heat) {
+            $estateHeating->execute((array('estate_id' => $estate['estate_id'], 'heating_id' => $heat))); 
+            
+        }
+        
+    }
+
+    public function editEstateWithoutImg($estateId, $category, $type, $exposure, $parking, $kitchen, $heating, $subdivision, $floor, $charge, $bathroom, $toilet, $garage, $basement, $surface, $land, $price, $periode, $title, $description, $status, $diagenergy, $ges_id, $room, $bedroom, $construction, $client_id, $address, $city, $postcode, $energyclass_id) 
+    {
+        $db = $this->dbConnect();
+        $editEstate = $db->prepare('UPDATE estate SET category_id = :category_id, type_id = :type_id, exposure_id = :exposure_id, parking_id = :parking_id, kitchen_id = :kitchen_id, subdivision = :subdivision, floor = :floor, charge = :charge, bathroom = :bathroom, toilet = :toilet, garage = :garage, basement = :basement, surface = :surface, land = :land, price = :price, periode = :periode, title = :title, description = :description, picture = :picture, status = :status, diagenergy = :diagenergy, ges_id = :ges_id, room = :room, bedroom = :bedroom, construction = :construction, client_id = :client_id, address = :address, city = :city, postcode = :postcode, energyclass_id = :energyclass_id');
+        $editEstate->execute(array('estateId' => $estateId, 'category_id' => $category, 'type_id' => $type, 'exposure_id' => $exposure, 'parking_id' => $parking, 'kitchen_id' => $kitchen, 'subdivision' => $subdivision, 'floor' => $floor, 'charge' => $charge, 'bathroom' => $bathroom, 'toilet' => $toilet, 'garage' => $garage, 'basement' => $basement, 'surface' => $surface, 'land' => $land, 'price' => $price, 'periode' => $periode, 'title' => $title, 'description' => $description, 'status' => $status, 'diagenergy' => $diagenergy, 'ges_id' => $ges_id, 'room' => $room, 'bedroom' => $bedroom, 'construction' => $construction, 'client_id' => $client_id, 'address' => $address, 'city' => $city, 'postcode' => $postcode, 'energyclass_id' => $energyclass_id));
+
+        $req = $db->query('SELECT LAST_INSERT_ID() as estate_id FROM estate'); // recupere l'id de la derniere annonce 
+        $estate = $req->fetch();
+
+        $estateHeating = $db->prepare('UPDATE estate_has_heating (estate_id, heating_id) SET (:estate_id, :heating_id)'); // update les plusieurs types de chauffage possible 
+        
+        foreach ($heating as $heat) {
+            $estateHeating->execute((array('estate_id' => $estate['estate_id'], 'heating_id' => $heat))); 
+            
+        }
+    }
     
 }

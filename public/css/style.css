@@ -83,5 +83,27 @@ tbody .tech-form.bgcolor-light.blue.lighten-4
     
 }
 
+.input-button::-webkit-file-upload-button
+{
+    visibility : hidden;
+}
+
+.input-button::before
+{
+  content: 'Modifier l\'image';
+  display: inline-block;
+  border: 5px #f9f9f9 solid;
+  background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+  border-radius: 3px;
+  
+}
+
+.input-button-form
+{
+  border: 5px #f9f9f9 solid;
+  background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+  border-radius: 3px;
+}
+
 
 

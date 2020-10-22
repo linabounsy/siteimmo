@@ -49,6 +49,10 @@ try { // On essaie de faire des choses
         if ($_GET['action'] == 'modifyestate') {
             $admin->modifyEstate();
         } 
+        if ($_GET['action'] == 'editestate') {
+            $admin->modifyEstate();
+        } 
+      
         
        
     } else {
