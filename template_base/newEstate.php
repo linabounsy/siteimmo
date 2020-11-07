@@ -34,7 +34,7 @@
         <div class="card-body">
           <input class="form-control w-50" type="text" id="title" name="title" placeholder="Titre" required value="<?= isset($_POST['title']) ? htmlspecialchars($_POST['title']) : '' ?>">
 
-          <p id="error_title" class="error"><?= isset($msgerror['title']) ? $msgerror['title'] : '' ?></p>
+          <p id="error_title" class="error"><?= isset($estateValidate->getMsgerror()['title']) ? $estateValidate->getMsgerror()['title'] : '' ?></p>
 
 
         </div>
@@ -71,7 +71,7 @@
       <div id="collapse98" class="collapse <?= !empty($msgerror['client']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading98">
         <div class="card-body">
 
-          <select id="client" class="form-control w-50" name="client" value="<?= $client['id'] ?>">
+          <select id="client" class="form-control w-50" name="client">
             <option value="choisir un client" selected>Choisir son client</option>
             <?php foreach ($clients as $client) { ?>
 

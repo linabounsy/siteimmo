@@ -6,9 +6,12 @@ use DateTime;
 use Exception;
 use Model\Admin;
 use Model\RealEstateAdvert;
+use Services\Validator;
+use Services\Validator\Estate;
 
 require_once('../model/Admin.php');
 require_once('../model/RealEstateAdvert.php');
+require_once '../services/Validator/Estate.php';
 
 class AdminBoard
 {
@@ -33,8 +36,12 @@ class AdminBoard
 
     public function indexAdmin()
     {
-
-
+        /*
+        if (!Session::isAuth()) {
+            header('Location: index.php');
+            exit();
+        }
+        */
         $realEstateAdvert = new RealEstateAdvert;
         $estates = $realEstateAdvert->getEstatesAdmin();
 
@@ -102,15 +109,29 @@ class AdminBoard
 
 
         if (isset($_POST['newadvertpublish']) || isset($_POST['newadvertnopublish'])) {
+
+            $estateValidate = new Estate($_POST);
+
+            if ($estateValidate->validate()) {
+                // l'anonce est bonne le titre est ok
+            }
+            
+            /*
+            echo '<pre>';
+            print_r($estateValidate->getMsgerror());
+            die();
+*/
+/*
             if (empty($_POST['title']) || strlen($_POST['title']) > 45) {
                 $msgerror['title'] = 'renseigner le titre - 45 caractères max';
                 $errors++;
-            }
+            }¨
+            */
             if (empty($_POST['description'])) {
                 $msgerror['description'] = 'remplir la description';
                 $errors++;
             }
-            if ($_POST['client'] == 'choisir un client') {
+            if ($_POST['client'] == 0) {
                 $msgerror['client'] = 'sélectionner un client';
                 $errors++;
             }
@@ -136,12 +157,10 @@ class AdminBoard
                 $msgerror['postcode'] = "renseigner tous les champs - 255 caractères max pour l'adresse - 25 max pour la ville - 5 chiffres max pour le code postal";
                 $errors++;
             }
-            $construction = null;
+            //$construction = null;
             if (empty($_POST['construction'])) {
                 $msgerror['construction'] = 'renseigner une année';
                 $errors++;
-            } else {
-                $construction = DateTime::createFromFormat('d-m-Y', '01-01-' . $_POST['construction']);
             }
             if (empty($_POST['exposure'])) {
                 $msgerror['exposure'] = 'sélectionner un champ';
@@ -217,6 +236,7 @@ class AdminBoard
                 $errors++;
             }
 
+
             if (!isset($_POST['basement'])) {
                 $msgerror['basement'] = 'sélectionner un champ';
                 $errors++;
@@ -245,12 +265,10 @@ class AdminBoard
                 $msgerror['ges'] = 'sélectionner un champ';
                 $errors++;
             }
-            $periode = null;
+            
             if (empty($_POST['periode'])) {
                 $msgerror['periode'] = 'sélectionner une date';
                 $errors++;
-            } else {
-                $periode = DateTime::createFromFormat('d-m-Y', $_POST['periode']);
             }
 
             $status = null;
@@ -325,7 +343,7 @@ class AdminBoard
                 $fileExtension = strtolower(strrchr($fileName, ".")); // isole le nouveau nom de l'image de l'extension + ajouter lowerCase
                 $extensionAllowed = array('.jpg', '.jpeg', '.png'); // extension autorisée
                 $fileType = $_FILES['picture']['type'];
-                $types = array('image/jpg', 'image/jpeg', 'image/png');
+                $type = array('image/jpg', 'image/jpeg', 'image/png');
                 $maxSize = 7000000;
                 $size = ($_FILES['picture']['size']);
 
@@ -342,8 +360,8 @@ class AdminBoard
                 }
 
                 // si le type mime pas correct alors error++ et msg (vérifier le fichier de l'image)
-                if (!in_array($fileType,  $types)) {
-                    $msgerror['picture'] = 'extension acceptée : .jpg .jpeg et .png';
+                if (!in_array($fileType,  $type)) {
+                    $msgerror['picture'] = "le contenu ne correspond pas à l'extension du fichier";
                     $errors++;
                 }
 
@@ -358,6 +376,8 @@ class AdminBoard
             if (in_array($fileExtension, $extensionAllowed) && $size < $maxSize && $size !== 0) { //separer l'extension et le format + max taille
 
                 if ($errors === 0) {
+                    $periode = DateTime::createFromFormat('d-m-Y', $_POST['periode']);
+                    $construction = DateTime::createFromFormat('d-m-Y', '01-01-' . $_POST['construction']);
 
                     move_uploaded_file($fileTemporyName, $fileDest . $fileExtension); // deplacer dossier temporaire vers dossier final
 
@@ -398,6 +418,8 @@ class AdminBoard
     }*/
     public function modifyEstate()
     {
+
+       
         $realEstateAdvert = new RealEstateAdvert;
 
         // $validation =  new Validator($_POST, $_FILES, 'addadvert');
@@ -406,6 +428,7 @@ class AdminBoard
         // gestion des erreurs
         $errors = 0;
         $msgerror = array();
+   
 
 
         if (isset($_POST['modifyadvertpublish']) || isset($_POST['modifyadvertnopublish'])) {
@@ -561,11 +584,11 @@ class AdminBoard
             }
 
             $status = null;
-            if (isset($_POST['newadvertpublish'])) {
+            if (isset($_POST['modifyadvertpublish'])) {
                 $status  = 1;
             }
 
-            if (isset($_POST['newadvertnopublish'])) {
+            if (isset($_POST['modifyadvertnopublish'])) {
                 $status  = 2;
             }
 
@@ -617,25 +640,27 @@ class AdminBoard
             }
 
             // si error != 0 et files not empty alors remettre photo puis supprimer le gros if
-            if ($errors != 0 && (!empty($_FILES['picture']['name']))) {
+            if ($errors != 0 && (!empty($_FILES['changepicture']['name']))) {
                 $msgerror['newpicture'] = 'veuillez re-sélectionner une photo';
                 $errors++;
             }
 
             // traitement $_FILES
 
-            if (!empty($_FILES)) {
-                $fileTemporyName = $_FILES['picture']['tmp_name']; //nom du fichier temporaire
-                $fileName = $_FILES['picture']['name']; // on veut le nom du fichier
-                $finalName = uniqid() . $fileName;
-                $fileDest = '../public/img/estates/' . $finalName; // dossier final pour l'image
-                $fileExtension = strtolower(strrchr($fileName, ".")); // isole le nouveau nom de l'image de l'extension + ajouter lowerCase
+            $currentImg = false; 
+            if (!empty($_FILES) && !empty($_FILES['changepicture']) && !empty($_FILES['changepicture']['name'])) {
+                
+                $currentImgTemp = $_FILES['changepicture']['tmp_name'];
+                $currentImg = $_FILES['changepicture']['name'];
+                $newName = uniqid();
+                $currentFile = '../public/img/estates/' . $newName;// dossier final pour l'image
+                $fileExtension = strtolower(strrchr($currentImg, ".")); // isole le nouveau nom de l'image de l'extension + ajouter lowerCase
                 $extensionAllowed = array('.jpg', '.jpeg', '.png'); // extension autorisée
-                $fileType = $_FILES['picture']['type'];
-                $types = array('image/jpg', 'image/jpeg', 'image/png');
+                $fileType = $_FILES['changepicture']['type'];
+                $type = array('image/jpg', 'image/jpeg', 'image/png');
                 $maxSize = 7000000;
-                $size = ($_FILES['picture']['size']);
-
+                $size = ($_FILES['changepicture']['size']);
+                $currentImg = $newName . $fileExtension;
                 // si extention de fichier non correct -> error++ et msg
                 if (!in_array($fileExtension,  $extensionAllowed)) {
                     $msgerror['picture'] = 'extension acceptée : .jpg .jpeg et .png';
@@ -649,37 +674,31 @@ class AdminBoard
                 }
 
                 // si le type mime pas correct alors error++ et msg (vérifier le fichier de l'image)
-                if (!in_array($fileType,  $types)) {
-                    $msgerror['picture'] = 'extension acceptée : .jpg .jpeg et .png';
+                if (!in_array($fileType, $type)) {
+                    $msgerror['changepicture'] = 'extension acceptée : .jpg .jpeg et .png';
                     $errors++;
                 }
 
-                if (empty($_FILES['picture']['name'])) {
+                if (empty($_FILES['changepicture']['name'])) {
                     $msgerror['picture'] = 'sélectionner une photo';
                     $errors++;
                 }
-            }
+            } 
+            
+            if ($errors === 0) {
 
-            $picture = false;
+                if ($currentImg !== false) {
+                    move_uploaded_file($currentImgTemp, $currentFile . $fileExtension);
+                    
+                } 
+                $realEstateAdvert->editEstate($_GET['id'], $_POST['category'], $_POST['type'], $_POST['exposure'], $_POST['parking'], $_POST['kitchen'], $_POST['heating'], $_POST['subdivision'], $_POST['floor'], $_POST['charge'], $_POST['bathroom'], $_POST['toilet'], $_POST['garage'], $_POST['basement'], $_POST['surface'], $_POST['land'], $_POST['price'], $periode->format('Y-m-d h:i:s'), $_POST['title'], $_POST['description'], $currentImg, $status, $_POST['diagenergy'], $_POST['ges'], $_POST['room'], $_POST['bedroom'], $construction->format('Y-m-d h:i:s'), $_POST['client'], $_POST['address'], $_POST['city'], $_POST['postcode'], $_POST['energyclass']);
 
-            if ((!empty($_POST['title']) || strlen($_POST['title']) > 45) || (!empty($_POST['description'])) || ($_POST['client'] == 'choisir un client') || (!empty($_POST['category'])) || (!empty($_POST['type'])) || (!empty($_POST['address']) || strlen($_POST['address']) > 255) || (!empty($_POST['city']) || strlen($_POST['city']) > 25) || (!empty($_POST['postcode']) || strlen($_POST['postcode']) > 5) || (!empty($_POST['construction'])) || (!empty($_POST['exposure'])) || (!empty($_POST['price'])) || (!empty($_POST['charge'])) ||  (!empty($_POST['surface'])) || (!isset($_POST['subdivision'])) || (isset($_POST['land']) && ($_POST['land']) < '0') || (!empty($_POST['floor'])) || (!empty($_POST['room'])) || (isset($_POST['bedroom']) && ($_POST['bedroom']) < '0') || (!empty($_POST['bathroom'])) || (!empty($_POST['toilet'])) || (!empty($_POST['kitchen'])) || (!empty($_POST['heating'])) || (!empty($_POST['parking'])) || (isset($_POST['garage']) && ($_POST['garage']) < '0') || (!isset($_POST['basement'])) ||  (!isset($_POST['diagenergy'])) || (!empty($_POST['energyclass'])) || (!empty($_POST['ges'])) || (!empty($_POST['periode']))) {
-
-                $currentImgTemp = $_FILES['changepicture']['tmp_name'];
-                $currentImg = $_FILES['changepicture']['name'];
-                $newName = uniqid() . $currentImg;
-                $currentFile = '../public/img/uploaded/' . $newName;
-
-                if ($currentImgTemp != "") {
-                    move_uploaded_file($currentImgTemp, $currentFile);
-                    $realEstateAdvert = new RealEstateAdvert;
-                    $newImg = $realEstateAdvert->editEstate($_GET['id'], $_POST['category'], $_POST['type'], $_POST['exposure'], $_POST['parking'], $_POST['kitchen'], $_POST['heating'], $_POST['subdivision'], $_POST['floor'], $_POST['charge'], $_POST['bathroom'], $_POST['toilet'], $_POST['garage'], $_POST['basement'], $_POST['surface'], $_POST['land'], $_POST['price'], $periode->format('Y-m-d h:i:s'), $_POST['title'], $_POST['description'], $newName, $status, $_POST['diagenergy'], $_POST['ges'], $_POST['room'], $_POST['bedroom'], $construction->format('Y-m-d h:i:s'), $_POST['client'], $_POST['address'], $_POST['city'], $_POST['postcode'], $_POST['energyclass']);
-                } else {
-                    $realEstateAdvert = new RealEstateAdvert;
-                    $realEstateAdvert->editEstateWithoutImg($_GET['id'], $_POST['category'], $_POST['type'], $_POST['exposure'], $_POST['parking'], $_POST['kitchen'], $_POST['heating'], $_POST['subdivision'], $_POST['floor'], $_POST['charge'], $_POST['bathroom'], $_POST['toilet'], $_POST['garage'], $_POST['basement'], $_POST['surface'], $_POST['land'], $_POST['price'], $periode->format('Y-m-d h:i:s'), $_POST['title'], $_POST['description'], $status, $_POST['diagenergy'], $_POST['ges'], $_POST['room'], $_POST['bedroom'], $construction->format('Y-m-d h:i:s'), $_POST['client'], $_POST['address'], $_POST['city'], $_POST['postcode'], $_POST['energyclass']);
-                }
+                
                 header('Location: index.php?action=indexadmin');
                 exit();
+                
             }
+    
         }
         $estate = $realEstateAdvert->getEstate($_GET['id']);
         $clients = $realEstateAdvert->getClients();
@@ -688,10 +707,18 @@ class AdminBoard
         $exposures = $realEstateAdvert->getExposure();
         $kitchens = $realEstateAdvert->getKitchen();
         $heatings = $realEstateAdvert->getHeating();
+/*
+        echo '<pre>';
+        print_r($realEstateAdvert->getEstate($_GET['id'])['heatings']);
+        print_r($_POST['heating']);
+        print_r($heatings);
+        */
         $energyclasses = $realEstateAdvert->getEnergyClass();
         $geses = $realEstateAdvert->getGes();
         $parkings = $realEstateAdvert->getParking();
 
         require('../template_base/editestate.php');
+        
     }
+    
 }
