@@ -7,10 +7,11 @@ use Exception;
 use Model\Admin;
 use Model\RealEstateAdvert;
 use Services\Validator;
+use Services\ValidatorPicture;
 use Services\Validator\Estate;
 
-require_once('../model/Admin.php');
-require_once('../model/RealEstateAdvert.php');
+require_once '../model/Admin.php';
+require_once '../model/RealEstateAdvert.php';
 require_once '../services/Validator/Estate.php';
 
 class AdminBoard
@@ -99,7 +100,7 @@ class AdminBoard
 
     {
         $realEstateAdvert = new RealEstateAdvert;
-
+        
         // $validation =  new Validator($_POST, $_FILES, 'addadvert');
         // $validation = array();
         // $validation = true;
@@ -108,168 +109,31 @@ class AdminBoard
         $msgerror = array();
 
 
+        
+       /*function convertDate($dateFrench) 
+        {
+             $tabDate = explode('-' , $dateFrench);
+             $enDate  = $tabDate[2].'-'.$tabDate[1].'-'.$tabDate[0];
+             return $enDate;
+        }
+        $dateconvertie = convertDate('01-10-2020');
+        $dateEn = new DateTime($dateconvertie);
+        print_r($dateEn);
+        echo $dateEn->format('d/m/Y');
+        die();*/
+
+
         if (isset($_POST['newadvertpublish']) || isset($_POST['newadvertnopublish'])) {
-
             $estateValidate = new Estate($_POST);
-
+            var_dump($_POST);
             if ($estateValidate->validate()) {
                 // l'anonce est bonne le titre est ok
             }
             
-            /*
+            
             echo '<pre>';
             print_r($estateValidate->getMsgerror());
             die();
-*/
-/*
-            if (empty($_POST['title']) || strlen($_POST['title']) > 45) {
-                $msgerror['title'] = 'renseigner le titre - 45 caractères max';
-                $errors++;
-            }¨
-            */
-            if (empty($_POST['description'])) {
-                $msgerror['description'] = 'remplir la description';
-                $errors++;
-            }
-            if ($_POST['client'] == 0) {
-                $msgerror['client'] = 'sélectionner un client';
-                $errors++;
-            }
-            if (empty($_POST['category'])) {
-                $msgerror['category'] = 'sélectionner un champ';
-                $errors++;
-            }
-
-            if (empty($_POST['type'])) {
-                $msgerror['type'] = 'sélectionner un champ';
-                $errors++;
-            }
-
-            if (empty($_POST['address']) || strlen($_POST['address']) > 255) {
-                $msgerror['address'] = "renseigner tous les champs - 255 caractères max pour l'adresse - 25 max pour la ville - 5 chiffres max pour le code postal";
-                $errors++;
-            }
-            if (empty($_POST['city']) || strlen($_POST['city']) > 25) {
-                $msgerror['city'] = "renseigner tous les champs - 255 caractères max pour l'adresse - 25 max pour la ville - 5 chiffres max pour le code postal";
-                $errors++;
-            }
-            if (empty($_POST['postcode']) || strlen($_POST['postcode']) > 5) {
-                $msgerror['postcode'] = "renseigner tous les champs - 255 caractères max pour l'adresse - 25 max pour la ville - 5 chiffres max pour le code postal";
-                $errors++;
-            }
-            //$construction = null;
-            if (empty($_POST['construction'])) {
-                $msgerror['construction'] = 'renseigner une année';
-                $errors++;
-            }
-            if (empty($_POST['exposure'])) {
-                $msgerror['exposure'] = 'sélectionner un champ';
-                $errors++;
-            }
-            if (empty($_POST['price'])) {
-                $msgerror['price'] = 'renseigner un prix';
-                $errors++;
-            }
-            if (empty($_POST['charge'])) {
-                $msgerror['charge'] = 'renseigner les charges';
-                $errors++;
-            }
-            if (empty($_POST['surface'])) {
-                $msgerror['surface'] = 'renseigner la surface';
-                $errors++;
-            }
-
-            // si copro pas définie, il n'est pas présent donc message d'erreur - sinon si c'est définie et différent de 0 ou 1 - non/oui - message d'erreur sinon rien
-            if (!isset($_POST['subdivision'])) {
-                $msgerror['subdivision'] = 'sélectionner un champ';
-                $errors++;
-            } else {
-                if (($_POST['subdivision']) !== '1' && ($_POST['subdivision']) !== '0') {
-                    $msgerror['subdivision'] = 'sélectionner un champ';
-                    $errors++;
-                }
-            }
-
-
-            if (isset($_POST['land']) && ($_POST['land']) < '0') {
-                $msgerror['land'] = 'renseigner la superficie du terrain';
-                $errors++;
-            }
-            if (empty($_POST['floor'])) {
-                $msgerror['floor'] = "indiquer l'étage";
-                $errors++;
-            }
-            if (empty($_POST['room'])) {
-                $msgerror['room'] = 'indiquer le nbre de pièces';
-                $errors++;
-            }
-            if (isset($_POST['bedroom']) && ($_POST['bedroom']) < '0') {
-                $msgerror['bedroom'] = 'indiquer le nbre de chambres';
-                $errors++;
-            }
-            if (empty($_POST['bathroom'])) {
-                $msgerror['bathroom'] = 'indiquer le nbre de salle de bain';
-                $errors++;
-            }
-            if (empty($_POST['toilet'])) {
-                $msgerror['toilet'] = 'indiquer le nbre de toilettes';
-                $errors++;
-            }
-            if (empty($_POST['kitchen'])) {
-                $msgerror['kitchen'] = 'sélectionner un champ';
-                $errors++;
-            }
-
-            if (empty($_POST['heating'])) {
-                $msgerror['heating'] = 'sélectionner un ou plusieurs champs';
-                $errors++;
-            }
-
-
-            if (empty($_POST['parking'])) {
-                $msgerror['parking'] = 'sélectionner un champ';
-                $errors++;
-            }
-
-            if (isset($_POST['garage']) && ($_POST['garage']) < '0') {
-                $msgerror['garage'] = 'indiquer le nbre de garage';
-                $errors++;
-            }
-
-
-            if (!isset($_POST['basement'])) {
-                $msgerror['basement'] = 'sélectionner un champ';
-                $errors++;
-            } else {
-                if (($_POST['basement']) !== '1' && ($_POST['basement']) !== '0') {
-                    $msgerror['basement'] = 'sélectionner un champ';
-                    $errors++;
-                }
-            }
-
-            if (!isset($_POST['diagenergy'])) {
-                $msgerror['diagenergy'] = 'sélectionner un champ';
-                $errors++;
-            } else {
-                if (($_POST['diagenergy']) !== '1' && ($_POST['diagenergy']) !== '0') {
-                    $msgerror['diagenergy'] = 'sélectionner un champ';
-                    $errors++;
-                }
-            }
-
-            if (empty($_POST['energyclass'])) {
-                $msgerror['energyclass'] = 'sélectionner un champ';
-                $errors++;
-            }
-            if (empty($_POST['ges'])) {
-                $msgerror['ges'] = 'sélectionner un champ';
-                $errors++;
-            }
-            
-            if (empty($_POST['periode'])) {
-                $msgerror['periode'] = 'sélectionner une date';
-                $errors++;
-            }
 
             $status = null;
             if (isset($_POST['newadvertpublish'])) {
@@ -280,52 +144,6 @@ class AdminBoard
                 $status  = 2;
             }
 
-
-
-            if (!is_numeric($_POST['postcode'])) {
-                $msgerror['postcode'] = 'le champ code postal ne peut être du texte';
-                $errors++;
-            }
-            if (!is_numeric($_POST['price'])) {
-                $msgerror['price'] = 'renseigner un prix en chiffre';
-                $errors++;
-            }
-            if (!is_numeric($_POST['charge'])) {
-                $msgerror['charge'] = 'renseigner les charges en chiffre';
-                $errors++;
-            }
-
-            if (!is_numeric($_POST['surface'])) {
-                $msgerror['surface'] = 'renseigner une surface en chiffre';
-                $errors++;
-            }
-            if (!is_numeric($_POST['land'])) {
-                $msgerror['land'] = 'renseigner la superficie du terrain en chiffre';
-                $errors++;
-            }
-            if (!is_numeric($_POST['floor'])) {
-                $msgerror['floor'] = "l'étage doit être un chiffre";
-                $errors++;
-            }
-            if (!is_numeric($_POST['room'])) {
-                $msgerror['room'] = 'le nbre de pièces doit être un chiffre';
-                $errors++;
-            }
-            if (!is_numeric($_POST['bedroom'])) {
-                $msgerror['bedroom'] = 'le nbre de chambres doit être un chiffre';
-            }
-            if (!is_numeric($_POST['bathroom'])) {
-                $msgerror['bathroom'] = 'le nbre de salle de bain doit être un chiffre';
-                $errors++;
-            }
-            if (!is_numeric($_POST['toilet'])) {
-                $msgerror['toilet'] = 'le nbre de toilettes doit être un chiffre';
-                $errors++;
-            }
-            if (!is_numeric($_POST['garage'])) {
-                $msgerror['garage'] = 'le nbre de garages doit être un chiffre';
-                $errors++;
-            }
 
             // si error != 0 et files not empty alors remettre photo puis supprimer le gros if
             if ($errors != 0 && (!empty($_FILES['picture']['name']))) {

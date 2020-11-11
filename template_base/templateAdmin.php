@@ -24,7 +24,7 @@
 
             <ul class="nav nav-pills nav-fill nav-light blue lighten-4">
                 <li class="nav-item font-weight-bold">
-                    
+
                     Bienvenue Orianne
                 </li>
                 <li class="nav-item font-weight-bold">
@@ -48,7 +48,7 @@
                     <li class="nav-item">
                         <a class="nav-link p-2 black-text  font-weight-bold" href="index.php?action=newadvert">ajouter une annonce</span></a>
                     </li>
-              
+
                     <li class="nav-item">
                         <a class="nav-link black-text  font-weight-bold" href="#">se déconnecter</a>
                     </li>
@@ -59,7 +59,7 @@
             </div>
         </nav>
 
-       
+
 
 
         <main class="mt-4 pt-1 container">
@@ -97,7 +97,7 @@
                     <!-- Grid column -->
                     <div class="col-md mb-3">
                         <h8>
-                        <a href="index.php?action=connexion&connexionadmin.php" class="footer-text">Connexion Admin</a>
+                            <a href="index.php?action=connexion&connexionadmin.php" class="footer-text">Connexion Admin</a>
                         </h8>
                     </div>
                     <!-- Grid column -->
@@ -164,26 +164,40 @@
 
     </div>
 
-  <!-- jQuery -->
-  <script type="text/javascript" src="js/jquery.min.js"></script>
-  <!-- Bootstrap tooltips -->
-  <script type="text/javascript" src="js/popper.min.js"></script>
-  <!-- Bootstrap core JavaScript -->
-  <script type="text/javascript" src="js/bootstrap.min.js"></script>
-  <!-- MDB core JavaScript -->
-  <script type="text/javascript" src="js/mdb.min.js"></script>
-  <script type="text/javascript" src="../public/js/form.js"></script>
-  <script>
-  $('.datepicker').pickadate({
-      format: 'yyyy'
-  });
-  $('.datepicker-periode').pickadate({
-      format: 'dd-mm-yyyy'
-  });
-</script>
-  <!-- custom scripts -->
+    <!-- jQuery -->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="js/mdb.min.js"></script>
+    <script type="text/javascript" src="../public/js/form.js"></script>
+    <script>
+        $('.datepicker').pickadate({
+            format: 'yyyy',
+            monthsFull: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+            monthsShort: ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aou', 'Sep', 'Oct', 'Nov', 'Dec'],
+            weekdaysFull: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+            weekdaysShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
+            clear: 'effacer',
+            today: 'Auj.',
+            close: 'fermer',
+
+        });
+        $('.datepicker-periode').pickadate({
+            format: 'dd-mm-yyyy',
+            monthsFull: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+            monthsShort: ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aou', 'Sep', 'Oct', 'Nov', 'Dec'],
+            weekdaysFull: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+            weekdaysShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
+            clear: 'effacer',
+            today: 'Auj.',
+            close: 'fermer',
+        });
+    </script>
+    <!-- custom scripts -->
 
 </body>
 
 </html>
-

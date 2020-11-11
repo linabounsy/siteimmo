@@ -34,8 +34,7 @@
         <div class="card-body">
           <input class="form-control w-50" type="text" id="title" name="title" placeholder="Titre" required value="<?= isset($_POST['title']) ? htmlspecialchars($_POST['title']) : '' ?>">
 
-          <p id="error_title" class="error"><?= isset($estateValidate->getMsgerror()['title']) ? $estateValidate->getMsgerror()['title'] : '' ?></p>
-
+          <p id="error_title" class="error"><?= !empty($estateValidate) && isset($estateValidate->getMsgerror()['title']) ? $estateValidate->getMsgerror()['title'] : '' ?></p>
 
         </div>
       </div>
@@ -52,7 +51,7 @@
       <div id="collapse97" class="collapse <?= !empty($msgerror['description']) ? 'show' : null ?>" data-toggle="collapse" role="tabpanel" aria-labelledby="heading97">
         <div class="card-body">
           <textarea id="description" name="description"><?= htmlspecialchars(isset($_POST['description']) ? $_POST['description'] : '') ?></textarea>
-          <p id="error_description" class="error"><?= isset($msgerror['description']) ? $msgerror['description'] : '' ?></p>
+          <p id="error_description" class="error"><?= !empty($estateValidate) && isset($estateValidate->getMsgerror()['description']) ? $estateValidate->getMsgerror()['description'] : '' ?></p>
         </div>
 
       </div>
@@ -72,14 +71,14 @@
         <div class="card-body">
 
           <select id="client" class="form-control w-50" name="client">
-            <option value="choisir un client" selected>Choisir son client</option>
+            <option value="0" selected>Choisir son client</option>
             <?php foreach ($clients as $client) { ?>
 
               <option value="<?= $client['id'] ?>" <?= (!empty($_POST['client'])) && $_POST['client'] == ($client['id']) ? 'selected' : null ?>><?= (ucfirst($client['lastname'])) ?> <?= (ucfirst($client['firstname'])) ?></option>
 
             <?php } ?>
           </select>
-          <p id="error_client" class="error"><?= isset($msgerror['client']) ? $msgerror['client'] : '' ?></p>
+          <p id="error_client" class="error"><?= !empty($estateValidate) && isset($estateValidate->getMsgerror()['client']) ? $estateValidate->getMsgerror()['client'] : '' ?></p>
         </div>
       </div>
     </div>
@@ -102,7 +101,7 @@
 
           <?php } ?>
           <div>
-            <p id="error_categorybut" class="error"><?= isset($msgerror['category']) ? $msgerror['category'] : '' ?></p>
+            <p id="error_categorybut" class="error"><?= !empty($estateValidate) && isset($estateValidate->getMsgerror()['category']) ? $estateValidate->getMsgerror()['category'] : '' ?></p>
           </div>
         </div>
       </div>
@@ -126,7 +125,7 @@
             </div>
           <?php } ?>
           <div>
-            <p id="error_typebut" class="error"><?= isset($msgerror['type']) ? $msgerror['type'] : '' ?></p>
+            <p id="error_typebut" class="error"><?= !empty($estateValidate) && isset($estateValidate->getMsgerror()['type']) ? $estateValidate->getMsgerror()['type'] : '' ?></p>
           </div>
         </div>
       </div>
@@ -149,7 +148,9 @@
             <input class="form-control w-25" type="number" id="postcode" name="postcode" placeholder="Code postal"  value="<?= (isset($_POST['postcode'])) ? htmlspecialchars($_POST['postcode']) : '' ?>">
 
           </div>
-          <p id="error_localisation" class="error"><?= isset($msgerror['address']) ? $msgerror['address'] : '' ?></p>
+          <p id="error_localisation" class="error"><?= !empty($estateValidate) && isset($estateValidate->getMsgerror()['address']) ? $estateValidate->getMsgerror()['address'] : '' ?>
+          <?= !empty($estateValidate) && isset($estateValidate->getMsgerror()['city']) ? $estateValidate->getMsgerror()['city'] : '' ?>
+          <?= !empty($estateValidate) && isset($estateValidate->getMsgerror()['postcode']) ? $estateValidate->getMsgerror()['postcode'] : '' ?></p>
 
         </div>
       </div>
@@ -169,7 +170,7 @@
             <input type="text" class="form-control datepicker" placeholder="Choisissez une date" id="construction" name="construction" class="form-control" value="<?= (!empty($_POST['construction'])) ? $_POST['construction'] : null ?>">
             <label for="date-picker-example">choisissez une année</label>
           </div>
-          <p id="error_construction" class="error"><?= isset($msgerror['construction']) ? $msgerror['construction'] : '' ?></p>
+          <p id="error_construction" class="error"> <?= !empty($estateValidate) && isset($estateValidate->getMsgerror()['construction']) ? $estateValidate->getMsgerror()['construction'] : '' ?></p>
         </div>
       </div>
     </div>
@@ -191,7 +192,7 @@
               <label class="custom-control-label" for="<?= $exposure['name'] ?>"><?= (ucfirst($exposure['name'])) ?></label>
             </div>
           <?php } ?>
-          <p id="error_exposurebut" class="error"><?= isset($msgerror['exposure']) ? $msgerror['exposure'] : '' ?></p>
+          <p id="error_exposurebut" class="error"><?= !empty($estateValidate) && isset($estateValidate->getMsgerror()['exposure']) ? $estateValidate->getMsgerror()['exposure'] : '' ?></p>
         </div>
       </div>
     </div>
@@ -209,7 +210,7 @@
           <div class="control-inline">
             <input class="form-control d-inline w-25" type="number" id="price" name="price" min="0" value="<?= (!empty($_POST['price'])) ? htmlspecialchars($_POST['price']) : null ?>"><span class="euros"> euros</span>
           </div>
-          <p id="error_price" class="error"><?= isset($msgerror['price']) ? $msgerror['price'] : '' ?></p>
+          <p id="error_price" class="error"><?= !empty($estateValidate) && isset($estateValidate->getMsgerror()['price']) ? $estateValidate->getMsgerror()['price'] : '' ?></p>
         </div>
       </div>
     </div>
@@ -227,7 +228,7 @@
           <div class="control-inline">
             <input class="form-control d-inline w-25" type="number" id="charge" name="charge" min="0" max="10000" value="<?= (!empty($_POST['charge'])) ? htmlspecialchars($_POST['charge']) : null ?>"><span class="euros"> euros</span>
           </div>
-          <p id="error_charge" class="error"><?= isset($msgerror['charge']) ? $msgerror['charge'] : '' ?></p>
+          <p id="error_charge" class="error"><?= !empty($estateValidate) && isset($estateValidate->getMsgerror()['charge']) ? $estateValidate->getMsgerror()['charge'] : '' ?></p>
         </div>
       </div>
     </div>
@@ -250,7 +251,7 @@
             <input type="radio" class="custom-control-input" id="copronon" name="subdivision" value="0" <?= (isset($_POST['subdivision'])) && $_POST['subdivision'] == '0'  ? 'checked="checked"' : null ?>>
             <label class="custom-control-label" for="copronon">Non</label>
           </div>
-          <p id="error_subdivisionbut" class="error"><?= isset($msgerror['subdivision']) ? $msgerror['subdivision'] : '' ?></p>
+          <p id="error_subdivisionbut" class="error"><?= !empty($estateValidate) && isset($estateValidate->getMsgerror()['subdivision']) ? $estateValidate->getMsgerror()['subdivision'] : '' ?></p>
         </div>
       </div>
     </div>
@@ -268,7 +269,7 @@
           <div class="control-inline">
             <input class="form-control d-inline w-25" type="number" id="surface" name="surface" min="0" max="10000" value="<?= (!empty($_POST['surface'])) ? htmlspecialchars($_POST['surface']) : null ?>"><span> m²</span>
           </div>
-          <p id="error_surface" class="error"><?= isset($msgerror['surface']) ? $msgerror['surface'] : '' ?></p>
+          <p id="error_surface" class="error"><?= !empty($estateValidate) && isset($estateValidate->getMsgerror()['surface']) ? $estateValidate->getMsgerror()['surface'] : '' ?></p>
         </div>
       </div>
     </div>
@@ -286,7 +287,7 @@
           <div class="control-inline">
             <input class="form-control w-25 d-inline" type="number" id="land" name="land" min="0" max="10000" value="<?= (isset($_POST['land'])) ? htmlspecialchars($_POST['land']) : null ?>"><span> m²</span>
           </div>
-          <p id="error_land" class="error"><?= isset($msgerror['land']) ? $msgerror['land'] : '' ?></p>
+          <p id="error_land" class="error"><?= !empty($estateValidate) && isset($estateValidate->getMsgerror()['land']) ? $estateValidate->getMsgerror()['land'] : '' ?></p>
         </div>
       </div>
     </div>
@@ -304,7 +305,7 @@
           <div class="control-inline">
             <input class="form-control w-25" type="number" id="floor" name="floor" min="0" max="20" value="<?= (!empty($_POST['floor'])) ? htmlspecialchars($_POST['floor']) : null ?>">
           </div>
-          <p id="error_floor" class="error"><?= isset($msgerror['floor']) ? $msgerror['floor'] : '' ?></p>
+          <p id="error_floor" class="error"><?= !empty($estateValidate) && isset($estateValidate->getMsgerror()['floor']) ? $estateValidate->getMsgerror()['floor'] : '' ?></p>
         </div>
       </div>
     </div>
@@ -322,7 +323,7 @@
           <div class="control-inline">
             <input class="form-control d-line w-25" type="number" id="room" name="room" min="0" max="20" value="<?= (!empty($_POST['room'])) ? htmlspecialchars($_POST['room']) : null ?>">
           </div>
-          <p id="error_room" class="error"><?= isset($msgerror['room']) ? $msgerror['room'] : '' ?></p>
+          <p id="error_room" class="error"><?= !empty($estateValidate) && isset($estateValidate->getMsgerror()['room']) ? $estateValidate->getMsgerror()['room'] : '' ?></p>
         </div>
       </div>
     </div>
@@ -340,7 +341,7 @@
           <div class="control-inline">
             <input class="form-control d-inline w-25" type="number" id="bedroom" name="bedroom" min="0" max="20" value="<?= (isset($_POST['bedroom'])) ? htmlspecialchars($_POST['bedroom']) : null ?>">
           </div>
-          <p id="error_bedroom" class="error"><?= isset($msgerror['bedroom']) ? $msgerror['bedroom'] : '' ?></p>
+          <p id="error_bedroom" class="error"><?= !empty($estateValidate) && isset($estateValidate->getMsgerror()['bedroom']) ? $estateValidate->getMsgerror()['bedroom'] : '' ?></p>
         </div>
       </div>
     </div>
@@ -358,7 +359,7 @@
           <div class="control-inline">
             <input class="form-control d-inline w-25" type="number" id="bathroom" name="bathroom" min="0" max="10" value="<?= (!empty($_POST['bathroom'])) ? htmlspecialchars($_POST['bathroom']) : null ?>">
           </div>
-          <p id="error_bathroom" class="error"><?= isset($msgerror['bathroom']) ? $msgerror['bathroom'] : '' ?></p>
+          <p id="error_bathroom" class="error"><?= !empty($estateValidate) && isset($estateValidate->getMsgerror()['bathroom']) ? $estateValidate->getMsgerror()['bathroom'] : '' ?></p>
         </div>
       </div>
     </div>
@@ -376,7 +377,7 @@
           <div class="control-inline">
             <input class="form-control d-inline w-25" type="number" id="toilet" name="toilet" min="0" max="10" value="<?= (!empty($_POST['toilet'])) ? htmlspecialchars($_POST['toilet']) : null ?>">
           </div>
-          <p id="error_toilet" class="error"><?= isset($msgerror['toilet']) ? $msgerror['toilet'] : '' ?></p>
+          <p id="error_toilet" class="error"><?= !empty($estateValidate) && isset($estateValidate->getMsgerror()['toilet']) ? $estateValidate->getMsgerror()['toilet'] : '' ?></p>
         </div>
       </div>
     </div>
@@ -400,7 +401,7 @@
               </div>
             <?php } ?>
           </div>
-          <p id="error_kitchenbut" class="error"><?= isset($msgerror['kitchen']) ? $msgerror['kitchen'] : '' ?></p>
+          <p id="error_kitchenbut" class="error"><?= !empty($estateValidate) && isset($estateValidate->getMsgerror()['kitchen']) ? $estateValidate->getMsgerror()['kitchen'] : '' ?></p>
         </div>
       </div>
     </div>
@@ -421,7 +422,7 @@
               <label class="custom-control-label" for="<?= 'heating_' . $heating['id'] ?>"><?= (ucfirst($heating['type'])) ?></label>
             </div>
           <?php } ?>
-          <p id="error_heatingbut" class="error"><?= isset($msgerror['heating']) ? $msgerror['heating'] : '' ?></p>
+          <p id="error_heatingbut" class="error"><?= !empty($estateValidate) && isset($estateValidate->getMsgerror()['heating']) ? $estateValidate->getMsgerror()['heating'] : '' ?></p>
         </div>
       </div>
     </div>
@@ -442,7 +443,7 @@
               <label class="custom-control-label" for="<?= $parking['type'] ?>"><?= (ucfirst($parking['type'])) ?></label>
             </div>
           <?php } ?>
-          <p id="error_parkingbut" class="error"><?= isset($msgerror['parking']) ? $msgerror['parking'] : '' ?></p>
+          <p id="error_parkingbut" class="error"><?= !empty($estateValidate) && isset($estateValidate->getMsgerror()['parking']) ? $estateValidate->getMsgerror()['parking'] : '' ?></p>
         </div>
       </div>
     </div>
@@ -460,7 +461,7 @@
           <div class="control-inline">
             <input class="form-control d-inline w-25" type="number" id="garage" name="garage" min="0" max="10" value="<?= (isset($_POST['garage'])) ? htmlspecialchars($_POST['garage']) : null ?>">
           </div>
-          <p id="error_garage" class="error"><?= isset($msgerror['garage']) ? $msgerror['garage'] : '' ?></p>
+          <p id="error_garage" class="error"><?= !empty($estateValidate) && isset($estateValidate->getMsgerror()['garage']) ? $estateValidate->getMsgerror()['garage'] : '' ?></p>
         </div>
       </div>
     </div>
@@ -485,7 +486,7 @@
             <label class="custom-control-label" for="basementnon">Non</label>
           </div>
 
-          <p id="error_basementput" class="error"><?= isset($msgerror['basement']) ? $msgerror['basement'] : '' ?></p>
+          <p id="error_basementput" class="error"><?= isset($estateValidate) && isset($estateValidate->getMsgerror()['basement']) ? $estateValidate->getMsgerror()['basement'] : '' ?></p>
         </div>
       </div>
     </div>
@@ -508,7 +509,7 @@
             <input type="radio" class="custom-control-input" id="diagnon" name="diagenergy" value="0" <?= (isset($_POST['diagenergy'])) && $_POST['diagenergy'] == '0' ? 'checked="checked"' : null ?>>
             <label class="custom-control-label" for="diagnon">Non</label>
           </div>
-          <p id="error_diagenergybut" class="error"><?= isset($msgerror['diagenergy']) ? $msgerror['diagenergy'] : '' ?></p>
+          <p id="error_diagenergybut" class="error"> <?= !empty($estateValidate) && isset($estateValidate->getMsgerror()['diagenergy']) ? $estateValidate->getMsgerror()['diagenergy'] : '' ?></p>
         </div>
       </div>
     </div>
@@ -530,7 +531,7 @@
             </div>
 
           <?php } ?>
-          <p id="error_energyclassbut" class="error"><?= isset($msgerror['energyclass']) ? $msgerror['energyclass'] : '' ?></p>
+          <p id="error_energyclassbut" class="error"><?= !empty($estateValidate) && isset($estateValidate->getMsgerror()['energyclass']) ? $estateValidate->getMsgerror()['energyclass'] : '' ?></p>
         </div>
       </div>
     </div>
@@ -553,7 +554,7 @@
             </div>
 
           <?php } ?>
-          <p id="error_gesbut" class="error"><?= isset($msgerror['ges']) ? $msgerror['ges'] : '' ?></p>
+          <p id="error_gesbut" class="error"><?= !empty($estateValidate) && isset($estateValidate->getMsgerror()['ges']) ? $estateValidate->getMsgerror()['ges'] : '' ?></p>
         </div>
       </div>
     </div>
@@ -571,7 +572,7 @@
           <div class="custom-control-inline">
             <input type="text" class="form-control datepicker-periode" placeholder="Choisissez une date" id="periode" name="periode" class="form-control" value="<?= (!empty($_POST['periode'])) ? $_POST['periode'] : null ?>">
           </div>
-          <p id="error_periode" class="error"><?= isset($msgerror['periode']) ? $msgerror['periode'] : '' ?></p>
+          <p id="error_periode" class="error"><?= !empty($estateValidate) && isset($estateValidate->getMsgerror()['periode']) ? $estateValidate->getMsgerror()['periode'] : '' ?></p>
         </div>
       </div>
     </div>

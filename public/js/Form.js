@@ -166,6 +166,8 @@ class Form {
             this.errorConstruction.style.display = "none";
         }
 
+       
+
         this.exposureInput.forEach(exposureEl => {
             if (exposureEl.checked) {
                 this.errorExposure.style.display = "none";
