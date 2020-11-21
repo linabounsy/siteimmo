@@ -3,12 +3,13 @@
 namespace Services\Validator;
 
 use Services\Validator;
-use Services\ValidatorPicture;
+
+use Services\Validator\Picture;
 
 
 require '../services/Validator.php';
-require '../services/ValidatorPicture.php';
 
+require '../services/Validator/Picture.php';
 
 class Estate extends Validator
 {
@@ -42,15 +43,15 @@ class Estate extends Validator
     private $energyclass;
     private $ges;
     private $periode;
-    private $files;
+    private $files = [];
+
 
     private $errors = 0;
     protected $msgerror = [];
 
 
-    public function __construct($form)
+    public function __construct($form, $files = null)
     {
-
         $this->title = $form['title'];
         $this->description = $form['description'];
         $this->client = $form['client'];
@@ -63,7 +64,7 @@ class Estate extends Validator
         $this->exposure = !empty($form['exposure']);
         $this->price = $form['price'];
         $this->charge = $form['charge'];
-        $this->charge = $form['surface'];
+        $this->surface = $form['surface'];
         $this->subdivision = isset($form['subdivision']) ? (bool)$form['subdivision'] : null;
         $this->land = $form['land'];
         $this->floor = $form['floor'];
@@ -80,7 +81,10 @@ class Estate extends Validator
         $this->energyclass = !empty($form['energyclass']);
         $this->ges = !empty($form['ges']);
         $this->periode = $form['periode'];
-        $this->files = !empty($form['picture']);
+        $this->files = $files;
+        
+    
+   
     }
 
     public function getMsgerror()
@@ -181,7 +185,7 @@ class Estate extends Validator
             $this->msgerror['construction'] = "veuillez renseigner une année";
         }
         try {
-            print_r(new \DateTime($this->construction . '-01-01'));
+           
         } catch (\Exception $e) {
             $this->errors++;
             $this->msgerror['construction'] = "veuillez renseigner une année";
@@ -438,23 +442,20 @@ class Estate extends Validator
             $this->msgerror['periode'] = "veuillez renseigner une date";
         }
         try {
-            print_r(new \DateTime($this->periode . '-01-01'));
+            //print_r(new \DateTime($this->periode . '-01-01'));
         } catch (\Exception $e) {
             $this->errors++;
             $this->msgerror['periode'] = "veuillez renseigner une date";
         }
     }
 
-    public function validatePicture()
-    {
+    
+ 
 
-        if (!$this->notEmpty($this->files)) {
-            $this->errors++;
-            $this->msgerror['picture'] = "veuillez sélectionner une photo";
-        }
-    }
-
-
+/*if ($errors != 0 && (!empty($_FILES['picture']['name']))) {
+                $msgerror['newpicture'] = 'veuillez re-sélectionner une photo';
+                $errors++;
+            }*/
     public function validate()
     {
         $this->validateTitle();
@@ -486,20 +487,47 @@ class Estate extends Validator
         $this->validateEnergyclass();
         $this->validateGes();
         $this->validatePeriode();
-        $this->validatePicture();
-        // $msgErrorPicture = $picture->validate();
-        // if !$msgErrorPicture 
-        // $this->error++
-        // j'enregistre mon $msgErrorPicture en plus dans $this->msgerror
-        //instancier le validator picture 
+    var_dump($this->files);
+        if ($this->files != null) {
+            if ($this->errors != 0) {
+                $this->msgerror = array_merge($this->msgerror, array('picture' => 'veuillez re-sélectionner une photo'));
+                $this->errors++;
+            }
+            if ($this->files['error'] == 4) {
+                $this->msgerror = array_merge($this->msgerror, array('picture' => 'veuillez sélectionner une photo'));
+                $this->errors++;
+            }
+            if ($this->files['error'] == 0) {
+                $picture = new Picture($this->files);
+                $msgErrorPicture = $picture->validate();
+                if ($msgErrorPicture !== true) {
+                    $this->msgerror = array_merge($this->msgerror, $msgErrorPicture);
+                    $this->errors++;
+                }
+            }
+        }
+        
+        /*
+        if ($this->errors != 0 && (empty($msgErrorPicture))) {
+            $this->errors++;
+            $this->msgerror['newpicture'] = 'veuillez re-sélectionner une photo';
+         
+        }*/
 
+         
+/*
+        $allMsgerror = [];
+        $allMsgerror = array_merge($this->msgerror, $msgErrorPicture);
+        $this->msgerror = $allMsgerror;*/
+
+/*if ($this->errors != 0 && (!empty($this->files))) {
+                $msgerror['newpicture'] = 'veuillez re-sélectionner une photo';
+                $errors++;
+            }*/
 
         if ($this->errors === 0) {
             return true;
         }
-        /* dans le validate de picture
-    else 
-    return $picture->getMsgerror();
-*/
+      
     }
 }

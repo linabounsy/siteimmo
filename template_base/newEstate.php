@@ -48,7 +48,7 @@
           </a>
         </h5>
       </div>
-      <div id="collapse97" class="collapse <?= !empty($msgerror['description']) ? 'show' : null ?>" data-toggle="collapse" role="tabpanel" aria-labelledby="heading97">
+      <div id="collapse97" class="collapse <?= !empty($estateValidate) && !empty($estateValidate->getMsgerror()['description']) ? 'show' : null ?>" data-toggle="collapse" role="tabpanel" aria-labelledby="heading97">
         <div class="card-body">
           <textarea id="description" name="description"><?= htmlspecialchars(isset($_POST['description']) ? $_POST['description'] : '') ?></textarea>
           <p id="error_description" class="error"><?= !empty($estateValidate) && isset($estateValidate->getMsgerror()['description']) ? $estateValidate->getMsgerror()['description'] : '' ?></p>
@@ -67,7 +67,7 @@
           </a>
         </h5>
       </div>
-      <div id="collapse98" class="collapse <?= !empty($msgerror['client']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading98">
+      <div id="collapse98" class="collapse <?= !empty($estateValidate) && !empty($estateValidate->getMsgerror()['client']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading98">
         <div class="card-body">
 
           <select id="client" class="form-control w-50" name="client">
@@ -91,7 +91,7 @@
           </a>
         </h5>
       </div>
-      <div id="collapse99" class="collapse <?= !empty($msgerror['category']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading99">
+      <div id="collapse99" class="collapse <?= !empty($estateValidate) && !empty($estateValidate->getMsgerror()['category']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading99">
         <div class="card-body">
           <?php foreach ($categories as $category) { ?>
             <div class="custom-control custom-radio custom-control-inline" id="categorybut">
@@ -115,7 +115,7 @@
           </a>
         </h5>
       </div>
-      <div id="collapse100" class="collapse <?= !empty($msgerror['type']) ? 'show' : null ?>" role="tabpanel" id="type" aria-labelledby="heading100">
+      <div id="collapse100" class="collapse <?= !empty($estateValidate) && !empty($estateValidate->getMsgerror()['type']) ? 'show' : null ?>" role="tabpanel" id="type" aria-labelledby="heading100">
         <div class="card-body">
           <?php foreach ($types as $type) { ?>
             <div class="custom-control custom-radio custom-control-inline" id="typebut">
@@ -139,7 +139,7 @@
           </a>
         </h5>
       </div>
-      <div id="collapse130" class="collapse <?= !empty($msgerror['address']) ? 'show' : null ?> <?= !empty($msgerror['city']) ? 'show' : null ?> <?= !empty($msgerror['postcode']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading130">
+      <div id="collapse130" class="collapse <?= !empty($estateValidate) && !empty($estateValidate->getMsgerror()['address']) ? 'show' : null ?> <?= !empty($estateValidate) && !empty($estateValidate->getMsgerror()['city']) ? 'show' : null ?> <?= !empty($estateValidate) && !empty($estateValidate->getMsgerror()['postcode']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading130">
         <div class="card-body w-100">
 
           <div class="custom-control-inline">
@@ -164,7 +164,7 @@
           </a>
         </h5>
       </div>
-      <div id="collapse101" class="collapse <?= !empty($msgerror['construction']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading101">
+      <div id="collapse101" class="collapse <?= !empty($estateValidate) && !empty($estateValidate->getMsgerror()['construction']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading101">
         <div class="card-body">
           <div class="md-form">
             <input type="text" class="form-control datepicker" placeholder="Choisissez une date" id="construction" name="construction" class="form-control" value="<?= (!empty($_POST['construction'])) ? $_POST['construction'] : null ?>">
@@ -184,7 +184,7 @@
           </a>
         </h5>
       </div>
-      <div id="collapse102" class="collapse <?= !empty($msgerror['exposure']) ? 'show' : null ?>" role="tabpanel" id="exposure" aria-labelledby="heading102">
+      <div id="collapse102" class="collapse <?= !empty($estateValidate) && !empty($estateValidate->getMsgerror()['exposure']) ? 'show' : null ?>" role="tabpanel" id="exposure" aria-labelledby="heading102">
         <div class="card-body">
           <?php foreach ($exposures as $exposure) { ?>
             <div class="custom-control custom-radio custom-control-inline" id="exposurebut">
@@ -205,7 +205,7 @@
           </a>
         </h5>
       </div>
-      <div id="collapse108" class="collapse <?= !empty($msgerror['price']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading108">
+      <div id="collapse108" class="collapse <?= !empty($estateValidate) && !empty($estateValidate->getMsgerror()['price']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading108">
         <div class="card-body">
           <div class="control-inline">
             <input class="form-control d-inline w-25" type="number" id="price" name="price" min="0" value="<?= (!empty($_POST['price'])) ? htmlspecialchars($_POST['price']) : null ?>"><span class="euros"> euros</span>
@@ -223,7 +223,7 @@
           </a>
         </h5>
       </div>
-      <div id="collapse110" class="collapse <?= !empty($msgerror['charge']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading110">
+      <div id="collapse110" class="collapse <?= !empty($estateValidate) && !empty($estateValidate->getMsgerror()['charge']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading110">
         <div class="card-body">
           <div class="control-inline">
             <input class="form-control d-inline w-25" type="number" id="charge" name="charge" min="0" max="10000" value="<?= (!empty($_POST['charge'])) ? htmlspecialchars($_POST['charge']) : null ?>"><span class="euros"> euros</span>
@@ -241,7 +241,7 @@
           </a>
         </h5>
       </div>
-      <div id="collapse106" class="collapse <?= !empty($msgerror['subdivision']) ? 'show' : null ?>" role="tabpanel" id="subdivision" aria-labelledby="heading106">
+      <div id="collapse106" class="collapse <?= !empty($estateValidate) && !empty($estateValidate->getMsgerror()['subdivision']) ? 'show' : null ?>" role="tabpanel" id="subdivision" aria-labelledby="heading106">
         <div class="card-body">
           <div class="custom-control custom-radio custom-control-inline" id="subdivisionyesbut">
             <input type="radio" class="custom-control-input" id="coprooui" name="subdivision" value="1" <?= (isset($_POST['subdivision'])) && $_POST['subdivision'] == '1'  ? 'checked="checked"' : null ?> >
@@ -264,10 +264,10 @@
           </a>
         </h5>
       </div>
-      <div id="collapse107" class="collapse <?= !empty($msgerror['surface']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading107">
+      <div id="collapse107" class="collapse <?= !empty($estateValidate) && !empty($estateValidate->getMsgerror()['surface']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading107">
         <div class="card-body">
           <div class="control-inline">
-            <input class="form-control d-inline w-25" type="number" id="surface" name="surface" min="0" max="10000" value="<?= (!empty($_POST['surface'])) ? htmlspecialchars($_POST['surface']) : null ?>"><span> m²</span>
+            <input class="form-control d-inline w-25" type="number" id="surface" name="surface" min="0" max="" value="<?= (!empty($_POST['surface'])) ? htmlspecialchars($_POST['surface']) : null ?>"><span> m²</span>
           </div>
           <p id="error_surface" class="error"><?= !empty($estateValidate) && isset($estateValidate->getMsgerror()['surface']) ? $estateValidate->getMsgerror()['surface'] : '' ?></p>
         </div>
@@ -282,10 +282,10 @@
           </a>
         </h5>
       </div>
-      <div id="collapse109" class="collapse <?= !empty($msgerror['land']) ? 'show' : null ?>" id="land" role="tabpanel" aria-labelledby="heading109">
+      <div id="collapse109" class="collapse <?= !empty($estateValidate) && !empty($estateValidate->getMsgerror()['land']) ? 'show' : null ?>" id="land" role="tabpanel" aria-labelledby="heading109">
         <div class="card-body">
           <div class="control-inline">
-            <input class="form-control w-25 d-inline" type="number" id="land" name="land" min="0" max="10000" value="<?= (isset($_POST['land'])) ? htmlspecialchars($_POST['land']) : null ?>"><span> m²</span>
+            <input class="form-control w-25 d-inline" type="number" id="land" name="land" min="0" max="" value="<?= (isset($_POST['land'])) ? htmlspecialchars($_POST['land']) : null ?>"><span> m²</span>
           </div>
           <p id="error_land" class="error"><?= !empty($estateValidate) && isset($estateValidate->getMsgerror()['land']) ? $estateValidate->getMsgerror()['land'] : '' ?></p>
         </div>
@@ -300,7 +300,7 @@
           </a>
         </h5>
       </div>
-      <div id="collapse111" class="collapse <?= !empty($msgerror['floor']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading111">
+      <div id="collapse111" class="collapse <?= !empty($estateValidate) && !empty($estateValidate->getMsgerror()['floor']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading111">
         <div class="card-body">
           <div class="control-inline">
             <input class="form-control w-25" type="number" id="floor" name="floor" min="0" max="20" value="<?= (!empty($_POST['floor'])) ? htmlspecialchars($_POST['floor']) : null ?>">
@@ -318,7 +318,7 @@
           </a>
         </h5>
       </div>
-      <div id="collapse112" class="collapse <?= !empty($msgerror['room']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading112">
+      <div id="collapse112" class="collapse <?= !empty($estateValidate) && !empty($estateValidate->getMsgerror()['room']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading112">
         <div class="card-body">
           <div class="control-inline">
             <input class="form-control d-line w-25" type="number" id="room" name="room" min="0" max="20" value="<?= (!empty($_POST['room'])) ? htmlspecialchars($_POST['room']) : null ?>">
@@ -336,7 +336,7 @@
           </a>
         </h5>
       </div>
-      <div id="collapse113" class="collapse <?= !empty($msgerror['bedroom']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading113">
+      <div id="collapse113" class="collapse <?= !empty($estateValidate) && !empty($estateValidate->getMsgerror()['bedroom']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading113">
         <div class="card-body">
           <div class="control-inline">
             <input class="form-control d-inline w-25" type="number" id="bedroom" name="bedroom" min="0" max="20" value="<?= (isset($_POST['bedroom'])) ? htmlspecialchars($_POST['bedroom']) : null ?>">
@@ -354,7 +354,7 @@
           </a>
         </h5>
       </div>
-      <div id="collapse114" class="collapse <?= !empty($msgerror['bathroom']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading114">
+      <div id="collapse114" class="collapse <?= !empty($estateValidate) && !empty($estateValidate->getMsgerror()['bathroom']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading114">
         <div class="card-body">
           <div class="control-inline">
             <input class="form-control d-inline w-25" type="number" id="bathroom" name="bathroom" min="0" max="10" value="<?= (!empty($_POST['bathroom'])) ? htmlspecialchars($_POST['bathroom']) : null ?>">
@@ -372,7 +372,7 @@
           </a>
         </h5>
       </div>
-      <div id="collapse115" class="collapse <?= !empty($msgerror['toilet']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading115">
+      <div id="collapse115" class="collapse <?= !empty($estateValidate) && !empty($estateValidate->getMsgerror()['toilet']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading115">
         <div class="card-body">
           <div class="control-inline">
             <input class="form-control d-inline w-25" type="number" id="toilet" name="toilet" min="0" max="10" value="<?= (!empty($_POST['toilet'])) ? htmlspecialchars($_POST['toilet']) : null ?>">
@@ -390,7 +390,7 @@
           </a>
         </h5>
       </div>
-      <div id="collapse104" class="collapse <?= !empty($msgerror['kitchen']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading104">
+      <div id="collapse104" class="collapse <?= !empty($estateValidate) && !empty($estateValidate->getMsgerror()['kitchen']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading104">
         <div class="card-body">
           <div class="control-inline">
             <?php foreach ($kitchens as $kitchen) { ?>
@@ -414,7 +414,7 @@
           </a>
         </h5>
       </div>
-      <div id="collapse103" class="collapse <?= !empty($msgerror['heating']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading103">
+      <div id="collapse103" class="collapse <?= !empty($estateValidate) && !empty($estateValidate->getMsgerror()['heating']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading103">
         <div class="card-body">
           <?php foreach ($heatings as $heating) { ?>
             <div class="custom-control custom-radio custom-control-inline" id="heatingbut">
@@ -435,7 +435,7 @@
           </a>
         </h5>
       </div>
-      <div id="collapse105" class="collapse <?= !empty($msgerror['parking']) ? 'show' : null ?>" id="parking" role="tabpanel" aria-labelledby="heading105">
+      <div id="collapse105" class="collapse <?= !empty($estateValidate) && !empty($estateValidate->getMsgerror()['parking']) ? 'show' : null ?>" id="parking" role="tabpanel" aria-labelledby="heading105">
         <div class="card-body">
           <?php foreach ($parkings as $parking) { ?>
             <div class="custom-control custom-radio custom-control-inline" id="parkingbut">
@@ -456,7 +456,7 @@
           </a>
         </h5>
       </div>
-      <div id="collapse116" class="collapse <?= !empty($msgerror['garage']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading116">
+      <div id="collapse116" class="collapse <?= !empty($estateValidate) && !empty($estateValidate->getMsgerror()['garage']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading116">
         <div class="card-body">
           <div class="control-inline">
             <input class="form-control d-inline w-25" type="number" id="garage" name="garage" min="0" max="10" value="<?= (isset($_POST['garage'])) ? htmlspecialchars($_POST['garage']) : null ?>">
@@ -474,7 +474,7 @@
           </a>
         </h5>
       </div>
-      <div id="collapse117" class="collapse <?= !empty($msgerror['basement']) ? 'show' : null ?>" id="basement" role="tabpanel" aria-labelledby="heading117">
+      <div id="collapse117" class="collapse <?= !empty($estateValidate) && !empty($estateValidate->getMsgerror()['basement']) ? 'show' : null ?>" id="basement" role="tabpanel" aria-labelledby="heading117">
         <div class="card-body">
           <div class="custom-control custom-radio custom-control-inline" id="basementyesbut">
             <input type="radio" class="custom-control-input" id="basementoui" name="basement" value="1" <?= (isset($_POST['basement'])) && $_POST['basement'] == '1'  ? 'checked="checked"' : null ?> >
@@ -499,7 +499,7 @@
           </a>
         </h5>
       </div>
-      <div id="collapse118" class="collapse <?= !empty($msgerror['diagenergy']) ? 'show' : null ?>" role="tabpanel" id="diagenergy" aria-labelledby="heading118">
+      <div id="collapse118" class="collapse <?= !empty($estateValidate) && !empty($estateValidate->getMsgerror()['diagenergy']) ? 'show' : null ?>" role="tabpanel" id="diagenergy" aria-labelledby="heading118">
         <div class="card-body">
           <div class="custom-control custom-radio custom-control-inline" id="diagenergyyesbut">
             <input type="radio" class="custom-control-input" id="diagoui" name="diagenergy" value="1" <?= (isset($_POST['diagenergy'])) && $_POST['diagenergy'] == '1' ? 'checked="checked"' : null ?> >
@@ -522,7 +522,7 @@
           </a>
         </h5>
       </div>
-      <div id="collapse123" class="collapse <?= !empty($msgerror['energyclass']) ? 'show' : null ?>" role="tabpanel" id="energyclass" aria-labelledby="heading130">
+      <div id="collapse123" class="collapse <?= !empty($estateValidate) && !empty($estateValidate->getMsgerror()['energyclass']) ? 'show' : null ?>" role="tabpanel" id="energyclass" aria-labelledby="heading130">
         <div class="card-body">
           <?php foreach ($energyclasses as $energyclass) { ?>
             <div class="custom-control custom-radio custom-control-inline" id="energyclassbut">
@@ -544,7 +544,7 @@
           </a>
         </h5>
       </div>
-      <div id="collapse140" class="collapse <?= !empty($msgerror['ges']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading140">
+      <div id="collapse140" class="collapse <?= !empty($estateValidate) && !empty($estateValidate->getMsgerror()['ges']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading140">
         <div class="card-body">
           <?php foreach ($geses as $ges) { ?>
             <div class="custom-control custom-radio custom-control-inline" id="gesbut">
@@ -567,7 +567,7 @@
           </a>
         </h5>
       </div>
-      <div id="collapse120" class="collapse <?= !empty($msgerror['periode']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading120">
+      <div id="collapse120" class="collapse <?= !empty($estateValidate) && !empty($estateValidate->getMsgerror()['periode']) ? 'show' : null ?>" role="tabpanel" aria-labelledby="heading120">
         <div class="card-body">
           <div class="custom-control-inline">
             <input type="text" class="form-control datepicker-periode" placeholder="Choisissez une date" id="periode" name="periode" class="form-control" value="<?= (!empty($_POST['periode'])) ? $_POST['periode'] : null ?>">
@@ -585,12 +585,13 @@
           </a>
         </h5>
       </div>
-      <div id="collapse121" class="collapse <?= !empty($msgerror['picture']) ? 'show' : (!empty($msgerror['newpicture']) ? 'show' : null) ?>" role="tabpanel" aria-labelledby="heading121">
+      <div id="collapse121" class="collapse <?= !empty($estateValidate) && isset($estateValidate->getMsgerror()['picture']) ? 'show' : (!empty($estateValidate) && isset($estateValidate->getMsgerror()['newpicture']) ? 'show' : null) ?>" role="tabpanel" aria-labelledby="heading121">
         <div class="card-body">
           <div class="custom-control-inline">
             <input type="file" id="picture" name="picture" accept="image/png, image/jpg, image/jpeg" value="">
           </div>
-          <p id="error_picture" class="error"><?= isset($msgerror['picture']) ? $msgerror['picture'] : (isset($msgerror['newpicture']) ? $msgerror['newpicture'] : '') ?></p>
+          <p id="error_picture" class="error"><?= !empty($estateValidate) && isset($estateValidate->getMsgerror()['picture']) ? $estateValidate->getMsgerror()['picture'] : (
+ 	!empty($estateValidate) && isset($estateValidate->getMsgerror()['newpicture']) ? $estateValidate->getMsgerror()['newpicture'] : '' )?></p>
 
         </div>
       </div>
