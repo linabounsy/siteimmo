@@ -248,18 +248,7 @@ class RealEstateAdvert extends Database
             $estateHeatingUpdate->execute((array('estate_id' => $estateId, 'heating_id' => $heat))); 
             
         }
-/*
-        $req = $db->query('SELECT LAST_INSERT_ID() as estate_id FROM estate'); // recupere l'id de la derniere annonce 
-        $estate = $req->fetch();
 
-        $estateHeating = $db->prepare('UPDATE estate_has_heating (estate_id, heating_id) SET (:estate_id, :heating_id)'); // update les plusieurs types de chauffage possible 
-        
-        foreach ($heating as $heat) {
-            $estateHeating->execute((array('estate_id' => $estate['estate_id'], 'heating_id' => $heat))); 
-            
-        }¨
-        */
-        
     }
 
 

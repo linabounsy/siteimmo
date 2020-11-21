@@ -28,30 +28,10 @@ class Picture extends ValidatorPicture
         $this->type = $files['type'];
         $this->extension = strtolower(strrchr($files['name'], "."));
         $this->size = $files['size'];
-        
-            
-            
+
         
     }
-/*
-    public function getMsgerrorPicture()
-    {
-        return $this->msgerrorPicture;
-    }
 
-    public function validateEmptyPicture()
-    {
-
-        if (!$this->notEmpty($this->files)) {
-            $this->errorsPicture++;
-            $this->msgerrorPicture['picture'] = "veuillez sélectionner une photo";
-        }
-    }
-
-
-
-
-*/
     public function validateExtension()
     {
         if (!$this->extension($this->extension, self::EXTENSIONALLOWED)) {
@@ -59,45 +39,34 @@ class Picture extends ValidatorPicture
             $this->msgerror['picture'] = "extension acceptée : .jpg .jpeg et .png";
         }
     }
-/*
-    public function validateSize()
-    {
-        $this->size = ($_FILES['picture']['size']);
-        $this->maxSize = 700000;
-        
 
-        if (!$this->size($this->size, $this->maxSize)) {
-            $this->errorsPicture++;
-            $this->msgerrorPicture['picture'] = "taille de fichier supérieure à la taille maximum autorisée";
+    public function validateMaxSize()
+    {
+
+        if (!$this->maxSize($this->size, 700000)) {
+            $this->errors++;
+            $this->msgerror['picture'] = "taille de fichier supérieure à la taille maximum autorisée";
         }
     }
 
     public function validateType()
     {
         
-        $this->type = array('image/jpg', 'image/jpeg', 'image/png');
+        $this->fileType = array('image/jpg', 'image/jpeg', 'image/png');
         
-        if (!$this->type($this->fileType, $this->type)) {
-            $this->errorsPicture++;
-            $this->msgerrorPicture['picture'] = "le contenu ne correspond pas à l'extension du fichier";
+        if (!$this->type($this->type, $this->fileType)) {
+            $this->errors++;
+            $this->msgerror['picture'] = "le contenu ne correspond pas à l'extension du fichier";
         }
     }
-*/
-
 
 
     public function validate()
     {
+        $this->validateMaxSize();
         $this->validateExtension();
-        /*
-        echo '<pre>';
-        print_r($this);
-        die();
-
         $this->validateType();
-        $this->validateSize();
-        $this->validateExtension();
- */
+        
 
         if (!$this->errors == 0) {
             return $this->msgerror;

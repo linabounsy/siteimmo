@@ -22,9 +22,9 @@ class ValidatorPicture
         return true;
     }
 
-    protected function size($picture, $value) 
+    protected function maxSize($pictureSize, $value) 
     {
-        if ($picture > $value) {
+        if ($pictureSize > $value) {
             return false;
         }
         return true;

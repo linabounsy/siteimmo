@@ -224,10 +224,6 @@ class Estate extends Validator
             $this->msgerror['charge'] = "la montant des charges doit être composé de chiffres";
         }
 
-        if (!$this->notEmpty($this->charge)) {
-            $this->errors++;
-            $this->msgerror['charge'] = "veuillez renseigner le montant des charges";
-        }
         if (!$this->minZero($this->charge)) {
             $this->errors++;
             $this->msgerror['charge'] = "le montant minimum est 0";
@@ -264,12 +260,7 @@ class Estate extends Validator
     {
         if (!$this->numeric($this->land)) {
             $this->errors++;
-            $this->msgerror['land'] = "la surface du terrain doit être composé de chiffres";
-        }
-
-        if (!$this->notEmpty($this->land)) {
-            $this->errors++;
-            $this->msgerror['land'] = "veuillez renseigner la surface du terrain (à partir de 0)";
+            $this->msgerror['land'] = "veuillez renseigner la surface du terrain - il doit être composé de chiffres";
         }
 
         if (!$this->minZero($this->land)) {
@@ -285,9 +276,9 @@ class Estate extends Validator
             $this->msgerror['floor'] = "le numéro ou le nombre d'étages doit être composé de chiffres";
         }
 
-        if (!$this->notEmpty($this->floor)) {
+        if (!$this->minZero($this->floor)) {
             $this->errors++;
-            $this->msgerror['floor'] = "veuillez remplir le champ étage";
+            $this->msgerror['floor'] = "veuillez remplir le champ étage (à partir de 0)";
         }
     }
 
@@ -298,10 +289,7 @@ class Estate extends Validator
             $this->msgerror['room'] = "le nombre de pièces doit être composé de chiffres";
         }
 
-        if (!$this->notEmpty($this->room)) {
-            $this->errors++;
-            $this->msgerror['room'] = "veuillez indiquer le nombre de pièces";
-        }
+
         if (!$this->minZero($this->room)) {
             $this->errors++;
             $this->msgerror['room'] = "le nombre de pièces minimum est 0";
@@ -312,13 +300,9 @@ class Estate extends Validator
     {
         if (!$this->numeric($this->bedroom)) {
             $this->errors++;
-            $this->msgerror['bedroom'] = "le nombre de chambres doit être composé de chiffres";
-        }
-
-        if (!$this->notEmpty($this->bedroom)) {
-            $this->errors++;
             $this->msgerror['bedroom'] = "veuillez renseigner le nombre de chambres (à partir de 0)";
         }
+
 
         if (!$this->minZero($this->bedroom)) {
             $this->errors++;
@@ -333,10 +317,7 @@ class Estate extends Validator
             $this->msgerror['bathroom'] = "le nombre de salle de bain doit être composé de chiffres";
         }
 
-        if (!$this->notEmpty($this->bathroom)) {
-            $this->errors++;
-            $this->msgerror['bathroom'] = "veuillez indiquer le nombre de salle de bain";
-        }
+  
         if (!$this->minZero($this->bathroom)) {
             $this->errors++;
             $this->msgerror['bathroom'] = "le nombre minimum est 0";
@@ -350,10 +331,7 @@ class Estate extends Validator
             $this->msgerror['toilet'] = "le nombre de toilettes doit être composé de chiffres";
         }
 
-        if (!$this->notEmpty($this->toilet)) {
-            $this->errors++;
-            $this->msgerror['toilet'] = "veuillez indiquer le nombre de toilettes";
-        }
+
         if (!$this->minZero($this->toilet)) {
             $this->errors++;
             $this->msgerror['toilet'] = "le nombre minimum est 0";
@@ -388,13 +366,9 @@ class Estate extends Validator
     {
         if (!$this->numeric($this->garage)) {
             $this->errors++;
-            $this->msgerror['garage'] = "le nombre de garages doit être composé de chiffres";
+            $this->msgerror['garage'] = "veuillez renseigner le nbre de garages - il doit être composé de chiffres";
         }
 
-        if (!$this->notEmpty($this->garage)) {
-            $this->errors++;
-            $this->msgerror['garage'] = "veuillez renseigner le nombre de garage (à partir de 0)";
-        }
         if (!$this->minZero($this->garage)) {
             $this->errors++;
             $this->msgerror['garage'] = "le nombre minimum est 0";
@@ -487,7 +461,7 @@ class Estate extends Validator
         $this->validateEnergyclass();
         $this->validateGes();
         $this->validatePeriode();
-    var_dump($this->files);
+
         if ($this->files != null) {
             if ($this->errors != 0) {
                 $this->msgerror = array_merge($this->msgerror, array('picture' => 'veuillez re-sélectionner une photo'));
@@ -506,25 +480,8 @@ class Estate extends Validator
                 }
             }
         }
-        
-        /*
-        if ($this->errors != 0 && (empty($msgErrorPicture))) {
-            $this->errors++;
-            $this->msgerror['newpicture'] = 'veuillez re-sélectionner une photo';
+     
          
-        }*/
-
-         
-/*
-        $allMsgerror = [];
-        $allMsgerror = array_merge($this->msgerror, $msgErrorPicture);
-        $this->msgerror = $allMsgerror;*/
-
-/*if ($this->errors != 0 && (!empty($this->files))) {
-                $msgerror['newpicture'] = 'veuillez re-sélectionner une photo';
-                $errors++;
-            }*/
-
         if ($this->errors === 0) {
             return true;
         }
