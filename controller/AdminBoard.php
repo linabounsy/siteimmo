@@ -97,23 +97,8 @@ class AdminBoard
 
 
     public function addAdvert() // ajout nouvelle annonce pour l'affichage
-
     {
         $realEstateAdvert = new RealEstateAdvert;
-
- 
-       /*function convertDate($dateFrench) 
-        {
-             $tabDate = explode('-' , $dateFrench);
-             $enDate  = $tabDate[2].'-'.$tabDate[1].'-'.$tabDate[0];
-             return $enDate;
-        }
-        $dateconvertie = convertDate('01-10-2020');
-        $dateEn = new DateTime($dateconvertie);
-        print_r($dateEn);
-        echo $dateEn->format('d/m/Y');
-        die();*/
-
 
         if (isset($_POST['newadvertpublish']) || isset($_POST['newadvertnopublish'])) {
 
@@ -172,16 +157,12 @@ class AdminBoard
 
     public function modifyEstate()
     {
-
-  
         $realEstateAdvert = new RealEstateAdvert;
-
-        if (isset($_POST['modifyadvertpublish']) || isset($_POST['modifyadvertnopublish'])) {
- //$_FILES['error'] != 4 ? $_FILES : null
-
-            $estateValidate = new Estate($_POST, $_FILES['picture']['error'] == 0 ? $_FILES : null );
-            //var_dump($_POST);
-            //var_dump($_FILES);
+        
+        if (isset($_POST['modifyadvertpublish']) || isset($_POST['modifyadvertnopublish'])) 
+        {
+            $estateValidate = new Estate($_POST, $_FILES['picture']['error'] !== 4 ? $_FILES['picture'] : null);
+           
             $status = null;
             if (isset($_POST['modifyadvertpublish'])) {
                 $status  = 1;
@@ -191,33 +172,37 @@ class AdminBoard
                 $status  = 2;
             }
 
-            $newFileupload = false; 
+            $fileupload = false; 
             if (!empty($_FILES) && !empty($_FILES['picture']) && !empty($_FILES['picture']['name'])) {
                 
-                $currentImgTemp = $_FILES['picture']['tmp_name'];
-                $newFile = $_FILES['picture']['name'];
-                $newName = uniqid();
-                $currentFile = '../public/img/estates/' . $newName;// dossier final pour l'image
-                $fileExtension = strtolower(strrchr($newFile, "."));
-                $newFileupload = $newName . $fileExtension;
+                $fileTemporyName = $_FILES['picture']['tmp_name']; //nom du fichier temporaire
+                $fileName = $_FILES['picture']['name']; // on veut le nom du fichier
+                $finalName = uniqid();
+                $fileDest = '../public/img/estates/' . $finalName; // dossier final pour l'image
+                $fileExtension = strtolower(strrchr($fileName, ".")); // isole le nouveau nom de l'image
+                $fileupload = $finalName . $fileExtension;
             
             } 
 
             
             if ($estateValidate->validate()) {
+                    
                     $periode = DateTime::createFromFormat('d-m-Y', $_POST['periode']);
                     $construction = DateTime::createFromFormat('d-m-Y', '01-01-' . $_POST['construction']);
-                    if ($newFileupload !== false) {
-                        move_uploaded_file($currentImgTemp, $currentFile . $fileExtension);
+                    if ($fileupload !== false) {
                         
+                        move_uploaded_file($fileTemporyName, $fileDest . $fileExtension);
                     } 
 
-                    $realEstateAdvert->editEstate($_GET['id'], $_POST['category'], $_POST['type'], $_POST['exposure'], $_POST['parking'], $_POST['kitchen'], $_POST['heating'], $_POST['subdivision'], $_POST['floor'], $_POST['charge'], $_POST['bathroom'], $_POST['toilet'], $_POST['garage'], $_POST['basement'], $_POST['surface'], $_POST['land'], $_POST['price'], $periode->format('Y-m-d h:i:s'), $_POST['title'], $_POST['description'], $newFileupload, $status, $_POST['diagenergy'], $_POST['ges'], $_POST['room'], $_POST['bedroom'], $construction->format('Y-m-d h:i:s'), $_POST['client'], $_POST['address'], $_POST['city'], $_POST['postcode'], $_POST['energyclass']);
+                    $realEstateAdvert->editEstate($_GET['id'], $_POST['category'], $_POST['type'], $_POST['exposure'], $_POST['parking'], $_POST['kitchen'], $_POST['heating'], $_POST['subdivision'], $_POST['floor'], $_POST['charge'], $_POST['bathroom'], $_POST['toilet'], $_POST['garage'], $_POST['basement'], $_POST['surface'], $_POST['land'], $_POST['price'], $periode->format('Y-m-d h:i:s'), $_POST['title'], $_POST['description'], $fileupload, $status, $_POST['diagenergy'], $_POST['ges'], $_POST['room'], $_POST['bedroom'], $construction->format('Y-m-d h:i:s'), $_POST['client'], $_POST['address'], $_POST['city'], $_POST['postcode'], $_POST['energyclass']);
 
                     header('Location: index.php?action=indexadmin');
                     exit();
             }
-          
+            
+         /*   echo '<pre>';
+            print_r($estateValidate->getMsgerror());
+            die();*/
         }
 
         

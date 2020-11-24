@@ -82,9 +82,6 @@ class Estate extends Validator
         $this->ges = !empty($form['ges']);
         $this->periode = $form['periode'];
         $this->files = $files;
-        
-    
-   
     }
 
     public function getMsgerror()
@@ -185,7 +182,6 @@ class Estate extends Validator
             $this->msgerror['construction'] = "veuillez renseigner une année";
         }
         try {
-           
         } catch (\Exception $e) {
             $this->errors++;
             $this->msgerror['construction'] = "veuillez renseigner une année";
@@ -317,7 +313,7 @@ class Estate extends Validator
             $this->msgerror['bathroom'] = "le nombre de salle de bain doit être composé de chiffres";
         }
 
-  
+
         if (!$this->minZero($this->bathroom)) {
             $this->errors++;
             $this->msgerror['bathroom'] = "le nombre minimum est 0";
@@ -423,15 +419,10 @@ class Estate extends Validator
         }
     }
 
-    
- 
 
-/*if ($errors != 0 && (!empty($_FILES['picture']['name']))) {
-                $msgerror['newpicture'] = 'veuillez re-sélectionner une photo';
-                $errors++;
-            }*/
     public function validate()
     {
+
         $this->validateTitle();
         $this->validateDescription();
         $this->validateClient();
@@ -463,6 +454,8 @@ class Estate extends Validator
         $this->validatePeriode();
 
         if ($this->files != null) {
+
+
             if ($this->errors != 0) {
                 $this->msgerror = array_merge($this->msgerror, array('picture' => 'veuillez re-sélectionner une photo'));
                 $this->errors++;
@@ -474,17 +467,17 @@ class Estate extends Validator
             if ($this->files['error'] == 0) {
                 $picture = new Picture($this->files);
                 $msgErrorPicture = $picture->validate();
+
                 if ($msgErrorPicture !== true) {
                     $this->msgerror = array_merge($this->msgerror, $msgErrorPicture);
                     $this->errors++;
                 }
             }
         }
-     
-         
+
+
         if ($this->errors === 0) {
             return true;
         }
-      
     }
 }

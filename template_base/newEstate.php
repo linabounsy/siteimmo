@@ -588,7 +588,7 @@
       <div id="collapse121" class="collapse <?= !empty($estateValidate) && isset($estateValidate->getMsgerror()['picture']) ? 'show' : (!empty($estateValidate) && isset($estateValidate->getMsgerror()['newpicture']) ? 'show' : null) ?>" role="tabpanel" aria-labelledby="heading121">
         <div class="card-body">
           <div class="custom-control-inline">
-            <input type="file" id="picture" name="picture" accept="image/png, image/jpg, image/jpeg" value="">
+            <input type="file" id="picture" name="picture" accept="image/png, image/jpg, image/jpeg">
           </div>
           <p id="error_picture" class="error"><?= !empty($estateValidate) && isset($estateValidate->getMsgerror()['picture']) ? $estateValidate->getMsgerror()['picture'] : (
  	!empty($estateValidate) && isset($estateValidate->getMsgerror()['newpicture']) ? $estateValidate->getMsgerror()['newpicture'] : '' )?></p>

@@ -704,13 +704,14 @@
             <form action="index.php?action=deleteimg&id=<?= $estate['id'] ?>" method="post" id="deleteimg"></form>
           </div>
           <div>
-            <input form="modifyestate" type="file" class="input-button" enctype="multipart/form-data" name="picture" accept="image/png, image/jpg">
-            <input form="deleteimg" type="submit" value="supprimer l'image" class="input-button-form" onclick="return window.confirm('Etes vous sûr de vouloir supprimer cette image ?')">
+          <input type="file" id="picture" name="picture" accept="image/png, image/jpg, image/jpeg" class="input-button">
+
+     
+            <input type="submit" value="supprimer l'image" class="input-button-form" onclick="return window.confirm('Etes vous sûr de vouloir supprimer cette image ?')">
             <br />
             <img src="../public/img/estates/<?= $estate["picture"] ?>" id="editestateimg" class="card-img-top w-25" alt="">
             <input type="hidden" name="picture" value="<?= $estate["picture"] ?>">
-            <p id="error_picture" class="error"><?= !empty($estateValidate) && isset($estateValidate->getMsgerror()['picture']) ? $estateValidate->getMsgerror()['picture'] : (
- 	!empty($estateValidate) && isset($estateValidate->getMsgerror()['newpicture']) ? $estateValidate->getMsgerror()['newpicture'] : '' )?></p>
+            <p id="error_picture" class="error"><?= !empty($estateValidate) && isset($estateValidate->getMsgerror()['picture']) ? $estateValidate->getMsgerror()['picture'] : ''?></p>
           </div>
         </div>
 
