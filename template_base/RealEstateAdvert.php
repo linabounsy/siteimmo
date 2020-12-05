@@ -16,10 +16,7 @@
                 <img class="d-block w-100" src="../public/img/salon.jpg" alt="First slide">
                 <div class="mask rgba-black-light"></div>
             </div>
-            <div class="carousel-caption">
-                <h3 class="h3-responsive">Salon</h3>
-
-            </div>
+        
         </div>
         <div class="carousel-item">
             <!--Mask color-->
@@ -85,6 +82,12 @@
         <li class="list-group-item rounded-lg col-2 w-25"><i class="far fa-image  mr-2 grey p-3 white-text rounded-circle " aria-hidden="true"></i>3 pièces</li>
         <li class="list-group-item rounded-lg col-2 w-25"> <i class="fas fa-bed  mr-2 grey p-3 white-text rounded-circle" aria-hidden="true"></i>2 chbres</li>
         <li class="list-group-item rounded-lg col-2 w-25"> <i class="fas fa-building  mr-2  grey p-3 white-text rounded-circle" aria-hidden="true"></i>1983</li>
+
+        <li class="list-group-item rounded-lg col-2 w-25"><i class="fas fa-home  mr-2 grey p-3 white-text rounded-circle " aria-hidden="true"></i><?=($estate['surface']) ?>m²</li>
+        <li class="list-group-item rounded-lg col-2 w-25"><i class="far fa-image  mr-2 grey p-3 white-text rounded-circle " aria-hidden="true"></i><?=($estate['room']) ?></li>
+        <li class="list-group-item rounded-lg col-2 w-25"> <i class="fas fa-bed  mr-2 grey p-3 white-text rounded-circle" aria-hidden="true"></i><?=($estate['bedroom']) ?></li>
+        <li class="list-group-item rounded-lg col-2 w-25"> <i class="fas fa-building  mr-2  grey p-3 white-text rounded-circle" aria-hidden="true"></i><?= explode('-', $estate['construction'])[0] ?></li>
+
     </ul>
 
 </div>
@@ -224,35 +227,37 @@
     <div class="card-body px-lg-5 pt-0">
 
         <!-- Form -->
-        <form class="text-center" style="color: #757575;" action="#!">
+        <form class="text-center" id="contactform" style="color: #757575;" action="#!">
 
             <!-- Name -->
             <div class="md-form mt-3">
-                <input type="text" id="materialContactFormName" class="form-control">
-                <label for="materialContactFormName">Nom</label>
+                <input type="text" id="ContactFormName" name="name" class="form-control">
+                <label for="ContactFormName">Nom</label>
+                <p id="error_contactname" class="error"></p>
             </div>
 
             <!-- FirstName -->
             <div class="md-form mt-3">
-                <input type="text" id="materialContactFormFirstName" class="form-control">
-                <label for="materialContactFormFirstName">Prénom</label>
+                <input type="text" id="ContactFormFirstName" name="firstname" class="form-control">
+                <label for="ContactFormFirstName">Prénom</label>
             </div>
 
             <!-- Phone -->
             <div class="md-form mt-3">
-                <input type="tel" id="materialContactTel" class="form-control">
-                <label for="materialContactFormTel">Téléphone</label>
+                <input type="tel" id="ContactTel" name="phone" class="form-control">
+                <label for="ContactFormTel">Téléphone</label>
             </div>
 
             <!-- E-mail -->
             <div class="md-form">
-                <input type="email" id="materialContactFormEmail" class="form-control">
-                <label for="materialContactFormEmail">E-mail</label>
+                <input type="email" id="ContactFormEmail" name="email" class="form-control">
+                <label for="ContactFormEmail">E-mail</label>
             </div>
 
 
             <!-- Send button -->
-            <button class="btn btn btn-info btn-rounded btn-block z-depth-0 my-4 white-text font-weight-bold text-center py-4" type="submit">Envoyer</button>
+            <button class="btn btn btn-info btn-rounded btn-block z-depth-0 my-4 white-text font-weight-bold text-center py-4" type="submit" id="formcontact-submit">Envoyer</button>
+         
 
         </form>
         <!-- Form -->
