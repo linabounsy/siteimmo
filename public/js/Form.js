@@ -63,57 +63,44 @@ class Form {
         this.errorPicture = document.getElementById("error_picture");
         this.submitFormPublish = document.getElementById("newadvertpublish");
         this.submitFormNoPublish = document.getElementById("newadvertnopublish");
-        this.collapseDescription = document.getElementById("collapse97");
-        this.collapseClient = document.getElementById("collapse98");
-        this.collapseCategory = document.getElementById("collapse99");
-        this.collapseType = document.getElementById("collapse100");
-        this.collapseLocalisation = document.getElementById("collapse130");
-        this.collapseConstruction = document.getElementById("collapse101");
-        this.collapseExposure = document.getElementById("collapse102");
-        this.collapsePrice = document.getElementById("collapse108");
-        this.collapseCharge = document.getElementById("collapse110");
-        this.collapseSubdivision = document.getElementById("collapse106");
-        this.collapseSurface = document.getElementById("collapse107");
-        this.collapseLand = document.getElementById("collapse109");
-        this.collapseFloor = document.getElementById("collapse111");
-        this.collapseRoom = document.getElementById("collapse112");
-        this.collapseBedroom = document.getElementById("collapse113");
-        this.collapseBathroom = document.getElementById("collapse114");
-        this.collapseToilet = document.getElementById("collapse115");
-        this.collapseKitchen = document.getElementById("collapse104");
-        this.collapseHeating = document.getElementById("collapse103");
-        this.collapseParking = document.getElementById("collapse105");
-        this.collapseGarage = document.getElementById("collapse116");
-        this.collapseBasement = document.getElementById("collapse117");
-        this.collapseDiagenergy = document.getElementById("collapse118");
-        this.collapseEnergyclass = document.getElementById("collapse123");
-        this.collapseGes = document.getElementById("collapse140");
-        this.collapsePeriode = document.getElementById("collapse120");
-        this.collapsePicture = document.getElementById("collapse121");
     
 
-        this.submitFormPublish.addEventListener("click", this.checkField.bind(this));
-        this.submitFormNoPublish.addEventListener("click", this.checkField.bind(this));
+        this.errors = 0;
+        $('#newadvertpublish').click(function(event) {
+            formulaire.checkField();
+            if (formulaire.errors != 0) {
+                event.preventDefault();
+            }
+        });
 
+        this.submitFormNoPublish.addEventListener("click", this.checkField.bind(this));
+        $('#newadvertnopublish').click(function(event) {
+            formulaire.checkField();
+            if (formulaire.errors != 0) {
+                event.preventDefault();
+            }
+        });
 
 
     }
 
     checkField() {
 
+        
         if (this.titleInput.value == "") {
             this.errorTitle.textContent = "le champ est vide";
             this.errorTitle.style.color = "red";
-
+            this.errors++;
 
         } else {
             this.errorTitle.style.display = "none";
+            this.errors = 0;
         }
 
         if (this.descriptionInput.value == "") {
             this.errorDescription.textContent = "le champ est vide";
             this.errorDescription.style.color = "red";
-            $(this.collapseDescription).collapse('show'); //ouvre l'accordeon car le champ n'est pas rempli
+            this.errors++;
 
         }
         else {
@@ -124,7 +111,8 @@ class Form {
         if (this.clientInput.value == "choisir un client") {
             this.errorClient.textContent = "sélectionner un client";
             this.errorClient.style.color = "red";
-            $(this.collapseClient).collapse('show');
+            this.errors++;
+
         } else {
             this.errorClient.style.display = "none";
         }
@@ -132,9 +120,9 @@ class Form {
         this.categoryInput.forEach(categoryEl => {
             if (categoryEl.checked) {
                 this.errorCategory.style.display = "none";
+                this.errors++;
             } else {
                 this.errorCategory.textContent = "sélectionner un champ";
-                $(this.collapseCategory).collapse('show');
 
             }
         })
@@ -142,9 +130,10 @@ class Form {
         this.typeInput.forEach(typeEl => {
             if (typeEl.checked) {
                 this.errorType.style.display = "none";
+                this.errors++;
             } else {
                 this.errorType.textContent = "sélectionner un champ";
-                $(this.collapseType).collapse('show');
+
 
             }
         })
@@ -152,7 +141,8 @@ class Form {
         if (this.addressInput.value == "" || this.cityInput.value == "" || this.postCodeInput.value == "") {
             this.errorLocalisation.textContent = "remplir tous les champs";
             this.errorLocalisation.style.color = "red";
-            $(this.collapseLocalisation).collapse('show');
+            this.errors++;
+
         } else {
             this.errorLocalisation.style.display = "none";
             
@@ -161,7 +151,8 @@ class Form {
         if (this.constructionInput.value == "") {
             this.errorConstruction.textContent = "renseigner une année";
             this.errorConstruction.style.color = "red";
-            $(this.collapseConstruction).collapse('show');
+            this.errors++;
+
         } else {
             this.errorConstruction.style.display = "none";
         }
@@ -171,17 +162,19 @@ class Form {
         this.exposureInput.forEach(exposureEl => {
             if (exposureEl.checked) {
                 this.errorExposure.style.display = "none";
+                this.errors++;
             } else {
                 this.errorExposure.textContent = "sélectionner un champ";
-                $(this.collapseExposure).collapse('show');
 
+   
             }
         })
 
         if (this.priceInput.value == "") {
             this.errorPrice.textContent = "renseigner un prix";
             this.errorPrice.style.color = "red";
-            $(this.collapsePrice).collapse('show');
+            this.errors++;
+
         } else {
             this.errorPrice.style.display = "none";
       
@@ -190,7 +183,8 @@ class Form {
         if (this.chargeInput.value == "") {
             this.errorCharge.textContent = "renseigner un prix";
             this.errorCharge.style.color = "red";
-            $(this.collapseCharge).collapse('show');
+            this.errors++;
+
         } else {
             this.errorCharge.style.display = "none";
         }
@@ -198,9 +192,10 @@ class Form {
         this.subdivisionYesInput.forEach(subdivisionEl => {
             if (subdivisionEl.checked) {
                 this.errorSubdivision.style.display = "none";
+                this.errors++;
             } else {
                 this.errorSubdivision.textContent = "sélectionner un champ";
-                $(this.collapseSubdivision).collapse('show');
+
 
             }
         })
@@ -208,9 +203,10 @@ class Form {
         this.subdivisionNoInput.forEach(subdivisionEl => {
             if (subdivisionEl.checked) {
                 this.errorSubdivision.style.display = "none";
+                this.errors++;
             } else {
                 this.errorSubdivision.textContent = "sélectionner un champ";
-                $(this.collapseSubdivision).collapse('show');
+
 
             }
         })
@@ -218,7 +214,9 @@ class Form {
         if (this.surfaceInput.value == "") {
             this.errorSurface.textContent = "renseigner une surface";
             this.errorSurface.style.color = "red";
-            $(this.collapseSurface).collapse('show');
+            this.errors++;
+
+
         } else {
             this.errorSurface.style.display = "none";
         }
@@ -226,7 +224,8 @@ class Form {
         if (this.landInput.value == "") {
             this.errorLand.textContent = "remplir ce champ";
             this.errorLand.style.color = "red";
-            $(this.collapseLand).collapse('show');
+            this.errors++;
+
         } else {
             this.errorLand.style.display = "none";
         }
@@ -234,7 +233,9 @@ class Form {
         if (this.floorInput.value == "") {
             this.errorFloor.textContent = "remplir ce champ";
             this.errorFloor.style.color = "red";
-            $(this.collapseFloor).collapse('show');
+            this.errors++;
+
+     
         } else {
             this.errorFloor.style.display = "none";
         }
@@ -242,7 +243,8 @@ class Form {
         if (this.roomInput.value == "") {
             this.errorRoom.textContent = "renseigner le nombre de pièces";
             this.errorRoom.style.color = "red";
-            $(this.collapseRoom).collapse('show');
+            this.errors++;
+    
         } else {
             this.errorRoom.style.display = "none";
         }
@@ -250,7 +252,8 @@ class Form {
         if (this.bedroomInput.value == "") {
             this.errorBedroom.textContent = "renseigner le nombre de chambres";
             this.errorBedroom.style.color = "red";
-            $(this.collapseBedroom).collapse('show');
+            this.errors++;
+     
         } else {
             this.errorBedroom.style.display = "none";
         }
@@ -258,7 +261,8 @@ class Form {
         if (this.bathroomInput.value == "") {
             this.errorBathroom.textContent = "renseigner le nombre de salle de bain";
             this.errorBathroom.style.color = "red";
-            $(this.collapseBathroom).collapse('show');
+            this.errors++;
+      
         } else {
             this.errorBathroom.style.display = "none";
         }
@@ -266,7 +270,8 @@ class Form {
         if (this.toiletInput.value == "") {
             this.errorToilet.textContent = "renseigner le nombre de toilettes";
             this.errorToilet.style.color = "red";
-            $(this.collapseToilet).collapse('show');
+            this.errors++;
+    
         } else {
             this.errorToilet.style.display = "none";
         }
@@ -274,9 +279,9 @@ class Form {
         this.kitchenInput.forEach(kitchenEl => {
             if (kitchenEl.checked) {
                 this.errorKitchen.style.display = "none";
+                this.errors++;
             } else {
                 this.errorKitchen.textContent = "sélectionner un champ";
-                $(this.collapseKitchen).collapse('show');
 
             }
         })
@@ -284,9 +289,9 @@ class Form {
         this.heatingInput.forEach(heatingEl => {
             if (heatingEl.checked) {
                 this.errorHeating.style.display = "none";
+                this.errors++;
             } else {
                 this.errorHeating.textContent = "sélectionner un champ";
-                $(this.collapseHeating).collapse('show');
 
             }
         })
@@ -294,9 +299,9 @@ class Form {
         this.parkingInput.forEach(parkingEl => {
             if (parkingEl.checked) {
                 this.errorParking.style.display = "none";
+                this.errors++;
             } else {
                 this.errorParking.textContent = "sélectionner un champ";
-                $(this.collapseParking).collapse('show');
 
             }
         })
@@ -304,7 +309,8 @@ class Form {
         if (this.garageInput.value == "") {
             this.errorGarage.textContent = "renseigner le nombre de garages";
             this.errorGarage.style.color = "red";
-            $(this.collapseGarage).collapse('show');
+            this.errors++;
+
         } else {
             this.errorGarage.style.display = "none";
         }
@@ -312,9 +318,10 @@ class Form {
         this.basementYesInput.forEach(basementEl => {
             if (basementEl.checked) {
                 this.errorBasement.style.display = "none";
+                this.errors++;
             } else {
                 this.errorBasement.textContent = "sélectionner un champ";
-                $(this.collapseBasement).collapse('show');
+
 
             }
         })
@@ -322,9 +329,9 @@ class Form {
         this.basementNoInput.forEach(basementEl => {
             if (basementEl.checked) {
                 this.errorBasement.style.display = "none";
+                this.errors++;
             } else {
                 this.errorBasement.textContent = "sélectionner un champ";
-                $(this.collapseBasement).collapse('show');
 
             }
         })
@@ -332,9 +339,9 @@ class Form {
         this.diagenergyYesInput.forEach(diagenergyEl => {
             if (diagenergyEl.checked) {
                 this.errorDiagenergy.style.display = "none";
+                this.errors++;
             } else {
                 this.errorDiagenergy.textContent = "sélectionner un champ";
-                $(this.collapseDiagenergy).collapse('show');
 
             }
         })
@@ -342,9 +349,9 @@ class Form {
         this.diagenergyNoInput.forEach(diagenergyEl => {
             if (diagenergyEl.checked) {
                 this.errorDiagenergy.style.display = "none";
+                this.errors++;
             } else {
                 this.errorDiagenergy.textContent = "sélectionner un champ";
-                $(this.collapseDiagenergy).collapse('show');
 
             }
         })
@@ -352,9 +359,9 @@ class Form {
         this.energyclassInput.forEach(energyclassEl => {
             if (energyclassEl.checked) {
                 this.errorEnergyclass.style.display = "none";
+                this.errors++;
             } else {
                 this.errorEnergyclass.textContent = "sélectionner un champ";
-                $(this.collapseEnergyclass).collapse('show');
 
             }
         })
@@ -362,9 +369,9 @@ class Form {
         this.gesInput.forEach(gesEl => {
             if (gesEl.checked) {
                 this.errorGes.style.display = "none";
+                this.errors++;
             } else {
                 this.errorGes.textContent = "sélectionner un champ";
-                $(this.collapseGes).collapse('show');
 
             }
         })
@@ -372,15 +379,18 @@ class Form {
         if (this.periodeInput.value == "") {
             this.errorPeriode.textContent = "renseigner une date de disponibilité";
             this.errorPeriode.style.color = "red";
-            $(this.collapsePeriode).collapse('show');
+            this.errors++;
+
         } else {
             this.errorPeriode.style.display = "none";
+
         }
 
-        if (this.pictureInput.value == "") {
+        if (this.pictureInput.value == [0]) {
             this.errorPicture.textContent = "veuillez charger une photo";
             this.errorPicture.style.color = "red";
-            $(this.collapsePicture).collapse('show');
+            this.errors++;
+
         } else {
             this.errorPicture.style.display = "none";
         }
@@ -388,7 +398,8 @@ class Form {
         if (this.pictureInput.value !== "") {
             this.errorPicture.textContent = "veuillez recharger une photo";
             this.errorPicture.style.color = "red";
-            $(this.collapsePicture).collapse('show');
+            this.errors++;
+
         } else {
             this.errorPicture.style.display = "none";
         }

@@ -1,13 +1,13 @@
 <?php ob_start(); ?>
 
 
-<a href="index.php?action=displayclient&client.php" class="btn btn-info btn-md my-4">Revenir à la page précédente</a>
+<a href="index.php?action=displayclient&client.php" class="btn blue white-text btn-md my-4">Revenir à la page précédente</a>
 
 
 <!-- Material form register -->
 <div class="card">
 
-    <h5 class="card-header info-color white-text text-center py-4">
+    <h5 class="card-header blue white-text text-center py-4">
         <strong>Ajouter un client</strong>
     </h5>
 
@@ -70,7 +70,7 @@
             </div>
 
             <!-- Sign up button -->
-            <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0 w-50 m-auto" type="submit">Validez</button>
+            <button class="btn btn-outline-blue btn-rounded btn-block my-4 waves-effect z-depth-0 w-50 m-auto" type="submit">Validez</button>
 
         </form>
         <!-- Form -->

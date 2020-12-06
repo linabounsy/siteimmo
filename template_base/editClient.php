@@ -1,6 +1,6 @@
 <?php ob_start(); ?>
 
-<a href="index.php?action=displayclient&client.php" class="btn btn-info btn-md my-4">Revenir à la page précédente</a>
+<a href="index.php?action=displayclient&client.php" class="btn blue white-text btn-md my-4">Revenir à la page précédente</a>
 
  <!-- Form -->
  <form class="text-center" action="index.php?action=editclient&id=<?= $client['id'] ?>" method="post" id="modifyclient">
@@ -58,7 +58,7 @@
 </div>
 
 <!-- Sign up button -->
-<button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0 w-50 m-auto" type="submit">modifier</button>
+<button class="btn btn-outline-blue btn-rounded btn-block my-4 waves-effect z-depth-0 w-50 m-auto" type="submit">Enregistrez</button>
 
 </form>
 <!-- Form -->

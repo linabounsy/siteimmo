@@ -18,59 +18,106 @@
 </head>
 
 <body>
-    <div class="container-fluid p-0">
+    <div class="container-fluid">
 
-        <header>
-
-            <ul class="nav nav-pills nav-fill nav-light blue lighten-4">
-                <li class="nav-item font-weight-bold">
-
-                    Bienvenue Orianne
-                </li>
-                <li class="nav-item font-weight-bold">
-                    Conseillère Immo
-                </li>
-
-                <li class="nav-item font-weight-bold">
-                    Paris IDF
-                </li>
-            </ul>
-        </header>
+        <!-- Navbar -->
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+            <div class="container">
 
 
-        <nav class="navbar navbar-expand-lg">
+                <!-- Collapse -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                <ul class="navbar-nav w-50 justify-content-around">
-                    <li class="nav-item">
-                        <a class="nav-link p-2 black-text  font-weight-bold" href="index.php?action=newadvert">ajouter une annonce</span></a>
-                    </li>
+                <!-- Links -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-                    <li class="nav-item">
-                        <a class="nav-link black-text  font-weight-bold" href="#">se déconnecter</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link black-text  font-weight-bold" href="index.php?action=displayclient&client.php">fiches client</a>
-                    </li>
-                </ul>
+                    <!-- accueil site -->
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link waves-effect" href="index.php?action=indexadminestates">Tableau de bord
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link waves-effect" href="index.php?action=newadvert" target="_blank">Ajouter une annonce
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link waves-effect" href="index.php?action=displayclient&client.php">Fiches Clients
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link waves-effect" href="index.php" target="_blank">Accès Site
+                            </a>
+                        </li>
+
+                 
+                        
+
+                      
+
+                        <!-- perso bienvenue Admin
+          <?php
+            if (isset($_SESSION['id']) && $_SESSION['id'] == 1) {
+
+
+            ?>
+
+            <li class="nav-item">
+              <a class="nav-link text-black" href="index.php?action=indexadmin&indexadmin.php"><?= $_SESSION['login'] ?></a>
+
+            </li>
+
+          <?php
+            } else { ?>
+
+            <li class="nav-item">
+              <a class="nav-link text-black" href="index.php?action=connexion&connexionview.php">Connexion</a>
+            </li>
+          <?php
+            }
+            ?>
+
+ -->
+                     <!-- profil-->
+                    </ul>
+                    <ul class="navbar-nav ml-auto nav-flex-icons">
+                        <li class="nav-item d-flex justify-content-end">
+                            <a class="nav-link waves-effect" href="#">Déconnexion
+                            </a>
+                        </li>
+                        <li class="nav-item avatar">
+                           
+                                <img src="../public/img/avatar.png" class="rounded-circle z-depth-0" alt="avatar image" height="35">
+                            
+                        </li>
+                    </ul>
+
+
+
+
+
+                </div>
+
             </div>
         </nav>
-
+      
 
 
 
         <main class="mt-4 pt-1 container">
-            <div id="content" class="container"><?= $content ?></div>
+            <div id="content" class="container mt-4"><?= $content ?></div>
         </main>
 
 
 
 
         <!-- Footer -->
-        <footer class="mt-5 font-light blue lighten-4">
+        <footer class="mt-5 blue">
 
             <!-- Footer Links -->
             <div class="container">
@@ -81,7 +128,7 @@
                     <!-- Grid column -->
                     <div class="col-md mb-3">
                         <h8>
-                            <a href="#!" class="footer-text">Mentions légales</a>
+                            <a href="#!" class="footer-text white-text">Mentions légales</a>
                         </h8>
                     </div>
                     <!-- Grid column -->
@@ -89,7 +136,7 @@
                     <!-- Grid column -->
                     <div class="col-md mb-3">
                         <h8>
-                            <a href="#!" class="footer-text">Politique de Protection des Données</a>
+                            <a href="#!" class="footer-text white-text">Politique de Protection des Données</a>
                         </h8>
                     </div>
                     <!-- Grid column -->
@@ -97,7 +144,7 @@
                     <!-- Grid column -->
                     <div class="col-md mb-3">
                         <h8>
-                            <a href="index.php?action=connexion&connexionadmin.php" class="footer-text">Connexion Admin</a>
+                            <a href="index.php?action=connexion&connexionadmin.php" class="footer-text white-text">Connexion Admin</a>
                         </h8>
                     </div>
                     <!-- Grid column -->
@@ -119,27 +166,27 @@
 
                             <!-- Facebook -->
                             <a class="fb-ic">
-                                <i class="fab fa-facebook-f fa-lg black-text mr-4"> </i>
+                                <i class="fab fa-facebook-f fa-lg white-text mr-4"> </i>
                             </a>
                             <!-- Twitter -->
                             <a class="tw-ic">
-                                <i class="fab fa-twitter fa-lg black-text mr-4"> </i>
+                                <i class="fab fa-twitter fa-lg white-text mr-4"> </i>
                             </a>
                             <!-- Google +-->
                             <a class="gplus-ic">
-                                <i class="fab fa-google-plus-g fa-lg black-text mr-4"> </i>
+                                <i class="fab fa-google-plus-g fa-lg white-text mr-4"> </i>
                             </a>
                             <!--Linkedin -->
                             <a class="li-ic">
-                                <i class="fab fa-linkedin-in fa-lg black-text mr-4"> </i>
+                                <i class="fab fa-linkedin-in fa-lg white-text mr-4"> </i>
                             </a>
                             <!--Instagram-->
                             <a class="ins-ic">
-                                <i class="fab fa-instagram fa-lg black-text mr-4"> </i>
+                                <i class="fab fa-instagram fa-lg white-text mr-4"> </i>
                             </a>
                             <!--Pinterest-->
                             <a class="pin-ic">
-                                <i class="fab fa-pinterest fa-lg black-text"> </i>
+                                <i class="fab fa-pinterest fa-lg white-text"> </i>
                             </a>
 
                         </div>
@@ -154,7 +201,7 @@
             <!-- Footer Links -->
 
             <!-- Copyright -->
-            <div class="footer-copyright text-center py-3">© 2020 Copyright :
+            <div class="footer-copyright white-text text-center py-3">© 2020 Copyright :
                 Ori
             </div>
             <!-- Copyright -->
@@ -173,6 +220,7 @@
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="js/mdb.min.js"></script>
     <script type="text/javascript" src="../public/js/form.js"></script>
+    <script type="text/javascript" src="../public/js/formcontact.js"></script>
     <script>
         $('.datepicker').pickadate({
             format: 'yyyy',

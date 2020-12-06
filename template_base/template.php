@@ -180,6 +180,7 @@
 
     </div>
     <script type="text/javascript" src="../public/js/form.js"></script>
+    <script type="text/javascript" src="../public/js/formcontact.js"></script>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Bootstrap tooltips -->

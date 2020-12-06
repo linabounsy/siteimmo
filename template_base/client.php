@@ -1,9 +1,9 @@
 <?php ob_start(); ?>
 
 
-<a href="index.php?action=indexadmin" class="btn btn-info btn-md my-4">Revenir à la page précédente</a>
+<a href="index.php?action=indexadmin" class="btn blue btn-md my-4 white-text">Revenir à la page précédente</a>
 
-<a href="index.php?action=insertnewclient" class="btn btn-info btn-md my-4">Ajouter un client</a>
+<a href="index.php?action=insertnewclient" class="btn blue btn-md my-4 white-text">Ajouter un client</a>
 
 <h2>Liste des clients</h2>
 
@@ -28,15 +28,47 @@
 
     ?>
       <tr>
-        <th scope="row"><?= htmlspecialchars($allClient['lastname']) ?> <?= htmlspecialchars($allClient['firstname']) ?></th>
-        <td><?= htmlspecialchars($allClient['email']) ?></td>
-        <td><span class="comments"><?= nl2br(htmlspecialchars($allClient['address'])) ?></span></td>
-        <td><?= htmlspecialchars($allClient['postcode']) ?></td>
-        <td><?= htmlspecialchars($allClient['city']) ?></td>
-        <td><?= htmlspecialchars($allClient['phone']) ?></td>
-        <td><a href="index.php?action=modifyclient&id=<?= $allClient['id'] ?>"><span class="badge badge-warning float-right p-2 mb-2">éditer la fiche</span></a><br />
-        <a href="index.php?action=deleteclient&id=<?= $allClient['id'] ?>" onclick="return window.confirm('Etes-vous sûr de vouloir supprimer ce client?')"><span class="badge badge-danger float-right p-2 mb-2">supprimer la fiche</span></a></td>
-       
+        <th class="align-middle text-center" scope="row"><?= ucfirst(htmlspecialchars($allClient['lastname'])) ?> <?= ucfirst(htmlspecialchars($allClient['firstname'])) ?></th>
+        <td class="align-middle text-center"><?= htmlspecialchars($allClient['email']) ?></td>
+        <td class="align-middle text-center"><span class="comments"><?= nl2br(htmlspecialchars($allClient['address'])) ?></span></td>
+        <td class="align-middle text-center"><?= htmlspecialchars($allClient['postcode']) ?></td>
+        <td class="align-middle text-center"><?= htmlspecialchars($allClient['city']) ?></td>
+        <td class="align-middle text-center"><?= htmlspecialchars($allClient['phone']) ?></td>
+        <td class="align-middle text-center"><a href="index.php?action=modifyclient&id=<?= $allClient['id'] ?>"><span class="btn-floating btn-so"><i class="far fa-edit"></i></span></a>
+
+
+          <a type="button" class="btn-floating btn-yt" data-toggle="modal" data-target="#modalConfirmDelete<?= $allClient['id'] ?>"><i class="fas fa-trash-alt"></i></a>
+
+          <!--Modal: modalConfirmDelete-->
+          <div class="modal fade" id="modalConfirmDelete<?= $allClient['id'] ?>" aria-hidden="true">
+            <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+              <!--Content-->
+              <div class="modal-content text-center">
+                <!--Header-->
+                <div class="modal-header d-flex justify-content-center">
+                  <p class="heading">Etes-vous sûr de vouloir supprimer ce client ?</p>
+                </div>
+
+                <!--Body-->
+                <div class="modal-body">
+
+                  <i class="fas fa-times fa-4x animated rotateIn"></i>
+
+                </div>
+
+                <!--Footer-->
+                <div class="modal-footer flex-center">
+                  <a href="index.php?action=deleteclient&id=<?= $allClient['id'] ?>" class="btn  btn-outline-danger">Oui</a>
+                  <a type="button" class="btn  btn-danger waves-effect" data-dismiss="modal">Non</a>
+                </div>
+              </div>
+              <!--/.Content-->
+            </div>
+          </div>
+
+          <!--Modal: modalConfirmDelete-->
+        </td>
+
       </tr>
 
     <?php } ?>

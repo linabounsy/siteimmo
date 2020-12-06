@@ -35,12 +35,14 @@
 <!-- fin Descriptif du bien -->
 
 
+
 <div class="list-group-flush">
     <ul class="list-group-item d-flex justify-content-around">
         <li class="list-group-item rounded-lg col-2 w-25"><i class="fas fa-home  mr-2 grey p-3 white-text rounded-circle " aria-hidden="true"></i><?=($estate['surface']) ?>m²</li>
         <li class="list-group-item rounded-lg col-2 w-25"><i class="far fa-image  mr-2 grey p-3 white-text rounded-circle " aria-hidden="true"></i><?=($estate['room']) ?></li>
         <li class="list-group-item rounded-lg col-2 w-25"> <i class="fas fa-bed  mr-2 grey p-3 white-text rounded-circle" aria-hidden="true"></i><?=($estate['bedroom']) ?></li>
-        <li class="list-group-item rounded-lg col-2 w-25"> <i class="fas fa-building  mr-2  grey p-3 white-text rounded-circle" aria-hidden="true"></i><?=($estate['construction']) ?></li>
+        <li class="list-group-item rounded-lg col-2 w-25"> <i class="fas fa-building  mr-2  grey p-3 white-text rounded-circle" aria-hidden="true"></i><?= explode('-', $estate['construction'])[0] ?></li>
+
     </ul>
 
 </div>
@@ -141,35 +143,40 @@
     <div class="card-body px-lg-5 pt-0">
 
         <!-- Form -->
-        <form class="text-center" style="color: #757575;" action="#!">
+        <form class="text-center" name="contact-form" style="color: #757575;" action="mail.php" method="POST">
 
             <!-- Name -->
             <div class="md-form mt-3">
-                <input type="text" id="materialContactFormName" class="form-control">
+                <input type="text" id="ContactFormName" name="name" class="form-control">
                 <label for="materialContactFormName">Nom</label>
+                <p id="error_contactname" class="error"></p>
             </div>
 
             <!-- FirstName -->
             <div class="md-form mt-3">
-                <input type="text" id="materialContactFormFirstName" class="form-control">
+                <input type="text" id="ContactFormFirstName" name="firstname" class="form-control">
                 <label for="materialContactFormFirstName">Prénom</label>
+                <p id="error_contactfirstname" class="error"></p>
             </div>
 
             <!-- Phone -->
             <div class="md-form mt-3">
-                <input type="tel" id="materialContactTel" class="form-control">
+                <input type="tel" id="ContactTel" class="form-control" name="phone">
                 <label for="materialContactFormTel">Téléphone</label>
+                <p id="error_contactphone" class="error"></p>
             </div>
 
             <!-- E-mail -->
             <div class="md-form">
-                <input type="email" id="materialContactFormEmail" class="form-control">
+                <input type="email" id="ContactFormEmail" class="form-control" name="email">
                 <label for="materialContactFormEmail">E-mail</label>
+                <p id="error_contactemail" class="error"></p>
             </div>
 
 
             <!-- Send button -->
-            <button class="btn btn btn-info btn-rounded btn-block z-depth-0 my-4 white-text font-weight-bold text-center py-4" type="submit">Envoyer</button>
+            <button class="btn btn btn-info btn-rounded btn-block z-depth-0 my-4 white-text font-weight-bold text-center py-4" id="form-submit" >Envoyer</button>
+            <div id="msgSubmit" class="h3 text-center">Message Envoyé !</div>
 
         </form>
         <!-- Form -->
@@ -178,6 +185,7 @@
 
 </div>
 </div>
+
 
 <?php $content = ob_get_clean(); ?>
 

@@ -96,9 +96,11 @@ class Estate extends Validator
             $this->errors++;
             $this->msgerror['title'] = "le titre est obligatoire";
         }
-        if (!$this->strlenLowerLength($this->title, 45)) {
+
+        if (!$this->strlenLowerLength($this->title, 100)) {
             $this->errors++;
-            $this->msgerror['title'] = "le titre peut contenir 45 caractères maximum";
+            $this->msgerror['title'] = "le titre peut contenir 100 caractères maximum";
+
         }
     }
 
@@ -217,7 +219,9 @@ class Estate extends Validator
     {
         if (!$this->numeric($this->charge)) {
             $this->errors++;
-            $this->msgerror['charge'] = "la montant des charges doit être composé de chiffres";
+
+            $this->msgerror['charge'] = "veuillez renseigner le montant des charges - il doit être composé de chiffres";
+
         }
 
         if (!$this->minZero($this->charge)) {
@@ -269,7 +273,9 @@ class Estate extends Validator
     {
         if (!$this->numeric($this->floor)) {
             $this->errors++;
-            $this->msgerror['floor'] = "le numéro ou le nombre d'étages doit être composé de chiffres";
+
+            $this->msgerror['floor'] = "veuillez renseigner le numéro ou le nombre d'étages - il doit être composé de chiffres";
+
         }
 
         if (!$this->minZero($this->floor)) {
@@ -282,7 +288,9 @@ class Estate extends Validator
     {
         if (!$this->numeric($this->room)) {
             $this->errors++;
-            $this->msgerror['room'] = "le nombre de pièces doit être composé de chiffres";
+
+            $this->msgerror['room'] = "veuillez renseignez le nombre de pièces - il doit être composé de chiffres";
+
         }
 
 
@@ -310,7 +318,9 @@ class Estate extends Validator
     {
         if (!$this->numeric($this->bathroom)) {
             $this->errors++;
-            $this->msgerror['bathroom'] = "le nombre de salle de bain doit être composé de chiffres";
+
+            $this->msgerror['bathroom'] = "veuillez renseigner le nombre de salle de bain - il doit être composé de chiffres";
+
         }
 
 
@@ -324,7 +334,9 @@ class Estate extends Validator
     {
         if (!$this->numeric($this->toilet)) {
             $this->errors++;
-            $this->msgerror['toilet'] = "le nombre de toilettes doit être composé de chiffres";
+
+            $this->msgerror['toilet'] = "veuillez renseigner le nombre de toilettes - il doit être composé de chiffres";
+
         }
 
 

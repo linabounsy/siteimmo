@@ -27,9 +27,14 @@ class RealEstate
         if (isset($_GET['id']) && $_GET['id'] > 0) {
             
             $estate = $realEstateAdvert->getEstate($_GET['id']);
+          
+            if (empty($estate)) {
+                throw new \Exception('Aucune annonce disponible');
+            }
 
             } else {
-                throw new Exception('aucun identifiant d\'annonce envoyé');
+                throw new Exception('aucune annonce disponible');
+
             }
 
         require('../template_base/realEstateAdvert.php');
