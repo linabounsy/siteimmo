@@ -11,7 +11,7 @@ use Services\Validator\Estate;
 use Services\Validator\Picture;
 
 require_once '../model/Admin.php';
-require_once '../model/RealEstateAdvert.php';
+require_once '../model/RealEstate.php';
 require_once '../services/Validator/Estate.php';
 
 class AdminBoard
@@ -44,30 +44,15 @@ class AdminBoard
         }
         */
         $realEstateAdvert = new RealEstateAdvert;
-
         $estates = $realEstateAdvert->getEstatesAdmin();
-
-        $estates = $realEstateAdvert->getEstatesAdminIndex();
-
+        $clients = $realEstateAdvert->getClients();
+        
+        $category = $realEstateAdvert->getCategory();
+        $type = $realEstateAdvert->getType();
 
         require('../template_base/admin.php');
     }
 
-
-
-    public function indexAdminEstates()
-    {
-        /*
-        if (!Session::isAuth()) {
-            header('Location: index.php');
-            exit();
-        }
-        */
-        $realEstateAdvert = new RealEstateAdvert;
-        $estates = $realEstateAdvert->getEstatesAdmin();
-        $clients = $realEstateAdvert->getClients();
-        require('../template_base/adminallrealestate.php');
-    }
 
 
 
@@ -179,21 +164,6 @@ class AdminBoard
 
         require('../template_base/newestate.php');
     }
-
-    /* if ($estateValidate->validate()) {
-                $periode = DateTime::createFromFormat('d-m-Y', $_POST['periode']);
-                $construction = DateTime::createFromFormat('d-m-Y', '01-01-' . $_POST['construction']);
-
-                move_uploaded_file($fileTemporyName, $fileDest . $fileExtension); // deplacer dossier temporaire vers dossier final
-
-                $realEstateAdvert->addInfoEstate($_POST['category'], $_POST['type'], $_POST['exposure'], $_POST['parking'], $_POST['kitchen'], $_POST['heating'], $_POST['subdivision'], $_POST['floor'], $_POST['charge'], $_POST['bathroom'], $_POST['toilet'], $_POST['garage'], $_POST['basement'], $_POST['surface'], $_POST['land'], $_POST['price'], $periode->format('Y-m-d h:i:s'), $_POST['title'], $_POST['description'], $fileupload, $status, $_POST['diagenergy'], $_POST['ges'], $_POST['room'], $_POST['bedroom'], $construction->format('Y-m-d h:i:s'), $_POST['client'], $_POST['address'], $_POST['city'], $_POST['postcode'], $_POST['energyclass']);
-
-                header('Location: index.php?action=indexadmin');
-                exit();
-            }*/
-
-
-    // récupère les différentes clés étrangères
 
 
 

@@ -1,99 +1,92 @@
 <?php ob_start(); ?>
 
-<div class="container my-5">
+<a href="index.php?action=newadvert" class="btn blue btn-md my-4 white-text"><i class="fas fa-plus"></i> Ajouter une annonce</a>
 
-    <!-- Section: Block Content -->
-    <section>
+  <!-- Section: Block Content -->
+  <section>
 
-        <div class="card">
-            <div class="card-body">
-
-                <h5 class="text-center font-weight-bold mb-4">Dernières annonces ajoutées</h5>
+    <table class="table table-hover table-bordered">
 
 
-                <?php foreach ($estates as $estate) { ?>
-                    <hr>
+      <thead>
+        <tr>
+        <th scope="col" class="align-middle text-center"></th>
+          <th scope="col" class="align-middle text-center">N° Annonce</th>
+          <th scope="col" class="align-middle text-center">Titre annonce</th>
+          <th scope="col" class="align-middle text-center">Catégorie</th>
+          <th scope="col" class="align-middle text-center">Type</th>
+          <th scope="col" class="align-middle text-center">Prix</th>
+          <th scope="col" class="align-middle text-center">Client</th>
+          <th scope="col" class="align-middle text-center">Editer une annonce</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+        foreach ($estates as $estate) {
 
-                    <!-- Card Regular -->
-                    <div class="card card-cascade">
+        ?>
+          <tr>
 
-                        <!-- Card image -->
+            <th class="align-middle text-center" scope="row"><img class="icone_picture" src="../public/img/estates/<?= ($estate['picture']) ?>"></th>
+            <th class="align-middle text-center" scope="row"><?= $estate['id'] ?></th>
+            <td class="align-middle text-center"><?= htmlspecialchars($estate['title']) ?></td>
+            <td class="align-middle text-center"><?= htmlspecialchars($estate['category']) ?></td>
+            <td class="align-middle text-center"><?= htmlspecialchars($estate['name']) ?></td>
+            <td class="align-middle text-center"><?= htmlspecialchars($estate['price']) ?>€</td>
+            <td class="align-middle text-center"><?= ucfirst(htmlspecialchars($estate['firstname'])) ?> <?= ucfirst(htmlspecialchars($estate['lastname'])) ?></td>
 
-                        <img class="img-admin" src="../public/img/estates/<?= $estate['picture'] ?>" alt="Card image cap">
-                        <a>
-                            <div class="mask rgba-white-slight"></div>
-                        </a>
+            <td class="align-middle text-center">
+              <!-- edit estate -->
+              <a href="index.php?action=modifyestate&id=<?= $estate['id'] ?>" class="btn-floating btn-so"><i class="far fa-edit"></i></a>
+              <!-- delete estate -->
 
+              <a type="button" class="btn-floating btn-yt" data-toggle="modal" data-target="#modalConfirmDelete<?= $estate['id'] ?>"><i class="fas fa-trash-alt"></i></a>
 
-                        <!-- Card content -->
-                        <div class="card-body card-body-cascade text-center">
+              <!--Modal: modalConfirmDelete-->
+              <div class="modal fade" id="modalConfirmDelete<?= $estate['id'] ?>" aria-hidden="true">
+                <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+                  <!--Content-->
+                  <div class="modal-content text-center">
+                    <!--Header-->
+                    <div class="modal-header d-flex justify-content-center">
+                      <p class="heading">Etes-vous sûr de vouloir supprimer cette annonce ?</p>
+                    </div>
 
-                            <!-- Title -->
-                            <h4 class="card-title"><strong><?= htmlspecialchars($estate['title']) ?></strong></h4>
+                    <!--Body-->
+                    <div class="modal-body">
 
-                            <!-- Text -->
-                            <p class="card-text"><?= htmlspecialchars(substr($estate['description'], 0, 100)) ?>
-                            </p>
-
-                            <!-- edit estate -->
-                            <a href="index.php?action=modifyestate&id=<?= $estate['id'] ?>"><span class="btn-floating btn-so"><i class="far fa-edit"></i></span></a>
-                            <!-- delete estate -->
-                
-                            <a type="button" class="btn-floating btn-yt" data-toggle="modal" data-target="#modalConfirmDelete<?=$estate['id']?>"><i class="fas fa-trash-alt"></i></a>
-
-                            <!--Modal: modalConfirmDelete-->
-                            <div class="modal fade" id="modalConfirmDelete<?=$estate['id']?>" aria-hidden="true">
-                                <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
-                                    <!--Content-->
-                                    <div class="modal-content text-center">
-                                        <!--Header-->
-                                        <div class="modal-header d-flex justify-content-center">
-                                            <p class="heading">Etes-vous sûr de vouloir supprimer cette annonce ?</p>
-                                        </div>
-
-                                        <!--Body-->
-                                        <div class="modal-body">
-
-                                            <i class="fas fa-times fa-4x animated rotateIn"></i>
-
-                                        </div>
-
-                                        <!--Footer-->
-                                        <div class="modal-footer flex-center">
-                                            <a href="index.php?action=deleteestate&id=<?= $estate['id'] ?>" class="btn  btn-outline-danger">Oui</a>
-                                            <a type="button" class="btn  btn-danger waves-effect" data-dismiss="modal">Non</a>
-                                        </div>
-                                    </div>
-                                    <!--/.Content-->
-                                </div>
-                            </div>
-                            <!--Modal: modalConfirmDelete-->
-
-                            <!-- view estate-->
-                            <a href="index.php?action=estate&id=<?= $estate['id'] ?>" class="btn-floating btn-tw"><i class="fas fa-eye"></i></a>
-
-                        </div>
+                      <i class="fas fa-times fa-4x animated rotateIn"></i>
 
                     </div>
-                    <!-- Card Regular -->
 
-                <?php } ?>
+                    <!--Footer-->
+                    <div class="modal-footer flex-center">
+                      <a href="index.php?action=deleteestate&id=<?= $estate['id'] ?>" class="btn  btn-outline-danger">Oui</a>
+                      <a type="button" class="btn  btn-danger waves-effect" data-dismiss="modal">Non</a>
+                    </div>
+                  </div>
+                  <!--/.Content-->
+                </div>
+              </div>
+              <!--Modal: modalConfirmDelete-->
 
+              <!-- view estate-->
+              <a href="index.php?action=estate&id=<?= $estate['id'] ?>" class="btn-floating btn-tw"><i class="fas fa-eye"></i></a>
+              <!--Modal: modalConfirmDelete-->
+            </td>
 
+          </tr>
 
+        <?php } ?>
 
+      </tbody>
 
-                <hr>
+    </table>
+    <p class="text-center mt-4 mb-1"><a href="#!">Voir toutes les annonces</a></p>
 
-                <p class="text-center mt-4 mb-1"><a href="#!">Voir toutes les annonces</a></p>
+  </section>
+  <!-- Section: Block Content -->
 
-            </div>
-        </div>
-
-    </section>
-    <!-- Section: Block Content -->
-
-</div>
 
 <?php $content = ob_get_clean(); ?>
 

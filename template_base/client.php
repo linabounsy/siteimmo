@@ -5,6 +5,8 @@
 
 <a href="index.php?action=insertnewclient" class="btn blue btn-md my-4 white-text">Ajouter un client</a>
 
+<a href="index.php?action=newadvert" class="btn blue btn-md my-4 white-text"><i class="fas fa-plus"></i> Ajouter une annonce</a>
+
 <h2>Liste des clients</h2>
 
 <table class="table table-hover table-bordered">

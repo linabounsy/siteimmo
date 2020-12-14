@@ -139,8 +139,14 @@ tbody .tech-form.bgcolor-light.blue.lighten-4
     height: 500px;
 }
 
-#msgSubmit
+.icone_picture
 {
-    visibility: hidden;
+    object-fit: cover;
+    width: 100px;
+    height: 70px;
 }
 
+#msgSubmit
+{
+    text-align: center;
+}

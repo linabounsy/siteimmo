@@ -36,14 +36,11 @@
                     <!-- accueil site -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link waves-effect" href="index.php?action=indexadminestates">Tableau de bord
+                            <a class="nav-link waves-effect" href="index.php?action=indexadmin">Tableau de bord
                             </a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link waves-effect" href="index.php?action=newadvert" target="_blank">Ajouter une annonce
-                            </a>
-                        </li>
+            
 
                         <li class="nav-item">
                             <a class="nav-link waves-effect" href="index.php?action=displayclient&client.php">Fiches Clients
@@ -51,7 +48,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link waves-effect" href="index.php" target="_blank">Accès Site
+                            <a class="nav-link waves-effect" href="index.php" target="_blank">Ori Immo
                             </a>
                         </li>
 
@@ -109,8 +106,8 @@
 
 
 
-        <main class="mt-4 pt-1 container">
-            <div id="content" class="container mt-4"><?= $content ?></div>
+        <main class="mt-4 pt-1">
+            <div id="content" class="mt-4"><?= $content ?></div>
         </main>
 
 
@@ -219,8 +216,11 @@
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="js/mdb.min.js"></script>
-    <script type="text/javascript" src="../public/js/form.js"></script>
-    <script type="text/javascript" src="../public/js/formcontact.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="../public/js/ajaxformcontact.js"></script>
+<script type="text/javascript" src="../public/js/form.js"></script>
+<script type="text/javascript" src="../public/js/formcontact.js"></script>  
+
     <script>
         $('.datepicker').pickadate({
             format: 'yyyy',

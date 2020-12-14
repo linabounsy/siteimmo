@@ -48,7 +48,7 @@
 
             <!-- Address -->
             <div class="md-form">
-                <input type="text" id="adress" class="form-control" name="address">
+                <input type="text" id="address" class="form-control" name="address">
                 <label for="materialRegisterAddress">Adresse</label>
             </div>
 

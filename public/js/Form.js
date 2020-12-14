@@ -73,7 +73,6 @@ class Form {
             }
         });
 
-        this.submitFormNoPublish.addEventListener("click", this.checkField.bind(this));
         $('#newadvertnopublish').click(function(event) {
             formulaire.checkField();
             if (formulaire.errors != 0) {
