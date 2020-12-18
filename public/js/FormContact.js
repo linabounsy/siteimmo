@@ -9,8 +9,7 @@ class FormContact {
         this.contactEmail = document.getElementById("ContactFormEmail");
         this.errorContactEmail = document.getElementById("error_contactemail");
         this.formSubmit = document.getElementById("form-submit");
-        this.msgSubmit = document.getElementById("msgSubmit");
-        this.myForm = document.getElementById("myForm");
+      
      
         this.errors = 0;
         $('#form-submit').click(function(event) {
@@ -20,6 +19,7 @@ class FormContact {
             }
         });
 
+       
     }
 
     validationFormContact() {
@@ -41,10 +41,12 @@ class FormContact {
             this.errorContactFirstname.style.display = "none";
         }
 
+
         if (this.contactPhone.value == "") {
             this.errorContactPhone.textContent = "veuillez remplir le champ Téléphone";
             this.errorContactPhone.style.color = "red";
             this.errors++;
+            
         } else {
             let regexPhone = /^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$/;
             if (!regexPhone.test(this.contactPhone.value)) {
@@ -52,9 +54,13 @@ class FormContact {
                 this.errors++;
             } else {
                 this.errorContactPhone.style.display = "none";
-            }
             
+            } 
         }
+
+       
+
+  
 
         if (this.contactEmail.value == "") {
             this.errorContactEmail.textContent = "veuillez remplir le champ Email";

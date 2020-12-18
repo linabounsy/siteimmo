@@ -4,6 +4,12 @@ $("#myForm").submit(function (e) {
 
 });
 
+$("#estimationForm").submit(function (e) {
+    e.preventDefault(); // empêcher une action par défaut
+    estimationForm();
+
+});
+
 function submitForm() {
     var data = {
         'name': $('#ContactFormName').val(),
@@ -30,12 +36,33 @@ function submitForm() {
     });
 }
 
+function estimationForm() {
+    var data = {
+        'name': $('#ContactFormName').val(),
+        'firstname': $('#ContactFormFirstName').val(),
+        'phone': $('#ContactTel').val(),
+        'email': $('#ContactFormEmail').val()
+    }
+
+    $.ajax({
+        url: 'index.php?action=estimation',
+        type: 'POST',
+        data: data,
+        success: function () {
+            formSuccess();
+        },
+        error : function () {
+            error();
+        }
+    });
+}
+
 function formSuccess() {
-    $('#msgSubmit').html("Votre message a bien été envoyé. Nous vous contactons rapidement.");
+    $('#msgSubmit').html("<p>Votre message a bien été envoyé. Nous vous contactons rapidement.</p>");
     $('#myForm').hide();
 }
 
 function error() {
-    $('#msgSubmitKO').html("Une erreur est survenue, veuillez ré-essayer plus tard");
+    $('#msgSubmit').html("<p>Une erreur est survenue, veuillez ré-essayer plus tard.</p>");
 }
 
