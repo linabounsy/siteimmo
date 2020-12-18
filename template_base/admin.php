@@ -2,6 +2,8 @@
 
 <a href="index.php?action=newadvert" class="btn blue btn-md my-4 white-text"><i class="fas fa-plus"></i> Ajouter une annonce</a>
 
+
+
   <!-- Section: Block Content -->
   <section>
 
@@ -82,7 +84,7 @@
       </tbody>
 
     </table>
-    <p class="text-center mt-4 mb-1"><a href="#!">Voir toutes les annonces</a></p>
+  
 
   </section>
   <!-- Section: Block Content -->

@@ -21,6 +21,9 @@ try { // On essaie de faire des choses
         if ($_GET['action'] == 'indexadmin') {
             $admin->indexAdmin();
         }
+        if ($_GET['action'] == 'indexadminallestates') {
+            $admin->indexAdminAllEstates();
+        }
         if ($_GET['action'] == 'displayclient') {
             $admin->displayClients();
         }
@@ -50,14 +53,14 @@ try { // On essaie de faire des choses
             $admin->modifyEstate();
         } 
 
-       
         if ($_GET['action'] == 'deleteestate') {
             $admin->deleteEstate();
         }
-      
-        
-      
 
+        if ($_GET['action'] == 'estimation') {
+            $realEstateAdvert->estimation();
+        }     
+      
     } else {
         $homepage->index();
     }

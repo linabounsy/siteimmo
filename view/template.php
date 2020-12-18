@@ -5,18 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
-    <!-- Google Fonts Roboto -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
     <!-- Material Design Bootstrap -->
-    <link rel="stylesheet" href="css/mdb.min.css">
+    <link rel="stylesheet" href="../public/css/mdb.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="../public/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">  
     <!-- custom CSS -->
     <link rel="stylesheet" href="../public/css/style.css">
-
 </head>
 
 <body>
@@ -48,13 +46,17 @@
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                 <ul class="navbar-nav w-50 justify-content-around">
                     <li class="nav-item">
-                        <a class="nav-link p-2 black-text  font-weight-bold" href="#">Accueil</span></a>
+                        <a class="nav-link p-2 black-text  font-weight-bold" href="index.php">Accueil</span></a>
                     </li>
-              
                     <li class="nav-item">
                         <a class="nav-link black-text  font-weight-bold" href="index.php?action=listestates">Nos offres disponibles</a>
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link black-text  font-weight-bold" href="index.php?action=estimation">Estimation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link black-text  font-weight-bold" href="#">Agence</a>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -62,9 +64,15 @@
         <!--barre de recherche-->
         <div class="mt-3">
             <div class="row mr-0 ml-0 d-flex flex-column justify-content-center align-content-center" id="search-img">
-
-        
-
+                
+                <div id="search-bar" class="input-group md-form form-sm form-2 pl-0 w-50">
+                    <input class="form-control my-0 py-1 amber-border" type="text" placeholder="Vente" aria-label="Vente"><i class="p-3 fas fa-angle-right"></i>
+                    <input class="form-control my-0 py-1 amber-border" type="text" placeholder="Type de biens" aria-label="Type de biens"><i class="p-3 fas fa-angle-right"></i>
+                    <input class="form-control my-0 py-1 amber-border" type="text" placeholder="Localité" aria-label="Localité"><i class="p-3 fas fa-angle-right"></i>
+                    <input class="form-control my-0 py-1 amber-border" type="text" placeholder="Budget" aria-label="Budget"><i class="p-3 fas fa-angle-right"></i>
+                </div>
+                <div class="text-center"> <button type="button" class="btn btn-info">Lancez la recherche<i class="m-1 fa fa-arrow-right" aria-hidden="true"></i></button></div>
+                
             </div>
         </div>
         <!-- fin barre de recherche-->
@@ -105,7 +113,7 @@
                     <!-- Grid column -->
                     <div class="col-md mb-3">
                         <h8>
-                            <a href="index.php?action=connexion&connexionadmin.php" class="footer-text">Connexion Admin</a>
+                        <a href="index.php?action=connexion&connexionadmin.php" class="footer-text">Connexion Admin</a>
                         </h8>
                     </div>
                     <!-- Grid column -->
@@ -171,16 +179,20 @@
         <!-- Footer -->
 
     </div>
-    <script type="text/javascript" src="../public/js/form.js"></script>
-<!-- jQuery -->
-<script type="text/javascript" src="js/jquery.min.js"></script>
+   
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Bootstrap tooltips -->
-<script type="text/javascript" src="js/popper.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
 <!-- Bootstrap core JavaScript -->
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <!-- MDB core JavaScript -->
-<script type="text/javascript" src="js/mdb.min.js"></script>
-<!-- custom scripts -->
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="../public/js/ajaxformcontact.js"></script>
+<script type="text/javascript" src="../public/js/form.js"></script>
+<script type="text/javascript" src="../public/js/formcontact.js"></script> 
 
 </body>
 

@@ -46,12 +46,45 @@ class AdminBoard
         $realEstateAdvert = new RealEstateAdvert;
         $estates = $realEstateAdvert->getEstatesAdmin();
         $clients = $realEstateAdvert->getClients();
-        
         $category = $realEstateAdvert->getCategory();
         $type = $realEstateAdvert->getType();
 
         require('../template_base/admin.php');
     }
+
+    public function indexAdminAllEstates()
+    {
+        $realEstateAdvert = new RealEstateAdvert;
+        $clients = $realEstateAdvert->getClients();
+        $category = $realEstateAdvert->getCategory();
+        $type = $realEstateAdvert->getType();
+
+        
+        if (isset($_GET['page']) && !empty($_GET['page']) && is_numeric($_GET['page'])) {
+            $currentPage = $_GET['page'];
+        } else {
+            $currentPage = 1;
+        }  // verifie qu'il y a bien une page et que c'est un nombre
+
+
+        $nbEstates = $realEstateAdvert->countEstate(); // total des annonces
+        $estatePerPage = 10; // on met le nombre d'annonces qu'on veut par page
+        $lastPage = ceil($nbEstates / $estatePerPage); //definit le nbre de pages total + arrondi à la valeur supérieure avec ceil
+
+        if($currentPage < 1) { // si l'utilisateur rentre un nbre inférieur à 1, il sera ramener à la page 1
+            $currentPage = 1;
+        } else if ($currentPage > $lastPage) {
+            $currentPage = $lastPage;
+        } // si l'utilisateur rentre un nbre sup au nbre total, renvoie vers la dernière page
+
+
+        //calcul les articles par page et les affiche
+        $offset = ($currentPage-1) * $estatePerPage;
+        $estates = $realEstateAdvert->pagingEstateAdmin($offset, $estatePerPage);
+        
+        require('../template_base/adminallestates.php');
+    }
+
 
 
 

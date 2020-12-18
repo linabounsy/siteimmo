@@ -119,9 +119,6 @@ class RealEstateAdvert extends Database
     }
  
 
-    
-
-
     public function addInfoEstate($category, $type, $exposure, $parking, $kitchen, $heating, $subdivision, $floor, $charge, $bathroom, $toilet, $garage, $basement, $surface, $land, $price, $periode, $title, $description, $picture, $status, $diagenergy, $ges_id, $room, $bedroom, $construction, $client_id, $address, $city, $postcode, $energyclass_id) // ajout loc ou vente / type / exposition / parking / client / cuisine dans l'annonce
     {
 
@@ -162,7 +159,25 @@ class RealEstateAdvert extends Database
              ON estate.type_id = type.id
              INNER JOIN client
              ON estate.client_id = client.id
-           ORDER BY id DESC LIMIT 0, 10');
+           ORDER BY id DESC LIMIT 0, 5');
+
+        $req->execute(array());
+        $estate = $req->fetchAll();
+        return $estate;
+    }
+
+    public function getEstatesAdminAllEstates() // recupère les  annonces pour l'admin
+    {
+        $db = $this->dbConnect();
+        $req = $db->query('SELECT estate.id as id, estate.title as title, category.name as category, category.id as category_id, type.name as name, type.id as type_id, client.id as client, client.lastname as lastname, client.firstname as firstname, price, picture 
+        FROM estate 
+        INNER JOIN category
+             ON estate.category_id = category.id
+             INNER JOIN type
+             ON estate.type_id = type.id
+             INNER JOIN client
+             ON estate.client_id = client.id
+           ORDER BY id DESC');
 
         $req->execute(array());
         $estate = $req->fetchAll();
@@ -178,6 +193,14 @@ class RealEstateAdvert extends Database
         return $estates;
     }
 
+    public function getLastestEstates() // recupère les 3 dernieres annonces pour homepage
+    {
+        $db = $this->dbConnect();
+        $req = $db->query('SELECT id, title, picture, city, postcode, price, description FROM estate ORDER BY id DESC LIMIT 0, 3');
+        $req->execute(array());
+        $estates = $req->fetchAll();
+        return $estates;
+    }
 
     public function getEstate($estateId) // recupere une annonce grace a son id
     {
@@ -224,7 +247,6 @@ class RealEstateAdvert extends Database
             $estate['heatings'][$heating['heating_id']] = $heating['type']; // on crée une nouvelle clé $heating['heating_id'] (array[avec la donnée qu'on récupère]) qu'on met dans le tableau vide $estate['heatings']
         }
 
-        
         return $estate;
 
         
@@ -235,9 +257,6 @@ class RealEstateAdvert extends Database
         $editEstate = $db->prepare ('UPDATE estate SET picture = NULL WHERE id = :estateId');
         $editEstate->execute(array('estateId' => $estateId));
     }
-
- 
-
 
 
     public function editEstate($estateId, $category, $type, $exposure, $parking, $kitchen, $heating, $subdivision, $floor, $charge, $bathroom, $toilet, $garage, $basement, $surface, $land, $price, $periode, $title, $description, $picture, $status, $diagenergy, $ges_id, $room, $bedroom, $construction, $client_id, $address, $city, $postcode, $energyclass_id)
@@ -279,17 +298,48 @@ class RealEstateAdvert extends Database
     }
 
 
-    
-
-
-     
-    
-
     public function deleteEstate($estateId)
     {
         $db = $this->dbConnect();
         $delete = $db->prepare('DELETE FROM estate WHERE id = :id');
         $delete->execute(array('id' => $estateId));
     }
-}
 
+    public function countEstate()
+    {
+        $db = $this->dbConnect();
+        $allEstatesReq = $db->query('SELECT COUNT(*) FROM estate')->fetch()[0];
+        return $allEstatesReq;
+    }
+
+    public function pagingEstate($offset, $estatePerPage)
+    {
+        $db = $this->dbConnect();
+        $listEstates = $db->prepare("SELECT id, picture, title, description, city, price, postcode FROM estate ORDER BY id DESC LIMIT :offset, :estatePerPage");
+        $listEstates->bindValue(':offset', $offset, \PDO::PARAM_INT);
+        $listEstates->bindValue(':estatePerPage', $estatePerPage, \PDO::PARAM_INT);
+        $listEstates->execute();
+
+        return $listEstates;
+    }
+
+    public function pagingEstateAdmin($offset, $estatePerPage)
+    {
+        $db = $this->dbConnect();
+        $listAdmin = $db->prepare("SELECT estate.id as id, estate.title as title, category.name as category, category.id as category_id, type.name as name, type.id as type_id, client.id as client, client.lastname as lastname, client.firstname as firstname, price, picture 
+        FROM estate 
+        INNER JOIN category
+             ON estate.category_id = category.id
+             INNER JOIN type
+             ON estate.type_id = type.id
+             INNER JOIN client
+             ON estate.client_id = client.id
+             ORDER BY id DESC LIMIT :offset, :estatePerPage");
+        $listAdmin->bindValue(':offset', $offset, \PDO::PARAM_INT);
+        $listAdmin->bindValue(':estatePerPage', $estatePerPage, \PDO::PARAM_INT);
+        $listAdmin->execute();
+
+        return $listAdmin;
+    }
+
+}

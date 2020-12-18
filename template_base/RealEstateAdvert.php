@@ -11,7 +11,7 @@
                 <div class="mask rgba-black-light"></div>
             </div>
             <div class="carousel-caption">
-                <h3 class="h3-responsive">Salon</h3>
+           
 
             </div>
         </div>
@@ -144,7 +144,7 @@
 
                 <!-- Form -->
 
-                <form class="text-center" name="contact-form" method="POST" id="myForm" novalidate>
+                <form class="text-center <?= isset($message) ? 'd-none' : '' ?>" name="contact-form" method="POST" id="myForm" novalidate>
 
                     <!-- Name -->
                     <div class="md-form mt-3">
@@ -162,7 +162,7 @@
 
                     <!-- Phone -->
                     <div class="md-form mt-3">
-                        <input type="tel" id="ContactTel" class="form-control" name="phone" value="<?= isset($_POST['phone']) ? $_POST['phone'] : '' ?>">
+                        <input type="tel" id="ContactTel" class="form-control" name="phone" maxlength="10" value="<?= isset($_POST['phone']) ? $_POST['phone'] : '' ?>">
                         <label for="materialContactFormTel">Téléphone</label>
                         <p id="error_contactphone" class="error"><?= !empty($formContactValidate) && isset($formContactValidate->getMsgerror()['phone']) ? $formContactValidate->getMsgerror()['phone'] : '' ?></p>
                     </div>
@@ -178,8 +178,8 @@
                     <button class="btn btn btn-info btn-rounded btn-block z-depth-0 my-4 white-text font-weight-bold text-center py-4" id="form-submit">Envoyer</button>
 
                 </form>
-                <div id="msgSubmit"></div>
-                <div id="msgSubmitKO"></div>
+                <div id="msgSubmit"><?= isset($message) ? $message : '' ?></div>
+               
                 <!-- Form -->
 
             </div>

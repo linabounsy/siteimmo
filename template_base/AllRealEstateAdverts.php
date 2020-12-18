@@ -66,9 +66,31 @@
 
                 </div>
             </div>
-            <?php } ?>
-            </section>
-            
+        <?php } ?>
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination pg-blue">
+           
+            <li class="page-item ">
+           
+                   <a class="page-link" href="index.php?action=listestates&page=<?= $previous ?>" tabindex="-1"><< Précédente</a>
+                   
+                </li>
+              
+                <?php for ($i = 0; $i < $lastPage; $i++) : ?>
+
+                    <li class="page-item <?= $i+1 == $currentPage ? "active" : '' ?>">
+                    <a class="page-link" aria-current="page" href="index.php?action=listestates&page=<?= $i + 1 ?>"><?= $i+1 ?></a>
+                    </li>
+                <?php endfor; ?>
+
+                <li class="page-item">
+                    <a class="page-link active" href="index.php?action=listestates&page=<?= $next ?>">Suivante >></a>
+                </li>
+            </ul>
+        </nav>
+    </section>
+
 </div>
 <!-- Card Regular -->
 
@@ -79,7 +101,7 @@
 <!-- Section: Block Content -->
 
 
-    
+
 
 <?php $content = ob_get_clean(); ?>
 

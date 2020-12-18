@@ -40,7 +40,10 @@
                             </a>
                         </li>
 
-            
+                        <li class="nav-item">
+                            <a class="nav-link waves-effect" href="index.php?action=indexadminallestates">Toutes les annonces
+                            </a>
+                        </li>
 
                         <li class="nav-item">
                             <a class="nav-link waves-effect" href="index.php?action=displayclient&client.php">Fiches Clients
@@ -51,11 +54,6 @@
                             <a class="nav-link waves-effect" href="index.php" target="_blank">Ori Immo
                             </a>
                         </li>
-
-                 
-                        
-
-                      
 
                         <!-- perso bienvenue Admin
           <?php
