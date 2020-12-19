@@ -71,7 +71,7 @@
         <nav aria-label="Page navigation example">
             <ul class="pagination pg-blue">
            
-            <li class="page-item ">
+            <li class="page-item">
            
                    <a class="page-link" href="index.php?action=listestates&page=<?= $previous ?>" tabindex="-1"><< Précédente</a>
                    

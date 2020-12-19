@@ -82,7 +82,7 @@
                     </ul>
                     <ul class="navbar-nav ml-auto nav-flex-icons">
                         <li class="nav-item d-flex justify-content-end">
-                            <a class="nav-link waves-effect" href="#">Déconnexion
+                            <a class="nav-link waves-effect" href="index.php?action=deconnexion">Déconnexion
                             </a>
                         </li>
                         <li class="nav-item avatar">

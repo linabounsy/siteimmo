@@ -46,13 +46,13 @@
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                 <ul class="navbar-nav w-50 justify-content-around">
                     <li class="nav-item">
-                        <a class="nav-link p-2 black-text  font-weight-bold" href="#">Accueil</span></a>
+                        <a class="nav-link p-2 black-text  font-weight-bold" href="index.php">Accueil</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link black-text  font-weight-bold" href="#">Nos offres disponibles</a>
+                        <a class="nav-link black-text  font-weight-bold" href="index.php?action=listestates">Nos offres disponibles</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link black-text  font-weight-bold" href="#">Estimation</a>
+                        <a class="nav-link black-text  font-weight-bold" href="index.php?action=estimation">Estimation</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link black-text  font-weight-bold" href="#">Agence</a>
@@ -66,12 +66,15 @@
             <div class="row mr-0 ml-0 d-flex flex-column justify-content-center align-content-center" id="search-img">
 
 
-                    <form class="text-center border border-light w-50" action="index.php?action=connexion&adminview.php" method="post">
-                        <p class="h4 mb-4">Se connecter</p>
+                    <form class="text-center border border-light w-50" action="index.php?action=connexion&adminview.php" method="post" novalidate>
+                        <p class="h4 mb-4 text-white">Se connecter</p>
                     
-                        <input type="text" class="form-control mx-auto mb-4 w-50" placeholder="Login" name="login" required>
-                        <input type="password" class="form-control mx-auto mb-4 w-50" placeholder="Mot de passe" name="password" required>
+                        <input type="text" class="form-control mx-auto mb-4 w-50" placeholder="Login" name="login" required value="<?= isset($_POST['login']) ? htmlspecialchars($_POST['login']) : '' ?>">
                        
+
+                        <input type="password" class="form-control mx-auto mb-4 w-50" placeholder="Mot de passe" name="password" required value="<?= isset($_POST['password']) ? htmlspecialchars($_POST['password']) : '' ?>">
+                       
+
                         <input class="btn btn-info btn-block my-4" type="submit" value="se connecter">
                         <br /><br />
 

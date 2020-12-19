@@ -293,7 +293,7 @@ class RealEstateAdvert extends Database
             $estateHeatingUpdate->execute((array('estate_id' => $estateId, 'heating_id' => $heat))); 
             
         }
-        //return $estate;
+     
 
     }
 

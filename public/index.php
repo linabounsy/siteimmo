@@ -24,6 +24,9 @@ try { // On essaie de faire des choses
         if ($_GET['action'] == 'indexadminallestates') {
             $admin->indexAdminAllEstates();
         }
+        if ($_GET['action'] == 'deconnexion') {
+            $admin->deconnexion();
+        }
         if ($_GET['action'] == 'displayclient') {
             $admin->displayClients();
         }

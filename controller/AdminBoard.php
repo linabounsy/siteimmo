@@ -8,7 +8,6 @@ use Model\Admin;
 use Model\RealEstateAdvert;
 
 use Services\Validator\Estate;
-use Services\Validator\Picture;
 
 require_once '../model/Admin.php';
 require_once '../model/RealEstate.php';
@@ -19,17 +18,35 @@ class AdminBoard
     public function adminConnexion()
     {
         $admin = new Admin;
-
+    
         if (isset($_POST['login']) && ($_POST['password'])) {
             $login = $_POST["login"];
             $password = $_POST["password"];
 
             if (!empty($login) && !empty($password)) {
-                $user = $admin->adminConnexion($login);
-                header('Location: index.php?action=indexadmin');
+                $user = $admin->connexion($login);
             } else {
-                throw new Exception('Tous les champs ne sont pas remplis !');
+                throw new \Exception('Tous les champs ne sont pas remplis !');
             }
+     
+            if ($user) {
+                $checkedpassword = password_verify($password, $user['password']);
+                if ($checkedpassword) {
+
+                    session_start();
+                    $_SESSION['id'] = $user['id'];
+                    $_SESSION['login'] = $user['login'];
+                    // pousser la super globale dans la view template pour la connexion + afficher login user une fois connecté
+                    header('Location: index.php?action=indexadmin');
+                    exit();
+                } else {
+                    throw new Exception('Mauvais login ou mot de passe');
+                }
+              
+            } else {
+                throw new \Exception('Mauvais login ou mot de passe');
+            }
+           
         }
 
         require('../template_base/connexionadmin.php');
@@ -86,9 +103,13 @@ class AdminBoard
     }
 
 
+    public function deconnexion()
+    {
+        session_destroy();
+        header('Location: index.php');
+    }
 
-
-
+    
     public function displayClients() // affiche la liste des clients
     {
         $admin = new Admin;

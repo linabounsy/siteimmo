@@ -148,28 +148,28 @@
 
                     <!-- Name -->
                     <div class="md-form mt-3">
-                        <input type="text" id="ContactFormName" name="name" class="form-control" value="<?= isset($_POST['name']) ? $_POST['name'] : '' ?>">
+                        <input type="text" id="ContactFormName" name="name" class="form-control" value="<?= isset($_POST['name']) ? htmlspecialchars($_POST['name']) : '' ?>">
                         <label for="materialContactFormName">Nom</label>
                         <p id="error_contactname" class="error"><?= !empty($formContactValidate) && isset($formContactValidate->getMsgerror()['name']) ? $formContactValidate->getMsgerror()['name'] : '' ?></p>
                     </div>
 
                     <!-- FirstName -->
                     <div class="md-form mt-3">
-                        <input type="text" id="ContactFormFirstName" name="firstname" class="form-control" value="<?= isset($_POST['firstname']) ? $_POST['firstname'] : '' ?>">
+                        <input type="text" id="ContactFormFirstName" name="firstname" class="form-control" value="<?= isset($_POST['firstname']) ? htmlspecialchars($_POST['firstname']) : '' ?>">
                         <label for="materialContactFormFirstName">Prénom</label>
                         <p id="error_contactfirstname" class="error"><?= !empty($formContactValidate) && isset($formContactValidate->getMsgerror()['firstname']) ? $formContactValidate->getMsgerror()['firstname'] : '' ?></p>
                     </div>
 
                     <!-- Phone -->
                     <div class="md-form mt-3">
-                        <input type="tel" id="ContactTel" class="form-control" name="phone" maxlength="10" value="<?= isset($_POST['phone']) ? $_POST['phone'] : '' ?>">
+                        <input type="tel" id="ContactTel" class="form-control" name="phone" maxlength="10" value="<?= isset($_POST['phone']) ? htmlspecialchars($_POST['phone']) : '' ?>">
                         <label for="materialContactFormTel">Téléphone</label>
                         <p id="error_contactphone" class="error"><?= !empty($formContactValidate) && isset($formContactValidate->getMsgerror()['phone']) ? $formContactValidate->getMsgerror()['phone'] : '' ?></p>
                     </div>
 
                     <!-- E-mail -->
                     <div class="md-form">
-                        <input type="email" id="ContactFormEmail" class="form-control" name="email" value="<?= isset($_POST['email']) ? $_POST['email'] : '' ?>">
+                        <input type="email" id="ContactFormEmail" class="form-control" name="email" value="<?= isset($_POST['email']) ? htmlspecialchars($_POST['email']) : '' ?>">
                         <label for="materialContactFormEmail">E-mail</label>
                         <p id="error_contactemail" class="error"><?= !empty($formContactValidate) && isset($formContactValidate->getMsgerror()['email']) ? $formContactValidate->getMsgerror()['email'] : '' ?></p>
                     </div>

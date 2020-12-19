@@ -6,18 +6,16 @@ require_once('../model/Database.php');
 
 class Admin extends Database
 {
-    public function adminConnexion($login) // se connecter à la base
+    public function connexion($login) // se connecter à la base
     {
         $db = $this->dbConnect();
 
-        $connexion = $db->prepare('SELECT * FROM user WHERE login = ?');
-
         $connexion = $db->prepare('SELECT * FROM user WHERE login = :login');
-
-        $connexion->execute(array($login));
+        $connexion->execute(array('login' => $login));
         $user = $connexion->fetch();
-
+   
         return $user;
+
     }
 
     public function getClients() // recup toute la liste des clients
@@ -32,8 +30,6 @@ class Admin extends Database
     {
         $db = $this->dbConnect();
 
-        $req = $db->prepare('SELECT * FROM client WHERE id = ?');
-        $req->execute(array($clientId));
 
         $req = $db->prepare('SELECT * FROM client WHERE id = :id');
         $req->execute(array('id' => $clientId));
@@ -46,8 +42,7 @@ class Admin extends Database
     {
         $db = $this->dbConnect();
 
-        $req = $db->prepare('INSERT INTO client (lastname, firstname, email, phone, address, postcode, city) VALUES (?, ?, ?, ?, ?, ?, ?)');
-        $newClient = $req->execute(array($lastname, $firstname, $email, $phone, $address, $postcode, $city));
+
 
         $req = $db->prepare('INSERT INTO client (lastname, firstname, email, phone, address, postcode, city) VALUES (:lastname, :firstname, :email, :phone, :address, :postcode, :city)');
         $newClient = $req->execute(array('lastname' => $lastname, 'firstname' => $firstname, 'email' => $email, 'phone' => $phone, 'address' => $address, 'postcode' => $postcode, 'city' => $city));
