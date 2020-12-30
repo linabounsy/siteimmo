@@ -13,9 +13,8 @@ class Admin extends Database
         $connexion = $db->prepare('SELECT * FROM user WHERE login = :login');
         $connexion->execute(array('login' => $login));
         $user = $connexion->fetch();
-   
-        return $user;
 
+        return $user;
     }
 
     public function getClients() // recup toute la liste des clients
@@ -42,20 +41,28 @@ class Admin extends Database
     {
         $db = $this->dbConnect();
 
-
-
-        $req = $db->prepare('INSERT INTO client (lastname, firstname, email, phone, address, postcode, city) VALUES (:lastname, :firstname, :email, :phone, :address, :postcode, :city)');
+        $req = $db->prepare('INSERT INTO client (lastname, firstname, email, phone, address, postcode, city) 
+        VALUES (:lastname, :firstname, :email, :phone, :address, :postcode, :city)');
         $newClient = $req->execute(array('lastname' => $lastname, 'firstname' => $firstname, 'email' => $email, 'phone' => $phone, 'address' => $address, 'postcode' => $postcode, 'city' => $city));
-
-
     }
 
-    public function modifyClient($id, $lastname, $firstname, $email, $phone, $address, $postcode, $city)
+
+    public function editClient($id, $lastname, $firstname, $email, $phone, $address, $postcode, $city)
     {
         $db = $this->dbconnect();
 
-        $editClient = $db->prepare("UPDATE client SET lastname = :lastname, firstname = :firstname, email = :email, phone = :phone, address = :address, postcode = :postcode, city = :city    WHERE id = :id");
-        $editClient->execute(array('id' => $id, 'lastname' => $lastname, 'firstname' => $firstname, 'email' => $email, 'phone' => $phone, 'address' => $address, 'postcode' => $postcode, 'city' => $city));
+        $sql = 'UPDATE client SET lastname = :lastname, firstname = :firstname, email = :email, phone = :phone, address = :address, postcode = :postcode, city = :city';
+
+        $data = array('id' => $id, 'lastname' => $lastname, 'firstname' => $firstname, 'email' => $email, 'phone' => $phone, 'address' => $address, 'postcode' => $postcode, 'city' => $city);
+
+        if ($email !== false) {
+            $sql .= ', email = :email';
+            $data['email'] = $email;
+        }
+        $sql .= ' WHERE id = :id';
+
+        $editClient = $db->prepare($sql);
+        $editClient->execute($data);
     }
 
 
@@ -65,7 +72,28 @@ class Admin extends Database
         $db = $this->dbConnect();
         $delete = $db->prepare('DELETE FROM client WHERE id = :id');
         $delete->execute(array('id' => $clientId));
-
     }
-    
+
+    public function checkEmail($email)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('SELECT email FROM client WHERE email = :email');
+        $req->execute(array('email' => $email));
+        $check = $req->fetchAll();
+
+        return $check;
+    }
+    public function checkEmailBis($email, $id) // check si l'email appartient a un autre id client
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('SELECT count(id) as nbEmail FROM client WHERE email = :email AND id != :id');
+        $req->execute(array('email' => $email, 'id' => $id));
+        $check = $req->fetch();
+
+        if ($check['nbEmail'] == 0) {
+            return false;
+        }
+
+        return $check;
+    }
 }

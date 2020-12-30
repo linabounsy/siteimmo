@@ -4,79 +4,47 @@ namespace Controller;
 
 use DateTime;
 use Exception;
-use Model\Admin;
-use Model\RealEstateAdvert;
+use model\Admin;
+use model\RealEstateAdvert;
 
-use Services\Validator\Estate;
+use services\Validator\Estate;
+use services\Validator\Client;
 
-require_once '../model/Admin.php';
-require_once '../model/RealEstate.php';
-require_once '../services/Validator/Estate.php';
 
 class AdminBoard
 {
-    public function adminConnexion()
-    {
-        $admin = new Admin;
-    
-        if (isset($_POST['login']) && ($_POST['password'])) {
-            $login = $_POST["login"];
-            $password = $_POST["password"];
 
-            if (!empty($login) && !empty($password)) {
-                $user = $admin->connexion($login);
-            } else {
-                throw new \Exception('Tous les champs ne sont pas remplis !');
-            }
-     
-            if ($user) {
-                $checkedpassword = password_verify($password, $user['password']);
-                if ($checkedpassword) {
-
-                    session_start();
-                    $_SESSION['id'] = $user['id'];
-                    $_SESSION['login'] = $user['login'];
-                    // pousser la super globale dans la view template pour la connexion + afficher login user une fois connecté
-                    header('Location: index.php?action=indexadmin');
-                    exit();
-                } else {
-                    throw new Exception('Mauvais login ou mot de passe');
-                }
-              
-            } else {
-                throw new \Exception('Mauvais login ou mot de passe');
-            }
-           
-        }
-
-        require('../template_base/connexionadmin.php');
-    }
 
     public function indexAdmin()
     {
-        /*
-        if (!Session::isAuth()) {
-            header('Location: index.php');
+        if (!isset($_SESSION['login'])) {
+            header('Location: index.php?action=connexion');
             exit();
         }
-        */
+
         $realEstateAdvert = new RealEstateAdvert;
         $estates = $realEstateAdvert->getEstatesAdmin();
         $clients = $realEstateAdvert->getClients();
         $category = $realEstateAdvert->getCategory();
         $type = $realEstateAdvert->getType();
 
-        require('../template_base/admin.php');
+        $pageTitle = "Tableau de bord";
+        require('../view/admin.php');
     }
 
     public function indexAdminAllEstates()
     {
+        if (!isset($_SESSION['login'])) {
+            header('Location: index.php?action=connexion');
+            exit();
+        }
+
         $realEstateAdvert = new RealEstateAdvert;
         $clients = $realEstateAdvert->getClients();
         $category = $realEstateAdvert->getCategory();
         $type = $realEstateAdvert->getType();
 
-        
+
         if (isset($_GET['page']) && !empty($_GET['page']) && is_numeric($_GET['page'])) {
             $currentPage = $_GET['page'];
         } else {
@@ -88,7 +56,7 @@ class AdminBoard
         $estatePerPage = 10; // on met le nombre d'annonces qu'on veut par page
         $lastPage = ceil($nbEstates / $estatePerPage); //definit le nbre de pages total + arrondi à la valeur supérieure avec ceil
 
-        if($currentPage < 1) { // si l'utilisateur rentre un nbre inférieur à 1, il sera ramener à la page 1
+        if ($currentPage < 1) { // si l'utilisateur rentre un nbre inférieur à 1, il sera ramener à la page 1
             $currentPage = 1;
         } else if ($currentPage > $lastPage) {
             $currentPage = $lastPage;
@@ -96,78 +64,119 @@ class AdminBoard
 
 
         //calcul les articles par page et les affiche
-        $offset = ($currentPage-1) * $estatePerPage;
+        $offset = ($currentPage - 1) * $estatePerPage;
         $estates = $realEstateAdvert->pagingEstateAdmin($offset, $estatePerPage);
-        
-        require('../template_base/adminallestates.php');
+
+        $pageTitle = "Toutes les annonces";
+        require('../view/adminAllEstates.php');
     }
 
 
-    public function deconnexion()
-    {
-        session_destroy();
-        header('Location: index.php');
-    }
 
-    
+
     public function displayClients() // affiche la liste des clients
     {
+        if (!isset($_SESSION['login'])) {
+            header('Location: index.php?action=connexion');
+            exit();
+        }
+
         $admin = new Admin;
         $realEstateAdvert = new RealEstateAdvert;
         $allClients = $admin->getClients();
 
-
-        require('../template_base/client.php');
+        $pageTitle = "Fiches clients";
+        require('../view/client.php');
     }
 
     public function modifyClient() // recup la fiche client et amene à la page pour modifier
     {
+        if (!isset($_SESSION['login'])) {
+            header('Location: index.php?action=connexion');
+            exit();
+        }
 
         $realEstateAdvert = new RealEstateAdvert;
 
         if (isset($_GET['id']) && $_GET['id'] > 0) {
             $admin = new Admin;
             $client = $admin->getClient($_GET['id']);
-        } else {
-            throw new Exception('aucun identifiant de client envoyé');
-        }
 
-        require('../template_base/editclient.php');
+
+            if (isset($_POST['modifyclient'])) {
+
+
+                $clientValidate = new Client($_POST, $_GET['id']);
+
+
+                if ($clientValidate->validate()) {
+
+                    $admin->editClient($_GET['id'], $_POST['lastname'], $_POST['firstname'], $_POST['email'], $_POST['phone'], $_POST['address'], $_POST['postcode'], $_POST['city']);
+
+                    header('Location: index.php?action=displayclient&client.php');
+                    exit();
+                }
+
+
+                /*echo '<pre>';
+                print_r($clientValidate->getMsgerror());
+                print_r($_POST['email']['error']);
+                die();*/
+            }
+            $pageTitle = "Modifier un client";
+            require('../view/editClient.php');
+        }
     }
 
-    public function editClient()
-    {
-        if (isset($_GET['id']) && $_GET['id'] > 0) {
-            $admin = new Admin;
-            $client = $admin->modifyClient($_GET['id'], $_POST['lastname'], $_POST['firstname'], $_POST['email'], $_POST['phone'], $_POST['address'], $_POST['postcode'], $_POST['city']);
-        }
-        header('Location: index.php?action=displayclient&client.php');
-    }
 
     public function insertNewClient() // ajouter un client
     {
-        $admin = new Admin;
-        if (isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['phone'], $_POST['address'], $_POST['postcode'], $_POST['city'])) {
-            $admin->addClient($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['phone'], $_POST['address'], $_POST['postcode'], $_POST['city']);
-            header('Location: index.php?action=displayclient&client.php');
+        if (!isset($_SESSION['login'])) {
+            header('Location: index.php?action=connexion');
+            exit();
         }
 
-        require('../template_base/newclient.php');
+        $admin = new Admin;
+
+        if (isset($_POST['newclient'])) {
+            $clientValidate = new Client($_POST);
+
+            if ($clientValidate->validate()) {
+
+                $admin->addClient($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['phone'], $_POST['address'], $_POST['postcode'], $_POST['city']);
+                header('Location: index.php?action=displayclient&client.php');
+                exit();
+            }
+        }
+
+        $pageTitle = "Ajouter un client";
+        require('../view/newClient.php');
     }
 
     public function deleteClient()
     {
+        if (!isset($_SESSION['login'])) {
+            header('Location: index.php?action=connexion');
+            exit();
+        }
+
         $admin = new Admin;
         $deleteClient = $admin->deleteClient($_GET['id']);
 
         $admin->deleteClient($_GET['id']);
 
+        $pageTitle = "Supprimer une fiche client";
         header('Location: index.php?action=displayclient&client.php');
     }
 
 
     public function addAdvert() // ajout nouvelle annonce pour l'affichage
     {
+        if (!isset($_SESSION['login'])) {
+            header('Location: index.php?action=connexion');
+            exit();
+        }
+
         $realEstateAdvert = new RealEstateAdvert;
 
         if (isset($_POST['newadvertpublish']) || isset($_POST['newadvertnopublish'])) {
@@ -216,7 +225,8 @@ class AdminBoard
         $energyclasses = $realEstateAdvert->getEnergyClass();
         $geses = $realEstateAdvert->getGes();
 
-        require('../template_base/newestate.php');
+        $pageTitle = "Ajouter une annonce";
+        require('../view/newEstate.php');
     }
 
 
@@ -224,6 +234,11 @@ class AdminBoard
 
     public function modifyEstate()
     {
+        if (!isset($_SESSION['login'])) {
+            header('Location: index.php?action=connexion');
+            exit();
+        }
+
         $realEstateAdvert = new RealEstateAdvert;
 
         if (isset($_POST['modifyadvertpublish']) || isset($_POST['modifyadvertnopublish'])) {
@@ -265,7 +280,7 @@ class AdminBoard
                 exit();
             }
 
-            /*   echo '<pre>';
+            /* echo '<pre>';
                 print_r($estateValidate->getMsgerror());
                 die();*/
         }
@@ -283,19 +298,21 @@ class AdminBoard
         $geses = $realEstateAdvert->getGes();
         $parkings = $realEstateAdvert->getParking();
 
-        require('../template_base/editestate.php');
+        $pageTitle = "Mofidier une annonce";
+        require('../view/editEstate.php');
     }
 
 
 
     public function deleteEstate()
     {
+        if (!isset($_SESSION['login'])) {
+            header('Location: index.php?action=connexion');
+            exit();
+        }
         $realEstateAdvert = new RealEstateAdvert;
         $realEstateAdvert->deleteEstate($_GET['id']);
         header('Location: index.php?action=indexadmin');
         exit();
     }
-
-
-
 }

@@ -17,7 +17,6 @@ class RealEstateAdvert extends Database
         $category = $req->fetchAll();
 
         return $category;
-
     }
 
     public function getType() // recupere info si maison, appartement, parking, box
@@ -28,7 +27,6 @@ class RealEstateAdvert extends Database
         $type = $req->fetchAll();
 
         return $type;
-
     }
 
     public function getExposure() // recupere info exposition 
@@ -39,7 +37,6 @@ class RealEstateAdvert extends Database
         $exposure = $req->fetchAll();
 
         return $exposure;
-
     }
 
     public function getParking() // recupere info parking
@@ -50,7 +47,6 @@ class RealEstateAdvert extends Database
         $parking = $req->fetchAll();
 
         return $parking;
-
     }
 
     public function getClients() // recupere info clients
@@ -61,7 +57,6 @@ class RealEstateAdvert extends Database
         $clients = $req->fetchAll();
 
         return $clients;
-
     }
 
     public function getKitchen() // recupere info cuisine
@@ -72,7 +67,6 @@ class RealEstateAdvert extends Database
         $kitchen = $req->fetchAll();
 
         return $kitchen;
-
     }
 
     public function getHeating() // recupere info chauffage
@@ -93,7 +87,6 @@ class RealEstateAdvert extends Database
         $heating = $req->fetchAll();
 
         return $heating;
-
     }
 
     public function getEnergyClass() // recupere info classe energie
@@ -104,7 +97,6 @@ class RealEstateAdvert extends Database
         $energyclass = $req->fetchAll();
 
         return $energyclass;
-
     }
 
     public function getGes() // recupere info ges
@@ -115,9 +107,8 @@ class RealEstateAdvert extends Database
         $ges = $req->fetchAll();
 
         return $ges;
-
     }
- 
+
 
     public function addInfoEstate($category, $type, $exposure, $parking, $kitchen, $heating, $subdivision, $floor, $charge, $bathroom, $toilet, $garage, $basement, $surface, $land, $price, $periode, $title, $description, $picture, $status, $diagenergy, $ges_id, $room, $bedroom, $construction, $client_id, $address, $city, $postcode, $energyclass_id) // ajout loc ou vente / type / exposition / parking / client / cuisine dans l'annonce
     {
@@ -130,7 +121,8 @@ class RealEstateAdvert extends Database
             VALUES (:category_id, :type_id, :exposure_id, :parking_id, :kitchen_id, :subdivision, :floor, :charge, :bathroom, :toilet, :garage, :basement, :surface, :land, :price, :periode, :title, :description, :picture, :status, :diagenergy, :ges_id, :room, :bedroom, :construction, :client_id, :address, :city, :postcode, :energyclass_id)');
         $affectedLines = $estate->execute(array(
 
-            'category_id' => $category, 'type_id' => $type, 'exposure_id' => $exposure, 'parking_id' => $parking, 'kitchen_id' => $kitchen, 'subdivision' => $subdivision, 'floor' => $floor, 'charge' => $charge, 'bathroom' => $bathroom, 'toilet' => $toilet, 'garage' => $garage, 'basement' => $basement, 'surface' => $surface, 'land' => $land, 'price' => $price, 'periode' => $periode, 'title' => $title, 'description' => $description, 'picture' => $picture, 'status' => $status, 'diagenergy' => $diagenergy, 'ges_id' => $ges_id, 'room' => $room, 'bedroom' => $bedroom, 'construction' => $construction, 'client_id' => $client_id, 'address' => $address, 'city' => $city, 'postcode' => $postcode, 'energyclass_id' => $energyclass_id));
+            'category_id' => $category, 'type_id' => $type, 'exposure_id' => $exposure, 'parking_id' => $parking, 'kitchen_id' => $kitchen, 'subdivision' => $subdivision, 'floor' => $floor, 'charge' => $charge, 'bathroom' => $bathroom, 'toilet' => $toilet, 'garage' => $garage, 'basement' => $basement, 'surface' => $surface, 'land' => $land, 'price' => $price, 'periode' => $periode, 'title' => $title, 'description' => $description, 'picture' => $picture, 'status' => $status, 'diagenergy' => $diagenergy, 'ges_id' => $ges_id, 'room' => $room, 'bedroom' => $bedroom, 'construction' => $construction, 'client_id' => $client_id, 'address' => $address, 'city' => $city, 'postcode' => $postcode, 'energyclass_id' => $energyclass_id
+        ));
 
 
 
@@ -139,12 +131,10 @@ class RealEstateAdvert extends Database
 
         $estateHeating = $db->prepare('INSERT INTO estate_has_heating (estate_id, heating_id) VALUES (:estate_id, :heating_id)'); // inserer les plusieurs types de chauffage possible 
 
-        
+
         foreach ($heating as $heat) {
-            $estateHeating->execute((array('estate_id' => $estate['estate_id'], 'heating_id' => $heat))); 
-            
+            $estateHeating->execute((array('estate_id' => $estate['estate_id'], 'heating_id' => $heat)));
         }
-        
     }
 
 
@@ -227,20 +217,20 @@ class RealEstateAdvert extends Database
              INNER JOIN client
              ON estate.client_id = client.id
              WHERE estate.id = :estate_id'
-            
+
         );
         $req->execute(array('estate_id' => $estateId));
         $estate = $req->fetch();
-        
 
-        $heating = $db->prepare (
+
+        $heating = $db->prepare(
             'SELECT estate.heating_id, heating.type 
             FROM estate_has_heating as estate
             INNER JOIN heating
             ON heating.id = estate.heating_id
             WHERE estate_id = :estate_id'
         ); // on recup le heating_id de la table estate_as_heating et le type de table heating - où l'id de la table heating = heatig_id de la table estate_has_heating - where estate_id de la table estate_has_heating = $estateId
-        $heating->execute(array('estate_id' => $estateId)); 
+        $heating->execute(array('estate_id' => $estateId));
         $heatingId = $heating->fetchAll(); // array à chaque entrée il y a l'id et le type
         $estate['heatings'] = array(); // on crée la clé heatings avec un array vide
         foreach ($heatingId as $heating) {
@@ -248,13 +238,11 @@ class RealEstateAdvert extends Database
         }
 
         return $estate;
-
-        
     }
-    public function deleteImg($estateId) 
+    public function deleteImg($estateId)
     {
         $db = $this->dbConnect();
-        $editEstate = $db->prepare ('UPDATE estate SET picture = NULL WHERE id = :estateId');
+        $editEstate = $db->prepare('UPDATE estate SET picture = NULL WHERE id = :estateId');
         $editEstate->execute(array('estateId' => $estateId));
     }
 
@@ -265,8 +253,6 @@ class RealEstateAdvert extends Database
         $db = $this->dbConnect();
 
         $sql = 'UPDATE estate SET category_id = :category_id, type_id = :type_id, exposure_id = :exposure_id, parking_id = :parking_id, kitchen_id = :kitchen_id, subdivision = :subdivision, floor = :floor, charge = :charge, bathroom = :bathroom, toilet = :toilet, garage = :garage, basement = :basement, surface = :surface, land = :land, price = :price, periode = :periode, title = :title, description = :description, status = :status, diagenergy = :diagenergy, ges_id = :ges_id, room = :room, bedroom = :bedroom, construction = :construction, client_id = :client_id, address = :address, city = :city, postcode = :postcode, energyclass_id = :energyclass_id';
-
-
 
 
         $data = array('estateId' => $estateId, 'category_id' => $category, 'type_id' => $type, 'exposure_id' => $exposure, 'parking_id' => $parking, 'kitchen_id' => $kitchen, 'subdivision' => $subdivision, 'floor' => $floor, 'charge' => $charge, 'bathroom' => $bathroom, 'toilet' => $toilet, 'garage' => $garage, 'basement' => $basement, 'surface' => $surface, 'land' => $land, 'price' => $price, 'periode' => $periode, 'title' => $title, 'description' => $description, 'status' => $status, 'diagenergy' => $diagenergy, 'ges_id' => $ges_id, 'room' => $room, 'bedroom' => $bedroom, 'construction' => $construction, 'client_id' => $client_id, 'address' => $address, 'city' => $city, 'postcode' => $postcode, 'energyclass_id' => $energyclass_id);
@@ -284,17 +270,14 @@ class RealEstateAdvert extends Database
         $req = $db->query('SELECT LAST_INSERT_ID() as estate_id FROM estate'); // recupere l'id de la derniere annonce 
         $req = $req->fetch();
 
-        $estateHeatingDelete= $db->prepare('DELETE FROM estate_has_heating WHERE estate_id = :estate_id');
+        $estateHeatingDelete = $db->prepare('DELETE FROM estate_has_heating WHERE estate_id = :estate_id');
         $estateHeatingDelete->execute(array('estate_id' => $estateId));
-       
-        $estateHeatingUpdate = $db->prepare('INSERT INTO estate_has_heating (estate_id, heating_id) VALUES (:estate_id, :heating_id)');
-               
-        foreach ($heating as $heat) {
-            $estateHeatingUpdate->execute((array('estate_id' => $estateId, 'heating_id' => $heat))); 
-            
-        }
-     
 
+        $estateHeatingUpdate = $db->prepare('INSERT INTO estate_has_heating (estate_id, heating_id) VALUES (:estate_id, :heating_id)');
+
+        foreach ($heating as $heat) {
+            $estateHeatingUpdate->execute((array('estate_id' => $estateId, 'heating_id' => $heat)));
+        }
     }
 
 
@@ -341,5 +324,4 @@ class RealEstateAdvert extends Database
 
         return $listAdmin;
     }
-
 }
