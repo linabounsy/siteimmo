@@ -40,13 +40,9 @@ button
 .footer-text
 {
     color: black;
+    margin: 0 !important;
 }
 
-.fa-home
-{
-    color: #b3e5fc;
-    font-size: 1.5em;
-}
 
 .fa-euro-sign
 {
@@ -66,10 +62,6 @@ button
     
 }
 
-.fa-home
-{
-    size: 3em;
-}
 
 .error
 {
@@ -83,17 +75,12 @@ tbody .tech-form.bgcolor-light.blue.lighten-4
     
 }
 
-.input-button::-webkit-file-upload-button
-{
-    visibility : hidden;
-}
-
 .input-button::before
 {
   content: 'Modifier l\'image';
   display: inline-block;
   border: 5px #f9f9f9 solid;
-  background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+
   border-radius: 3px;
   
 }
@@ -101,7 +88,7 @@ tbody .tech-form.bgcolor-light.blue.lighten-4
 .input-button-form
 {
   border: 5px #f9f9f9 solid;
-  background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+
   border-radius: 3px;
 }
 
@@ -151,10 +138,6 @@ tbody .tech-form.bgcolor-light.blue.lighten-4
     text-align: center;
 }
 
-.newestate
-{
-    height: 450px;
-}
 
 .description
 {
@@ -172,5 +155,98 @@ ul.pagination li
 {
     display: inline;
 
+}
+
+.erroradmin
+{
+    background-color: red;
+    color: white;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+@media all and (max-width: 320px) 
+
+{   body {margin: 0px; width: 100%;}
+    .navbarTitle {font-size: 12px;}
+    .details {margin: 0px; padding: 0px; width: 100%;}
+    .list-group-item {padding: 0px;}
+    .myformcontact {margin: 0px; padding: 0px; width: 100%;}
+    .estimation {font-size: 20px;}
+    #picture {font-size: 9px;}
+    .table thead {display: none;}
+    .table tr.adminboard {display: block; margin-bottom: 40px;}
+    .table td {display: block; text-align: right;}
+    .table td:before {content: attr(data-label); float: left;}
+    .list-group-item {padding: 0px;}
+    .table tr.fiche {display: inline;}
+
+}
+
+@media all and (min-width: 321px) and (max-width: 400px)
+
+{   body {margin: 0px; width: 100%;}
+    .details {margin: 0px; padding: 0px; width: 100%;}
+    .myformcontact {margin: 0px; padding: 0px; width: 100%;}
+    .navbarTitle {font-size: 15px;}
+    .table thead {display: none;}
+    .table tr.adminboard {display: block; margin-bottom: 40px;}
+    .table td {display: block; text-align: right;}
+    .table td:before {content: attr(data-label); float: left;}
+    .list-group-item {padding: 0px;}
+    .table tr.fiche {display: inline;}
+    #picture {font-size: 12px;}
+    
+}
+
+@media all and (min-width: 401px) and (max-width: 649px)
+
+{   body {margin: 0px; width: 100%;}
+    .container-fluid {margin: 0px; padding: 0px; width: 100%;}
+    .myformcontact {margin: 0px; padding: 0px; width: 100%;}
+    .navbarTitle {font-size: 15px;}
+    .table thead {display: none;}
+    .table tr.adminboard {display: block; margin-bottom: 40px;}
+    .table td {display: block; text-align: right;}
+    .table td:before {content: attr(data-label); float: left;}
+    .table tr.fiche {display: inline;}
+    .list-group-item {padding: 0px;}
+}
+
+@media all and (min-width: 650px) and (max-width: 838px)
+
+{   body {margin: 0px; width: 100%;}
+    .container-fluid {margin: 0px; padding: 0px; width: 100%;}
+    .myformcontact {margin: 0px; padding: 0px; width: 100%;}
+    .navbarTitle {font-size: 15px;}
+    .list-group-item {padding: 0px;}
+}
+
+@media all and (min-width: 839px) and (max-width: 1020px)
+
+{   body {margin: 0px; width: 100%;}
+    .container-fluid {margin: 0px; padding: 0px; width: 100%;}
+    .header {margin: 0px; padding: 0px; width: 100%;}
+    .nouveautes {margin: 0px; padding: 0px; width: 100%;}
+    #admin-content {margin: 0px; padding: 0px; width: 100%;}
+   
+}
+
+@media all and (min-width: 1021px) and (max-width: 1440px)
+
+{   body {margin: 0px; width: 100%;}
+    .container-fluid {margin: 0px; padding: 0px; width: 100%;}
+    .header {margin: 0px; padding: 0px; width: 100%;}
+    #admin-content {margin: 0px; padding: 0px; width: 100%;}
+    
+}
+
+@media all and (min-width: 2000px)
+
+{   body {margin: 0px; width: 100%;}
+    .container-fluid {margin: 0px; padding: 0px; width: 100%;}
+    .header {margin: 0px; padding: 0px; width: 100%;}
+    #admin-content {margin: 0px; padding: 0px; width: 100%;}
+   
 }
 

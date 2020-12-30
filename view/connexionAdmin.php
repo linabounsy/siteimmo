@@ -5,16 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title><?= $pageTitle ?></title>
+    <title><?php echo $pageTitle ?></title>
     <link rel="icon" href="img/favicon.jpg">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     <!-- Material Design Bootstrap -->
     <link rel="stylesheet" href="css/mdb.min.css">
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
     <!-- custom CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -22,7 +22,7 @@
 <body>
     <div class="container-fluid p-0">
         <div class="fixed-top">
-            <header class="header">
+            <header>
 
                 <ul class="nav nav-pills nav-fill nav-light blue lighten-4">
                     <li class="nav-item font-weight-bold">
@@ -39,46 +39,61 @@
                 </ul>
             </header>
 
-
-            <nav class="navbar navbar-expand-lg navbar-light white scrolling-navbar">
-
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                    <ul class="navbar-nav w-50 justify-content-around">
-                        <li class="nav-item">
-                            <a class="nav-link p-2 black-text navbarTitle font-weight-bold" href="index.php">Accueil</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link black-text navbarTitle font-weight-bold" href="index.php?action=listestates">Nos offres disponibles</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link black-text navbarTitle font-weight-bold" href="index.php?action=estimation">Estimation</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link black-text navbarTitle font-weight-bold" href="index.php?action=agence">Agence</a>
-                        </li>
-
-                    </ul>
-                </div>
-            </nav>
         </div>
+        <nav class="navbar navbar-expand-lg mt-3">
 
-        <div class="mt-3">
-            <!--barre de recherche-->
-            <div class="row mr-0 ml-0 d-flex flex-column justify-content-center align-content-center" id="search-img">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav w-50 justify-content-around">
+                    <li class="nav-item">
+                        <a class="nav-link p-2 black-text navbarTitle font-weight-bold" href="index.php">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link black-text navbarTitle font-weight-bold" href="index.php?action=listestates">Nos offres disponibles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link black-text navbarTitle font-weight-bold" href="index.php?action=estimation">Estimation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link black-text navbarTitle font-weight-bold" href="index.php?action=agence">Agence</a>
+                    </li>
+                </ul>
             </div>
-            <!-- fin barre de recherche-->
+        </nav>
+
+        <!--formulaire connexion -->
+        <div class="mt-3">
+            <div class="row mr-0 ml-0 d-flex flex-column justify-content-center align-content-center" id="search-img">
 
 
-            <main class="mt-2 pt-1 container">
-                <div id="content" class="container"><?= $content ?></div>
-            </main>
+                <form class="text-center border border-light col-md-6 col-12" action="index.php?action=connexion" method="post" novalidate>
+                    <p class="h4 mb-4 text-white">Se connecter</p>
+
+                    <input type="text" class="form-control mx-auto mb-4 w-50" placeholder="Login" name="login" required value="<?= isset($_POST['login']) ? htmlspecialchars($_POST['login']) : '' ?>">
+                    <p class="erroradmin mx-auto mb-4 w-25">
+                        <?= !empty($connexionValidate) && isset($connexionValidate->getMsgerror()['login']) ? $connexionValidate->getMsgerror()['login'] : '' ?>
+                    </p>
 
 
+                    <input type="password" class="form-control mx-auto mb-4 w-50" placeholder="Mot de passe" name="password" required value="<?= isset($_POST['password']) ? htmlspecialchars($_POST['password']) : '' ?>">
+                    <p class="erroradmin mx-auto mb-4 w-25">
+                        <?= !empty($connexionValidate) && isset($connexionValidate->getMsgerror()['password']) ? $connexionValidate->getMsgerror()['password'] : '' ?>
+                        <?= isset($msgerror['password']) ? $msgerror['password'] : '' ?></p>
+
+                    <input class="btn btn-info btn-block my-4" type="submit" value="se connecter" name="adminconnexion">
+                    <br /><br />
+
+                </form>
+
+
+
+            </div>
         </div>
+
+        <!-- fin formaulaire connexion-->
+
 
         <!-- Footer -->
         <footer class="mt-5 font-light blue lighten-4">
@@ -172,20 +187,16 @@
 
         </footer>
         <!-- Footer -->
-    </div>
 
+
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Bootstrap tooltips -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
     <!-- Bootstrap core JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
-
-
-    <script src="js/formcontact.js"></script>
-    <script src="js/mdb.min.js"></script>
-
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
 </body>
 
 </html>

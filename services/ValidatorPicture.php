@@ -15,21 +15,18 @@ class ValidatorPicture
 
     protected function extension($extension, $extensionAllowed)
     {
-    
+
         if (!in_array($extension, $extensionAllowed)) {
             return false;
         }
         return true;
     }
 
-    protected function lessThan($pictureSize, $value) 
+    protected function lessThan($pictureSize, $value)
     {
         if ($pictureSize > $value) {
             return false;
         }
         return true;
     }
-
-
-
 }

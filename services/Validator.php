@@ -2,9 +2,11 @@
 
 namespace Services;
 
-abstract class Validator {
-    
-    protected function notEmpty($data) {
+abstract class Validator
+{
+
+    protected function notEmpty($data)
+    {
         if (empty($data)) {
             return false;
         }
@@ -12,14 +14,16 @@ abstract class Validator {
     }
 
 
-    protected function strlenLowerLength($data, $length) {
+    protected function strlenLowerLength($data, $length)
+    {
         if (strlen($data) >= $length) {
             return false;
         }
         return true;
     }
-    
-    protected function notDiffer($data, $value) {
+
+    protected function notDiffer($data, $value)
+    {
         if ($data == $value) {
             return false;
         }
@@ -27,22 +31,25 @@ abstract class Validator {
     }
 
 
-    protected function numeric($data) {
+    protected function numeric($data)
+    {
         if (!is_numeric($data)) {
-            return false; 
+            return false;
         }
         return true;
     }
 
 
-    protected function strlenMaxLength($data, $length) {
+    protected function strlenMaxLength($data, $length)
+    {
         if (strlen($data) < $length) {
             return false;
         }
         return true;
     }
 
-    protected function boolean($data) {
+    protected function boolean($data)
+    {
         if (!is_bool($data)) {
             return false;
         }
@@ -50,13 +57,11 @@ abstract class Validator {
     }
 
 
-    protected function minZero($data) {
+    protected function minZero($data)
+    {
         if ($data < 0) {
             return false;
         }
         return true;
     }
-
- 
-
 }

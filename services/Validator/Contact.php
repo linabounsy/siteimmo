@@ -3,10 +3,7 @@
 
 namespace Services\Validator;
 
-use Services\ValidatorContact;
-
-
-require '../services/ValidatorContact.php';
+use services\ValidatorContact;
 
 
 class Contact extends ValidatorContact
@@ -27,7 +24,6 @@ class Contact extends ValidatorContact
         $this->firstname = $formContact['firstname'];
         $this->phone = $formContact['phone'];
         $this->email = ($formContact['email']);
-        
     }
 
     public function getMsgerror()
@@ -46,7 +42,6 @@ class Contact extends ValidatorContact
         if (!$this->strlenLowerLength($this->name, 45)) {
             $this->errors++;
             $this->msgerror['name'] = "le nom peut contenir 45 caractères maximum";
-
         }
     }
 
@@ -60,7 +55,6 @@ class Contact extends ValidatorContact
         if (!$this->strlenLowerLength($this->firstname, 45)) {
             $this->errors++;
             $this->msgerror['firstname'] = "le prénom peut contenir 45 caractères maximum";
-
         }
     }
 
@@ -70,7 +64,6 @@ class Contact extends ValidatorContact
         if (!$this->strlenLowerLengthPhone($this->phone, 10)) {
             $this->errors++;
             $this->msgerror['phone'] = "le télephone doit être composé de 10 chiffres";
-
         }
         if (!$this->numeric($this->phone)) {
             $this->errors++;
@@ -81,7 +74,6 @@ class Contact extends ValidatorContact
             $this->errors++;
             $this->msgerror['phone'] = "veuillez renseigner le numéro de téléphone";
         }
-     
     }
 
     public function validateEmail()
@@ -94,8 +86,6 @@ class Contact extends ValidatorContact
             $this->errors++;
             $this->msgerror['email'] = "l'email est obligatoire";
         }
-
-        
     }
 
     public function validate()
@@ -111,7 +101,7 @@ class Contact extends ValidatorContact
             $this->msgerror;
             $this->errors++;
         }
-        
+
         if ($this->errors === 0) {
             return true;
         }

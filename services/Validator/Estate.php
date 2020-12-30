@@ -2,14 +2,10 @@
 
 namespace Services\Validator;
 
-use Services\Validator;
+use services\Validator;
 
-use Services\Validator\Picture;
+use services\Validator\Picture;
 
-
-require '../services/Validator.php';
-
-require '../services/Validator/Picture.php';
 
 class Estate extends Validator
 {
@@ -100,7 +96,6 @@ class Estate extends Validator
         if (!$this->strlenLowerLength($this->title, 100)) {
             $this->errors++;
             $this->msgerror['title'] = "le titre peut contenir 100 caractères maximum";
-
         }
     }
 
@@ -221,7 +216,6 @@ class Estate extends Validator
             $this->errors++;
 
             $this->msgerror['charge'] = "veuillez renseigner le montant des charges - il doit être composé de chiffres";
-
         }
 
         if (!$this->minZero($this->charge)) {
@@ -275,7 +269,6 @@ class Estate extends Validator
             $this->errors++;
 
             $this->msgerror['floor'] = "veuillez renseigner le numéro ou le nombre d'étages - il doit être composé de chiffres";
-
         }
 
         if (!$this->minZero($this->floor)) {
@@ -290,7 +283,6 @@ class Estate extends Validator
             $this->errors++;
 
             $this->msgerror['room'] = "veuillez renseignez le nombre de pièces - il doit être composé de chiffres";
-
         }
 
 
@@ -320,7 +312,6 @@ class Estate extends Validator
             $this->errors++;
 
             $this->msgerror['bathroom'] = "veuillez renseigner le nombre de salle de bain - il doit être composé de chiffres";
-
         }
 
 
@@ -336,7 +327,6 @@ class Estate extends Validator
             $this->errors++;
 
             $this->msgerror['toilet'] = "veuillez renseigner le nombre de toilettes - il doit être composé de chiffres";
-
         }
 
 
