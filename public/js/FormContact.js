@@ -9,17 +9,18 @@ class FormContact {
         this.contactEmail = document.getElementById("ContactFormEmail");
         this.errorContactEmail = document.getElementById("error_contactemail");
         this.formSubmit = document.getElementById("form-submit");
-      
-     
+
+
         this.errors = 0;
-        $('#form-submit').click(function(event) {
+
+        $('#form-submit').click(function (event) {
             contact.validationFormContact();
             if (contact.errors != 0) {
                 event.preventDefault();
             }
+
         });
 
-       
     }
 
     validationFormContact() {
@@ -29,7 +30,7 @@ class FormContact {
             this.errors++;
 
         } else {
-            this.errorContactName.style.display = "none";
+            this.errorContactName.textContent = "";
             this.errors = 0;
         }
 
@@ -38,7 +39,7 @@ class FormContact {
             this.errorContactFirstname.style.color = "red";
             this.errors++;
         } else {
-            this.errorContactFirstname.style.display = "none";
+            this.errorContactFirstname.textContent = "";
         }
 
 
@@ -46,21 +47,17 @@ class FormContact {
             this.errorContactPhone.textContent = "veuillez remplir le champ Téléphone";
             this.errorContactPhone.style.color = "red";
             this.errors++;
-            
+
         } else {
-            let regexPhone = /^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$/;
+            let regexPhone = new RegExp(/^(01|02|03|04|05|06|07|08|09)[0-9]{8}/gi);
             if (!regexPhone.test(this.contactPhone.value)) {
                 this.errorContactPhone.textContent = "le téléphone doit être composé de 10 chiffres";
                 this.errors++;
             } else {
-                this.errorContactPhone.style.display = "none";
-            
-            } 
+                this.errorContactPhone.textContent = "";
+            }
         }
 
-       
-
-  
 
         if (this.contactEmail.value == "") {
             this.errorContactEmail.textContent = "veuillez remplir le champ Email";
@@ -72,10 +69,10 @@ class FormContact {
                 this.errorContactEmail.textContent = "format email invalide";
                 this.errors++;
             } else {
-                this.errorContactEmail.style.display = "none";
+                this.errorContactEmail.textContent = "";
             }
         }
-    
+
     }
 
 

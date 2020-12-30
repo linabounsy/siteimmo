@@ -30,7 +30,7 @@ function submitForm() {
         success: function () {
             formSuccess();
         },
-        error : function () {
+        error: function () {
             error();
         }
     });
@@ -51,7 +51,7 @@ function estimationForm() {
         success: function () {
             formSuccess();
         },
-        error : function () {
+        error: function () {
             error();
         }
     });

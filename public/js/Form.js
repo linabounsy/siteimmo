@@ -63,65 +63,66 @@ class Form {
         this.errorPicture = document.getElementById("error_picture");
         this.submitFormPublish = document.getElementById("newadvertpublish");
         this.submitFormNoPublish = document.getElementById("newadvertnopublish");
-    
+
 
         this.errors = 0;
-        $('#newadvertpublish').click(function(event) {
+        $('#newadvertpublish').click(function (event) {
             formulaire.checkField();
             if (formulaire.errors != 0) {
                 event.preventDefault();
             }
         });
 
-        $('#newadvertnopublish').click(function(event) {
+        $('#newadvertnopublish').click(function (event) {
             formulaire.checkField();
             if (formulaire.errors != 0) {
                 event.preventDefault();
             }
         });
-
 
     }
 
     checkField() {
 
-        
+
         if (this.titleInput.value == "") {
             this.errorTitle.textContent = "le champ est vide";
-            this.errorTitle.style.color = "red";
             this.errors++;
 
         } else {
-            this.errorTitle.style.display = "none";
+            this.errorTitle.textContent = "";
+            this.errors = 0;
+
+        }
+
+        if (tinyMCE.get('description').getContent() === "") {
+            this.errorDescription.textContent = "le champ est vide";
+            this.errors++;
+
+        }
+
+        else {
+            this.errorDescription.textContent = "";
             this.errors = 0;
         }
 
-        if (this.descriptionInput.value == "") {
-            this.errorDescription.textContent = "le champ est vide";
-            this.errorDescription.style.color = "red";
-            this.errors++;
 
-        }
-        else {
-            this.errorDescription.style.display = "none";
-            
-        }
-
-        if (this.clientInput.value == "choisir un client") {
+        if (this.clientInput.value == "0") {
             this.errorClient.textContent = "sélectionner un client";
-            this.errorClient.style.color = "red";
             this.errors++;
 
         } else {
-            this.errorClient.style.display = "none";
+            this.errorClient.textContent = "";
+            this.errors = 0;
         }
 
         this.categoryInput.forEach(categoryEl => {
             if (categoryEl.checked) {
                 this.errorCategory.style.display = "none";
-                this.errors++;
+                this.errors = 0;
             } else {
                 this.errorCategory.textContent = "sélectionner un champ";
+                this.errors++;
 
             }
         })
@@ -129,72 +130,101 @@ class Form {
         this.typeInput.forEach(typeEl => {
             if (typeEl.checked) {
                 this.errorType.style.display = "none";
-                this.errors++;
+                this.errors = 0;
             } else {
                 this.errorType.textContent = "sélectionner un champ";
-
-
+                this.errors++;
             }
         })
 
-        if (this.addressInput.value == "" || this.cityInput.value == "" || this.postCodeInput.value == "") {
-            this.errorLocalisation.textContent = "remplir tous les champs";
-            this.errorLocalisation.style.color = "red";
-            this.errors++;
-
-        } else {
-            this.errorLocalisation.style.display = "none";
-            
-        }
-
         if (this.constructionInput.value == "") {
             this.errorConstruction.textContent = "renseigner une année";
-            this.errorConstruction.style.color = "red";
             this.errors++;
 
         } else {
-            this.errorConstruction.style.display = "none";
+            this.errorConstruction.textContent = "";
+            this.errors = 0;
         }
 
-       
+
+        if (this.addressInput.value == "" || this.cityInput.value == "" || this.postCodeInput.value == "") {
+            this.errorLocalisation.textContent = "remplir tous les champs";
+            this.errors++;
+
+        } else {
+            this.errorLocalisation.textContent = "";
+            this.errors = 0;
+        }
+
+
+
+        if (this.priceInput.value == "") {
+            this.errorPrice.textContent = "renseigner un prix";
+            this.errors++;
+
+        } else {
+            this.errorPrice.textContent = "";
+            this.errors = 0;
+        }
+
+        if (this.surfaceInput.value == "") {
+            this.errorSurface.textContent = "renseigner une surface";
+            this.errors++;
+
+
+        } else {
+            this.errorSurface.textContent = "";
+            this.errors = 0;
+        }
+
+
+        if (this.roomInput.value == "") {
+            this.errorRoom.textContent = "renseigner le nombre de pièces";
+            this.errors++;
+
+        } else {
+            this.errorRoom.textContent = "";
+            this.errors = 0;
+        }
+
+        if (this.periodeInput.value == "") {
+            this.errorPeriode.textContent = "renseigner une date de disponibilité";
+            this.errors++;
+
+        } else {
+            this.errorPeriode.textContent = "";
+            this.errors = 0;
+
+        }
 
         this.exposureInput.forEach(exposureEl => {
             if (exposureEl.checked) {
                 this.errorExposure.style.display = "none";
-                this.errors++;
+                this.errors = 0;
             } else {
                 this.errorExposure.textContent = "sélectionner un champ";
+                this.errors++;
 
-   
             }
         })
 
-        if (this.priceInput.value == "") {
-            this.errorPrice.textContent = "renseigner un prix";
-            this.errorPrice.style.color = "red";
-            this.errors++;
-
-        } else {
-            this.errorPrice.style.display = "none";
-      
-        }
 
         if (this.chargeInput.value == "") {
             this.errorCharge.textContent = "renseigner un prix";
-            this.errorCharge.style.color = "red";
             this.errors++;
 
         } else {
-            this.errorCharge.style.display = "none";
+            this.errorCharge.textContent = "";
+            this.errors = 0;
         }
 
         this.subdivisionYesInput.forEach(subdivisionEl => {
             if (subdivisionEl.checked) {
                 this.errorSubdivision.style.display = "none";
-                this.errors++;
+                this.errors = 0;
             } else {
                 this.errorSubdivision.textContent = "sélectionner un champ";
-
+                this.errors++;
 
             }
         })
@@ -202,125 +232,109 @@ class Form {
         this.subdivisionNoInput.forEach(subdivisionEl => {
             if (subdivisionEl.checked) {
                 this.errorSubdivision.style.display = "none";
-                this.errors++;
+                this.errors = 0;
             } else {
                 this.errorSubdivision.textContent = "sélectionner un champ";
-
+                this.errors++;
 
             }
         })
 
-        if (this.surfaceInput.value == "") {
-            this.errorSurface.textContent = "renseigner une surface";
-            this.errorSurface.style.color = "red";
-            this.errors++;
-
-
-        } else {
-            this.errorSurface.style.display = "none";
-        }
 
         if (this.landInput.value == "") {
             this.errorLand.textContent = "remplir ce champ";
-            this.errorLand.style.color = "red";
             this.errors++;
 
         } else {
-            this.errorLand.style.display = "none";
+            this.errorLand.textContent = "";
+            this.errors = 0;
         }
+
 
         if (this.floorInput.value == "") {
             this.errorFloor.textContent = "remplir ce champ";
-            this.errorFloor.style.color = "red";
             this.errors++;
 
-     
+
         } else {
-            this.errorFloor.style.display = "none";
+            this.errorFloor.textContent = "";
+            this.errors = 0;
         }
 
-        if (this.roomInput.value == "") {
-            this.errorRoom.textContent = "renseigner le nombre de pièces";
-            this.errorRoom.style.color = "red";
-            this.errors++;
-    
-        } else {
-            this.errorRoom.style.display = "none";
-        }
 
         if (this.bedroomInput.value == "") {
             this.errorBedroom.textContent = "renseigner le nombre de chambres";
-            this.errorBedroom.style.color = "red";
             this.errors++;
-     
+
         } else {
-            this.errorBedroom.style.display = "none";
+            this.errorBedroom.textContent = "";
+            this.errors = 0;
         }
 
         if (this.bathroomInput.value == "") {
             this.errorBathroom.textContent = "renseigner le nombre de salle de bain";
-            this.errorBathroom.style.color = "red";
             this.errors++;
-      
+
         } else {
-            this.errorBathroom.style.display = "none";
+            this.errorBathroom.textContent = "";
+            this.errors = 0;
         }
 
         if (this.toiletInput.value == "") {
             this.errorToilet.textContent = "renseigner le nombre de toilettes";
-            this.errorToilet.style.color = "red";
             this.errors++;
-    
+
         } else {
-            this.errorToilet.style.display = "none";
+            this.errorToilet.textContent = "";
+            this.errors = 0;
         }
 
         this.kitchenInput.forEach(kitchenEl => {
             if (kitchenEl.checked) {
                 this.errorKitchen.style.display = "none";
-                this.errors++;
+                this.errors = 0;
             } else {
                 this.errorKitchen.textContent = "sélectionner un champ";
-
+                this.errors++;
             }
         })
 
         this.heatingInput.forEach(heatingEl => {
             if (heatingEl.checked) {
                 this.errorHeating.style.display = "none";
-                this.errors++;
+                this.errors = 0;
             } else {
                 this.errorHeating.textContent = "sélectionner un champ";
-
+                this.errors++;
             }
         })
 
         this.parkingInput.forEach(parkingEl => {
             if (parkingEl.checked) {
                 this.errorParking.style.display = "none";
-                this.errors++;
+                this.errors = 0;
             } else {
                 this.errorParking.textContent = "sélectionner un champ";
-
+                this.errors++;
             }
         })
 
         if (this.garageInput.value == "") {
             this.errorGarage.textContent = "renseigner le nombre de garages";
-            this.errorGarage.style.color = "red";
             this.errors++;
 
         } else {
-            this.errorGarage.style.display = "none";
+            this.errorGarage.textContent = "";
+            this.errors = 0;
         }
 
         this.basementYesInput.forEach(basementEl => {
             if (basementEl.checked) {
                 this.errorBasement.style.display = "none";
-                this.errors++;
+                this.errors = 0;
             } else {
                 this.errorBasement.textContent = "sélectionner un champ";
-
+                this.errors++;
 
             }
         })
@@ -328,83 +342,68 @@ class Form {
         this.basementNoInput.forEach(basementEl => {
             if (basementEl.checked) {
                 this.errorBasement.style.display = "none";
-                this.errors++;
+                this.errors = 0;
             } else {
                 this.errorBasement.textContent = "sélectionner un champ";
-
+                this.errors++;
             }
         })
 
         this.diagenergyYesInput.forEach(diagenergyEl => {
             if (diagenergyEl.checked) {
                 this.errorDiagenergy.style.display = "none";
-                this.errors++;
+                this.errors = 0;
             } else {
                 this.errorDiagenergy.textContent = "sélectionner un champ";
-
+                this.errors++;
             }
         })
 
         this.diagenergyNoInput.forEach(diagenergyEl => {
             if (diagenergyEl.checked) {
                 this.errorDiagenergy.style.display = "none";
-                this.errors++;
+                this.errors = 0;
             } else {
                 this.errorDiagenergy.textContent = "sélectionner un champ";
-
+                this.errors++;
             }
         })
 
         this.energyclassInput.forEach(energyclassEl => {
             if (energyclassEl.checked) {
                 this.errorEnergyclass.style.display = "none";
-                this.errors++;
+                this.errors = 0;
             } else {
                 this.errorEnergyclass.textContent = "sélectionner un champ";
-
+                this.errors++;
             }
         })
 
         this.gesInput.forEach(gesEl => {
             if (gesEl.checked) {
                 this.errorGes.style.display = "none";
-                this.errors++;
+                this.errors = 0;
             } else {
                 this.errorGes.textContent = "sélectionner un champ";
-
+                this.errors++;
             }
         })
 
-        if (this.periodeInput.value == "") {
-            this.errorPeriode.textContent = "renseigner une date de disponibilité";
-            this.errorPeriode.style.color = "red";
-            this.errors++;
 
-        } else {
-            this.errorPeriode.style.display = "none";
 
-        }
-
-        if (this.pictureInput.value == [0]) {
+        if (this.pictureInput.value == "") {
             this.errorPicture.textContent = "veuillez charger une photo";
-            this.errorPicture.style.color = "red";
             this.errors++;
 
         } else {
-            this.errorPicture.style.display = "none";
-        }
-
-        if (this.pictureInput.value !== "") {
-            this.errorPicture.textContent = "veuillez recharger une photo";
-            this.errorPicture.style.color = "red";
-            this.errors++;
-
-        } else {
-            this.errorPicture.style.display = "none";
+            this.errorPicture.textContent = "";
+            this.errors = 0;
         }
 
 
 
+
+        console.log(formulaire.errors);
     }
 }
 
